@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Box, Stack, AppBar, Toolbar, IconButton } from '@mui/material';
+import { Box, Stack, AppBar, Toolbar, IconButton, LinearProgress} from '@mui/material';
 // utils
 import { bgBlur } from '../../../utils/cssStyles';
 // components
@@ -11,6 +11,8 @@ import Searchbar from './Searchbar';
 import AccountPopover from './AccountPopover';
 import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
+import CurrentDate from './CurrentDate';
+import ThemeSwitcher from './ThemeSwitcher';
 
 // ----------------------------------------------------------------------
 
@@ -45,6 +47,7 @@ Header.propTypes = {
 export default function Header({ onOpenNav }) {
   return (
     <StyledRoot>
+      {/* <LinearProgress /> */}
       <StyledToolbar>
         <IconButton
           onClick={onOpenNav}
@@ -68,7 +71,8 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
-          <LanguagePopover />
+          <ThemeSwitcher />
+          <CurrentDate />
           <NotificationsPopover />
           <AccountPopover />
         </Stack>

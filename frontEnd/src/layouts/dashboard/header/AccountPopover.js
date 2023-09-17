@@ -1,17 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import axios from "axios";
+
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover } from '@mui/material';
-// mocks_
-import account from '../../../_mock/account';
-
+import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover, Button } from '@mui/material';
+import Iconify from '../../../components/iconify';
+// hooks and other stuff
+import {useAuth} from "../../../hooks/useAuth";
+import useAxiosJWT from "../../../hooks/useAxiosJWT";
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
-  {
-    label: 'Home',
-    icon: 'eva:home-fill',
-  },
   {
     label: 'Profile',
     icon: 'eva:person-fill',
@@ -26,6 +25,9 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
+  const {setAuth} = useAuth();
+  const axiosJWT = useAxiosJWT();
+  const [userData, setUserData] = useState(null);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -35,6 +37,30 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
+  const logout = async () => {
+    setAuth(null);
+    try{
+      const response = await axios.delete("/logout", {withCredentials:true});
+      console.log(response);
+    }catch(err){
+      console.log(err)
+    }
+  }    
+
+  useEffect(() => {
+    const getUser= async() =>{
+      try{
+      const response = await axiosJWT.get("/getUser");
+      console.log(response.data);
+      setUserData(response.data);
+      } catch(err){
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [])
+
+// -----------------------------------------------------------------------------------------------
   return (
     <>
       <IconButton
@@ -54,7 +80,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={account.photoURL} alt="photoURL" />
+        <Avatar src={userData?.image} alt="photoURL" />
       </IconButton>
 
       <Popover
@@ -78,10 +104,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {userData?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+          {userData?.email}
           </Typography>
         </Box>
 
@@ -90,6 +116,7 @@ export default function AccountPopover() {
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} onClick={handleClose}>
+              <Iconify icon={option.icon} sx={{mr:1}}/>
               {option.label}
             </MenuItem>
           ))}
@@ -97,7 +124,8 @@ export default function AccountPopover() {
 
         <Divider sx={{ borderStyle: 'dashed' }} />
 
-        <MenuItem onClick={handleClose} sx={{ m: 1 }}>
+        <MenuItem onClick={logout} sx={{ m: 1 }}>
+          <Iconify icon={'material-symbols:logout'} sx={{mr:1, color:'red'}}/> 
           Logout
         </MenuItem>
       </Popover>

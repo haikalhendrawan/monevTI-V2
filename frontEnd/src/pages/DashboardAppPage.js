@@ -1,8 +1,9 @@
+import {useEffect} from "react";
 import { Helmet } from 'react-helmet-async';
 import { faker } from '@faker-js/faker';
 // @mui
 import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography } from '@mui/material';
+import { Grid, Container, Typography, LinearProgress, Button } from '@mui/material';
 // components
 import Iconify from '../components/iconify';
 // sections
@@ -18,10 +19,21 @@ import {
   AppConversionRates,
 } from '../sections/@dashboard/app';
 
+import {useAuth} from "../hooks/useAuth";
+import useRefreshToken from "../hooks/useRefreshToken";
+
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
+  const {auth, setAuth} = useAuth(); // { username: xxx, role:xxx, accessToken,msg:xxx}
   const theme = useTheme();
+  const name = auth.username;
+  const refresh = useRefreshToken();
+
+  
+  useEffect(()=>{
+    console.log(auth);
+  },[auth])
 
   return (
     <>
@@ -30,8 +42,9 @@ export default function DashboardAppPage() {
       </Helmet>
 
       <Container maxWidth="xl">
+        <Button onClick={refresh}>Refresh</Button>
         <Typography variant="h4" sx={{ mb: 5 }}>
-          Hi, Welcome back
+          Hi, Welcome back {name};
         </Typography>
 
         <Grid container spacing={3}>

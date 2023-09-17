@@ -8,6 +8,9 @@ export default function Table(theme) {
           color: theme.palette.text.secondary,
           backgroundColor: theme.palette.background.neutral,
         },
+        root:{
+          borderBottom:theme.palette.action.borderBottom
+        }
       },
     },
   };

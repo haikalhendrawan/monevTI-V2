@@ -103,4 +103,38 @@ const palette = {
   },
 };
 
+const paletteDark = {
+  common: { black: '#000', white: '#fff' },
+  primary: PRIMARY,
+  secondary: SECONDARY,
+  info: INFO,
+  success: SUCCESS,
+  warning: WARNING,
+  error: ERROR,
+  grey: GREY,
+  divider: alpha(GREY[500], 0.24),
+  text: {
+    primary: 'rgb(255, 255, 255)',
+    secondary: 'rgba(255,255,255,0.7)',
+    disabled: 'rgba(255, 255, 255, 0.5)',
+  },
+  background: {
+    paper: 'rgb(33, 43, 54)',
+    default: "rgb(22, 28, 36)",
+    neutral: 'rgba(145, 158, 171, 0.12)',
+  },
+  action: {
+    active: GREY[600],
+    hover: alpha(GREY[500], 0.08),
+    selected: alpha(GREY[500], 0.16),
+    disabled: alpha(GREY[500], 0.8),
+    disabledBackground: alpha(GREY[500], 0.24),
+    focus: alpha(GREY[500], 0.24),
+    hoverOpacity: 0.08,
+    disabledOpacity: 0.48,
+    borderBottom:'1px dashed rgb(46, 50, 54)'
+  },
+};
+
 export default palette;
+export {paletteDark};

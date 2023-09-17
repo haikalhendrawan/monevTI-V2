@@ -1,8 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { Link as RouterLink } from 'react-router-dom';
+import {useEffect} from "react";
 // @mui
 import { styled } from '@mui/material/styles';
 import { Button, Typography, Container, Box } from '@mui/material';
+
+import {useAuth} from "../hooks/useAuth";
 
 // ----------------------------------------------------------------------
 
@@ -19,6 +22,8 @@ const StyledContent = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function Page404() {
+  const {auth, setAuth} = useAuth();
+  console.log(auth)
   return (
     <>
       <Helmet>
@@ -42,7 +47,7 @@ export default function Page404() {
             sx={{ height: 260, mx: 'auto', my: { xs: 5, sm: 10 } }}
           />
 
-          <Button to="/" size="large" variant="contained" component={RouterLink}>
+          <Button to="/dashboard/app" size="large" variant="contained" component={RouterLink}>
             Go to Home
           </Button>
         </StyledContent>

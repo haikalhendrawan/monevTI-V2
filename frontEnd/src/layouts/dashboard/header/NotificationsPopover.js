@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { set, sub } from 'date-fns';
 import { noCase } from 'change-case';
 import { faker } from '@faker-js/faker';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // @mui
 import {
   Box,
@@ -13,6 +13,7 @@ import {
   Tooltip,
   Divider,
   Popover,
+  Popper,
   Typography,
   IconButton,
   ListItemText,
@@ -25,61 +26,22 @@ import { fToNow } from '../../../utils/formatTime';
 // components
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
+// custom hooks
+import useAxiosJWT from "../../../hooks/useAxiosJWT";
 
 // ----------------------------------------------------------------------
 
-const NOTIFICATIONS = [
-  {
-    id: faker.datatype.uuid(),
-    title: 'Your order is placed',
-    description: 'waiting for shipping',
-    avatar: null,
-    type: 'order_placed',
-    createdAt: set(new Date(), { hours: 10, minutes: 30 }),
-    isUnRead: true,
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: faker.name.fullName(),
-    description: 'answered to your comment on the Minimal',
-    avatar: '/assets/images/avatars/avatar_2.jpg',
-    type: 'friend_interactive',
-    createdAt: sub(new Date(), { hours: 3, minutes: 30 }),
-    isUnRead: true,
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'You have new message',
-    description: '5 unread messages',
-    avatar: null,
-    type: 'chat_message',
-    createdAt: sub(new Date(), { days: 1, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'You have new mail',
-    description: 'sent from Guido Padberg',
-    avatar: null,
-    type: 'mail',
-    createdAt: sub(new Date(), { days: 2, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
-  {
-    id: faker.datatype.uuid(),
-    title: 'Delivery processing',
-    description: 'Your order is being shipped',
-    avatar: null,
-    type: 'order_shipped',
-    createdAt: sub(new Date(), { days: 3, hours: 3, minutes: 30 }),
-    isUnRead: false,
-  },
-];
+
+
+// Data notification dari API: 
+// {assigned_at:xxx, completed_at:xxx, creator_fk_id:xx, notif_created_at:xxx, notif_fk_id:xxx, notif_id:xxx, 
+//   notif_junction_id:xxx,notif_type:xxx, notif_msg:xxx, notif_title:xxx, receiver_fk_id:xxx, status:xxx }
+
 
 export default function NotificationsPopover() {
-  const [notifications, setNotifications] = useState(NOTIFICATIONS);
+  const [notifications, setNotifications] = useState(null);
 
-  const totalUnRead = notifications.filter((item) => item.isUnRead === true).length;
+  const totalUnRead = notifications?.filter((item) => item?.status===0).length;
 
   const [open, setOpen] = useState(null);
 
@@ -95,10 +57,25 @@ export default function NotificationsPopover() {
     setNotifications(
       notifications.map((notification) => ({
         ...notification,
-        isUnRead: false,
+        status : 1
       }))
     );
   };
+
+  const axiosJWT = useAxiosJWT();
+
+  useEffect( () => {
+    const getNotif= async()=>{
+      try{
+      const response = await axiosJWT.get("/getNotif"); 
+      setNotifications(response.data);     
+      }catch(err){
+        console.log(err);
+      }
+    };
+    getNotif(); 
+  }, []);
+
 
   return (
     <>
@@ -144,27 +121,15 @@ export default function NotificationsPopover() {
         <Scrollbar sx={{ height: { xs: 340, sm: 'auto' } }}>
           <List
             disablePadding
-            subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                New
-              </ListSubheader>
-            }
+            onClick={handleMarkAllAsRead}
+            // subheader={
+            //   <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
+            //     New
+            //   </ListSubheader>
+            // }
           >
-            {notifications.slice(0, 2).map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
-            ))}
-          </List>
-
-          <List
-            disablePadding
-            subheader={
-              <ListSubheader disableSticky sx={{ py: 1, px: 2.5, typography: 'overline' }}>
-                Before that
-              </ListSubheader>
-            }
-          >
-            {notifications.slice(2, 5).map((notification) => (
-              <NotificationItem key={notification.id} notification={notification} />
+            {notifications?.slice(0, 5).map((notification) => (
+              <NotificationItem  key={notification.notif_id} notification={notification}/>
             ))}
           </List>
         </Scrollbar>
@@ -185,15 +150,23 @@ export default function NotificationsPopover() {
 
 NotificationItem.propTypes = {
   notification: PropTypes.shape({
-    createdAt: PropTypes.instanceOf(Date),
-    id: PropTypes.string,
-    isUnRead: PropTypes.bool,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    type: PropTypes.string,
-    avatar: PropTypes.any,
+    assigned_at: PropTypes.any,
+    completed_at: PropTypes.any,
+    creator_fk_id: PropTypes.any,
+    notif_created_at: PropTypes.any,
+    notif_fk_id: PropTypes.any,
+    notif_id: PropTypes.any,
+    notif_junction_id: PropTypes.any,
+    notif_msg: PropTypes.any,
+    notif_title: PropTypes.any,
+    receiver_fk_id: PropTypes.any,
+    status: PropTypes.any
   }),
 };
+
+// Data notification dari API: 
+// {assigned_at:xxx, completed_at:xxx, creator_fk_id:xx, notif_created_at:xxx, notif_fk_id:xxx, notif_id:xxx, 
+//   notif_junction_id:xxx, notif_msg:xxx, notif_title:xxx, receiver_fk_id:xxx, status:xxx }
 
 function NotificationItem({ notification }) {
   const { avatar, title } = renderContent(notification);
@@ -204,7 +177,7 @@ function NotificationItem({ notification }) {
         py: 1.5,
         px: 2.5,
         mt: '1px',
-        ...(notification.isUnRead && {
+        ...(notification.status===0 && {
           bgcolor: 'action.selected',
         }),
       }}
@@ -225,7 +198,7 @@ function NotificationItem({ notification }) {
             }}
           >
             <Iconify icon="eva:clock-outline" sx={{ mr: 0.5, width: 16, height: 16 }} />
-            {fToNow(notification.createdAt)}
+            {fToNow(notification.assigned_at)}
           </Typography>
         }
       />
@@ -238,39 +211,33 @@ function NotificationItem({ notification }) {
 function renderContent(notification) {
   const title = (
     <Typography variant="subtitle2">
-      {notification.title}
+      {notification.notif_title}
       <Typography component="span" variant="body2" sx={{ color: 'text.secondary' }}>
-        &nbsp; {noCase(notification.description)}
+        &nbsp; {noCase(notification.notif_msg)}
       </Typography>
     </Typography>
   );
 
-  if (notification.type === 'order_placed') {
-    return {
-      avatar: <img alt={notification.title} src="/assets/icons/ic_notification_package.svg" />,
-      title,
-    };
-  }
-  if (notification.type === 'order_shipped') {
-    return {
-      avatar: <img alt={notification.title} src="/assets/icons/ic_notification_shipping.svg" />,
-      title,
-    };
-  }
-  if (notification.type === 'mail') {
-    return {
-      avatar: <img alt={notification.title} src="/assets/icons/ic_notification_mail.svg" />,
-      title,
-    };
-  }
-  if (notification.type === 'chat_message') {
-    return {
-      avatar: <img alt={notification.title} src="/assets/icons/ic_notification_chat.svg" />,
-      title,
-    };
-  }
+  // if (notification.type === 'order_placed') {
+  //   return {
+  //     avatar: <img alt={notification.title} src="/assets/icons/ic_notification_package.svg" />,
+  //     title,
+  //   };
+  // }
+  // if (notification.type === 'mail') {
+  //   return {
+  //     avatar: <img alt={notification.title} src="/assets/icons/ic_notification_mail.svg" />,
+  //     title,
+  //   };
+  // }
+  // if (notification.type === 'chat_message') {
+  //   return {
+  //     avatar: <img alt={notification.title} src="/assets/icons/ic_notification_chat.svg" />,
+  //     title,
+  //   };
+  // }
   return {
-    avatar: notification.avatar ? <img alt={notification.title} src={notification.avatar} /> : null,
+    avatar: <img alt={notification.title} src="/assets/icons/ic_notification_mail.svg" /> ,
     title,
   };
 }

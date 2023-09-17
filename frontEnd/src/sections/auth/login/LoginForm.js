@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import { useNavigate, useNavigation, redirect } from 'react-router-dom';
 import axios from "axios";
 // @mui
@@ -7,11 +7,15 @@ import { LoadingButton } from '@mui/lab';
 // components
 import Iconify from '../../../components/iconify';
 
+import AuthContext from "../../../context/AuthProvider"
+import {useAuth} from "../../../hooks/useAuth";
+
+
 // ----------------------------------------------------------------------
 
 export default function LoginForm() {
   const navigate = useNavigate();
-  const [userData, setUserData] = useState(null);  // {username:xxx, isAdmin:xxx, acessToken, refreshToken}
+  const {auth, setAuth} = useAuth(); // { username: xxx, role:xxx, accessToken,msg:xxx}
   const [showPassword, setShowPassword] = useState(false); 
   const [value, setValue] = useState({    // value dari input form
     username:"",
@@ -26,18 +30,15 @@ export default function LoginForm() {
   setOpen(false);
   },[])
  
-  useEffect(()=>{  // effect setiap userData berubah
-  if(userData){
-    if(userData.accessToken){
+  useEffect(()=>{  // effect setiap auth berubah
+  if(auth){
+    if(auth.accessToken){
       setLoading(true); 
-      setTimeout(() => {
-        navigate("/dashboard")
-      }, 500); 
     }else{
       setOpen(true)
     }
   }
-  },[userData])
+  },[auth])
 
   const handleChange = (event) => {
     setValue({
@@ -50,10 +51,11 @@ export default function LoginForm() {
     event.preventDefault();
     try{
       const response = await axios.post("/login", {username:value.username, password:value.password});
-      setUserData(response.data);
+      setAuth(response.data);  //  { username: xxx, role:xxx, accessToken,msg:xxx}
+      navigate("/dashboard");
     }catch(err){
       console.log(err);
-      setUserData(err);
+      setAuth(err);
     }
   }
 
@@ -92,10 +94,10 @@ export default function LoginForm() {
         <Alert 
           onClose={handleClose} 
           variant="filled" 
-          severity={userData&&userData.accessToken?"success":"error"} 
+          severity={auth&&auth.accessToken?"success":"error"} 
           sx={{ width: '100%' }}
         >
-          {userData&&userData.accessToken?"login success":"Incorrect Username Or Password"}
+          {auth&&auth.accessToken?"login success":"Incorrect Username Or Password"}
         </Alert>
       </Snackbar>
 

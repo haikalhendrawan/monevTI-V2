@@ -3,12 +3,14 @@ import { HelmetProvider } from 'react-helmet-async';
 
 // routes
 import Router from './routes';
-// theme
+// provider
 import ThemeProvider from './theme';
+import {AuthProvider} from './context/AuthProvider';
 
 // components
 import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
+
 
 
 // ----------------------------------------------------------------------
@@ -20,7 +22,9 @@ export default function App() {
         <ThemeProvider>
           <ScrollToTop />
           <StyledChart />
-          <Router />
+          <AuthProvider>
+            <Router />
+          </AuthProvider>
         </ThemeProvider>
       </BrowserRouter>
     </HelmetProvider>
