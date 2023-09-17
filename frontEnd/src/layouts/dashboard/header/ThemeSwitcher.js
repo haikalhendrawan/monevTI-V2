@@ -4,22 +4,22 @@ import {Switch, Button, IconButton, Badge, Chip, Fab} from "@mui/material";
 import useMode, {ModeContext} from "../../../hooks/display/useMode";
 import Iconify from '../../../components/iconify';
 
+// value dari useMode hook ada di ../theme/index.js
 
 const ThemeSwitcher = () => {
+const {mode, setMode} = useMode();
 const handleClick = () => {
     setMode((prev) => (
     prev==='dark'?'light':'dark'
     ));
+    localStorage.setItem('mode', mode)
 };
-const {mode, setMode} = useMode();
-    
+
+
     return(
     <div>
-    <IconButton variant='contained' size='large' sx={{mr:1}}>
-        <Iconify icon={"mdi:palette"} />    
-    </IconButton>
     <IconButton onClick={handleClick} variant='contained' size='large' sx={{mr:1}}>
-        <Iconify icon={mode==='dark'?"tdesign:mode-dark":"material-symbols:light-mode"}sx={{color:'orange'}} />    
+        <Iconify icon={localStorage.getItem('mode')==='dark'?"tdesign:mode-dark":"material-symbols:light-mode"}sx={{color:'orange'}} />    
     </IconButton>
     </div>
     )

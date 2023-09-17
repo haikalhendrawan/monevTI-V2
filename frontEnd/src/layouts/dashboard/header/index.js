@@ -13,6 +13,7 @@ import LanguagePopover from './LanguagePopover';
 import NotificationsPopover from './NotificationsPopover';
 import CurrentDate from './CurrentDate';
 import ThemeSwitcher from './ThemeSwitcher';
+import ColorSwitcher from './ColorSwitcher';
 
 // ----------------------------------------------------------------------
 
@@ -71,6 +72,7 @@ export default function Header({ onOpenNav }) {
             sm: 1,
           }}
         >
+          <ColorSwitcher />
           <ThemeSwitcher />
           <CurrentDate />
           <NotificationsPopover />

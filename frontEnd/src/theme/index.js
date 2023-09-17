@@ -24,7 +24,7 @@ export default function ThemeProvider({ children }) {
   const [mode, setMode] = useState('dark');
   const themeOptions = useMemo(
     () => ({
-      palette:mode==='dark'?paletteDark:palette,
+      palette:localStorage.getItem('mode')==='dark'?paletteDark:palette,
       shape: { borderRadius: 6 },
       typography,
       shadows: shadows(),
