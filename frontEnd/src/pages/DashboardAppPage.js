@@ -28,7 +28,6 @@ export default function DashboardAppPage() {
   const {auth, setAuth} = useAuth(); // { username: xxx, role:xxx, accessToken,msg:xxx}
   const theme = useTheme();
   const name = auth.username;
-  const refresh = useRefreshToken();
 
   
   useEffect(()=>{
@@ -42,7 +41,6 @@ export default function DashboardAppPage() {
       </Helmet>
 
       <Container maxWidth="xl">
-        <Button onClick={refresh}>Refresh</Button>
         <Typography variant="h4" sx={{ mb: 5 }}>
           Hi, Welcome back {name};
         </Typography>

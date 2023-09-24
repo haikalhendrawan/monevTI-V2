@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import {useState, useEffect} from 'react';
 // @mui
 import { styled } from '@mui/material/styles';
-import { Link, Container, Typography, Divider, Stack, Button, Card, Alert, Box, LinearProgress } from '@mui/material';
+import { Link, Container, Typography, Divider, Stack, Button, Card, Alert, Box, LinearProgress} from '@mui/material';
 import LoadingButton from '@mui/lab/LoadingButton';
 
 // hooks
@@ -25,20 +25,6 @@ const StyledRoot = styled('div')(({ theme }) => ({
   },
 }));
 
-// const StyledSection = styled('div')(({ theme }) => ({
-//   width: '100%',
-//   maxWidth: 720,
-//   display: 'flex',
-//   flexDirection: 'column',
-//   justifyContent: 'center',
-//   boxShadow: theme.customShadows.card,
-//   // backgroundColor: theme.palette.background.default,
-//   backgroundColor: "#e5e5f7",
-//   opacity: 0.8,
-//   backgroundImage: radial-gradient(circle at center center, #413fc3, #e5e5f7), repeating-radial-gradient(circle at center center, #413fc3, #413fc3, 10px, transparent 20px, transparent 10px),
-//   backgroundBlendMode: multiply,
-// }));
-
 const StyledSection = styled('div')(({ theme }) => ({
   width: '100%',
   maxWidth: '720px', 
@@ -46,10 +32,7 @@ const StyledSection = styled('div')(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   boxShadow: theme.customShadows.card,
-  backgroundColor: "#e5e5f7",
-  opacity: 0.8,
-  background: 'linear-gradient(to bottom, #f0f2f0, #000c40)',
-  backgroundBlendMode: 'multiply' 
+  // backgroundImage:'url(/assets/bg.png)'
 }));
 
 
@@ -87,19 +70,28 @@ export default function LoginPage() {
             left: { xs: 16, sm: 24, md: 40 },
           }}
         />
-      
           <StyledSection>
-            <Waterwave  style={{position: 'absolute', top: 0, left: 0, width: '50%', height: '100%', margin:'100'}}>
+            <Waterwave style={{position: 'absolute', top: 0, left:0 , width: '100%', height: '100%', objectFit: 'contain'}}>
               {({pause, play}) => (
-                <div />
+                
+                <img
+      src={'assets/logomonevti1.svg'}
+      alt="background"
+      style={{
+        width: '70%',
+        height: '100%',
+        objectFit: 'contain',
+        fill: '#FFFFFF'
+      }}
+    />
               )}
             </Waterwave>
-          </ StyledSection >
+          </ StyledSection>
           
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" >
           <StyledContent>
             <Typography variant="h4" gutterBottom>
-              Sign in to MonevTI
+              Sign In
             </Typography>
             <Typography variant="body" gutterBottom>
               Press icon below to show mock account!
@@ -111,7 +103,7 @@ export default function LoginPage() {
             </Button>
             {showAlert?(
               <Alert 
-                variant="outlined" 
+                variant="filled" 
                 severity="info"   
                 sx={{
                   position: 'relative',
@@ -120,8 +112,6 @@ export default function LoginPage() {
               > Use <strong>"root/index"</strong>as username/password
               </Alert>):null}
             </Stack>
-
-            <Divider />
 
             <LoginForm />   {/* logika dihandle di komponen ini */}
           </StyledContent>

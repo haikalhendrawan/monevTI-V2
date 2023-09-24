@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useMemo, useState, createContext } from 'react';
+import { useMemo, useState, createContext, useEffect } from 'react';
 // @mui
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
@@ -32,7 +32,6 @@ export default function ThemeProvider({ children }) {
     }),
     [mode]
   );
-
   const theme = createTheme(themeOptions);
   theme.components = componentsOverride(theme);
 

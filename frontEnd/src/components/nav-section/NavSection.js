@@ -4,23 +4,23 @@ import { NavLink as RouterLink } from 'react-router-dom';
 import { Box, List, ListItemText, ListSubheader, Button} from '@mui/material';
 //
 import { StyledNavItem, StyledNavItemIcon } from './styles';
-// import Button from 'src/theme/overrides/Button';
 
 // ----------------------------------------------------------------------
 
 NavSection.propTypes = {
   data: PropTypes.array,
+  header:PropTypes.string
 };
 
-export default function NavSection({ data = [], ...other }) {
+export default function NavSection({ data = [], ...other}) {
   return (
     <Box {...other}>
       <List 
         disablePadding sx={{ p: 1 }}
-        subheader={
+        subheader={other.header?
         <ListSubheader component='a' sx={{fontSize: '12px', color:'rgb(99, 115, 129)', backgroundColor:'transparent'}}>
-          MONEV TIK KPPN
-        </ListSubheader>
+          {other.header}
+        </ListSubheader>:null
         }
       >
         {data.map((item) => (

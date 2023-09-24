@@ -24,8 +24,6 @@ export default function LoginForm() {
   const [open, setOpen] = useState(false);  // state snackBar
   const [loading, setLoading] = useState(false);  // state loading Button
 
-  const submitKey = useRef(null);
-
   useEffect(()=>{   // effect setiap awal render
   setOpen(false);
   },[])
@@ -55,7 +53,8 @@ export default function LoginForm() {
       navigate("/dashboard");
     }catch(err){
       console.log(err);
-      setAuth(err);
+      setAuth(err.response.data);
+      setOpen(true);
     }
   }
 
@@ -97,7 +96,8 @@ export default function LoginForm() {
           severity={auth&&auth.accessToken?"success":"error"} 
           sx={{ width: '100%' }}
         >
-          {auth&&auth.accessToken?"login success":"Incorrect Username Or Password"}
+          {auth&&auth.accessToken?"Login Success":
+          auth?.errorMsg?auth.errorMsg:"Server Unavailable"}
         </Alert>
       </Snackbar>
 
@@ -108,7 +108,7 @@ export default function LoginForm() {
         </Link>
       </Stack>
 
-      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={loading} loadingPosition="end">
+      <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={loading} >
         Login
       </LoadingButton>
       </form>

@@ -7,13 +7,15 @@ import Iconify from '../../../components/iconify';
 // value dari useMode hook ada di ../theme/index.js
 
 const ThemeSwitcher = () => {
-const {mode, setMode} = useMode();
-const handleClick = () => {
-    setMode((prev) => (
-    prev==='dark'?'light':'dark'
-    ));
-    localStorage.setItem('mode', mode)
-};
+    const {mode, setMode} = useMode();
+    const handleClick = () => {
+        setMode((prev) => 
+            prev==='dark'?'light':'dark'
+        )
+        const currentMode = localStorage.getItem('mode');
+        const newMode = currentMode === 'dark' ? 'light' : 'dark';
+        localStorage.setItem('mode', newMode);
+    };
 
 
     return(

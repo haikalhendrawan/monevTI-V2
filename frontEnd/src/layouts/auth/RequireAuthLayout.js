@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import { Outlet, Navigate, useLocation } from 'react-router-dom';
-import { Grid, Box, LinearProgress } from '@mui/material';
+import { Grid, Box, Typography} from '@mui/material';
 // @mui
 import { styled } from '@mui/material/styles';
 //
 import Header from '../dashboard/header';
 import Nav from '../dashboard/nav';
+import Footer from '../dashboard/footer';
 import {useAuth} from "../../hooks/useAuth"
 
 // ----------------------------------------------------------------------
@@ -24,7 +25,7 @@ const Main = styled('div')(({ theme }) => ({
   overflow: 'auto',
   minHeight: '100%',
   paddingTop: APP_BAR_MOBILE + 24,
-  paddingBottom: theme.spacing(10),
+  paddingBottom: theme.spacing(5),
   [theme.breakpoints.up('lg')]: {
     paddingTop: APP_BAR_DESKTOP + 24,
     paddingLeft: theme.spacing(2),
@@ -46,11 +47,12 @@ export default function RequireAuthLayout({allowedRoles}) {
   if (allowedRoles.includes(auth.role)){
     return (
     <StyledRoot> 
-    <Header onOpenNav={() => setOpen(true)} />
-    <Nav openNav={open} onCloseNav={() => setOpen(false)} />
-    <Main>
-      <Outlet />
-    </Main>
+      <Header onOpenNav={() => setOpen(true)} />
+      <Nav openNav={open} onCloseNav={() => setOpen(false)} />
+      <Main>
+        <Outlet />
+        <Footer />
+      </Main>
     </StyledRoot>)
   }
   

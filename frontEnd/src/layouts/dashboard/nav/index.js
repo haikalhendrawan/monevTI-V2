@@ -13,7 +13,7 @@ import Logo from '../../../components/logo';
 import Scrollbar from '../../../components/scrollbar';
 import NavSection from '../../../components/nav-section';
 //
-import navConfig from './config';
+import navConfig, {navConfig2, navConfig3, navConfig4, navConfig5} from './config';
 
 // ----------------------------------------------------------------------
 
@@ -74,8 +74,11 @@ export default function Nav({ openNav, onCloseNav }) {
           </StyledAccount>
         </Link>
       </Box> */}
-
-      <NavSection data={navConfig} />
+      <NavSection data={navConfig3}  />
+      <NavSection data={navConfig}  header={"MONEV TIK KPPN"} />
+      <NavSection data={navConfig2} header={"INFORMATION SECURITY"} />
+      <NavSection data={navConfig5} header={"ADMIN"} />
+      <NavSection data={navConfig4} header={"OTHER"} />
 
       <Box sx={{ flexGrow: 1 }} />
 
