@@ -6,13 +6,11 @@ import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 import PuffLoader from "react-spinners/PuffLoader";
 import SimpleBackdrop from "../../components/loading/simpleBackdrop";
+// layout
+import Footer from '../dashboard/footer';
 // hooks
 import {useAuth} from "../../hooks/useAuth";
 import useRefreshToken from "../../hooks/useRefreshToken";
-
-
-
-
 
 const PersistLogin = () => {
 
@@ -40,10 +38,13 @@ const PersistLogin = () => {
     return (
         <>
         {isLoading? 
-        <div style ={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
-            <PuffLoader color={'blue'}  sx={{ justifyContent: 'center', alignItems: 'center' }}/>
-        </div>
-        : <Outlet />}
+            <div style ={{position: "fixed", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
+                <PuffLoader color={'blue'}  sx={{ justifyContent: 'center', alignItems: 'center' }}/>
+            </div>
+        :
+            <> 
+            <Outlet />
+            </>}
         </>
     )
 }

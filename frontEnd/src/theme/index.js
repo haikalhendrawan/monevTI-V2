@@ -4,7 +4,7 @@ import { useMemo, useState, createContext, useEffect } from 'react';
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
 //
-import palette, {paletteDark} from './palette';
+import palette, {paletteDark, GREY, PRIMARY, SECONDARY, INFO, SUCCESS, WARNING, ERROR} from './palette';
 import shadows from './shadows';
 import typography from './typography';
 import GlobalStyles from './globalStyles';
@@ -22,16 +22,21 @@ ThemeProvider.propTypes = {
 
 export default function ThemeProvider({ children }) {
   const [mode, setMode] = useState('dark');
+  const [primaryColor, setPrimaryColor] = useState(PRIMARY); 
   const themeOptions = useMemo(
     () => ({
-      palette:localStorage.getItem('mode')==='dark'?paletteDark:palette,
+      palette: {
+        ...localStorage.getItem('mode') === 'dark' ? paletteDark : palette,
+        primary: localStorage.getItem('color')?JSON.parse(localStorage.getItem('color')):PRIMARY,
+      },
       shape: { borderRadius: 6 },
       typography,
       shadows: shadows(),
       customShadows: customShadows(),
     }),
-    [mode]
+    [mode, primaryColor]
   );
+
   const theme = createTheme(themeOptions);
   theme.components = componentsOverride(theme);
 
@@ -40,7 +45,7 @@ export default function ThemeProvider({ children }) {
       <MUIThemeProvider theme={theme}>
         <CssBaseline />
         <GlobalStyles />
-        <ModeContext.Provider value={{mode, setMode}}>
+        <ModeContext.Provider value={{mode, setMode, primaryColor, setPrimaryColor}}>
         {children}
         </ModeContext.Provider>
       </MUIThemeProvider>

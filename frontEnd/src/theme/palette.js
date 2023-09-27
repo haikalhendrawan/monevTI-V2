@@ -71,6 +71,24 @@ const ERROR = {
   contrastText: '#fff',
 };
 
+const GREEN = {
+  lighter: 'rgb(221, 255, 217)',
+  light: 'rgb(91, 228, 155)',
+  main: 'rgb(0, 167, 111)',
+  dark: 'rgb(0, 75, 80)',
+  darker: 'rgb(0, 75, 80)',
+  contrastText: '#fff',
+};
+
+const PURPLE = {
+  lighter: 'rgb(251, 217, 255)',
+  light: 'rgb(185, 133, 244)',
+  main: '#9c27b0',
+  dark: 'rgb(32, 10, 105)',
+  darker: 'rgb(32, 10, 105)',
+  contrastText: '#fff',
+};
+
 const palette = {
   common: { black: '#000', white: '#fff' },
   primary: PRIMARY,
@@ -137,4 +155,4 @@ const paletteDark = {
 };
 
 export default palette;
-export {paletteDark};
+export {paletteDark, GREY, PRIMARY, SECONDARY, INFO, SUCCESS, WARNING, ERROR, GREEN, PURPLE};

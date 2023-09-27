@@ -57,23 +57,6 @@ export default function Nav({ openNav, onCloseNav }) {
         <Logo />
       </Box>
 
-      {/* <Box sx={{ mb: 5, mx: 2.5 }}>
-        <Link underline="none">
-          <StyledAccount>
-            <Avatar src={account.photoURL} alt="photoURL" />
-
-            <Box sx={{ ml: 2 }}>
-              <Typography variant="subtitle2" sx={{ color: 'text.primary' }}>
-                {account.displayName}
-              </Typography>
-
-              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                {account.role}
-              </Typography>
-            </Box>
-          </StyledAccount>
-        </Link>
-      </Box> */}
       <NavSection data={navConfig3}  />
       <NavSection data={navConfig}  header={"MONEV TIK KPPN"} />
       <NavSection data={navConfig2} header={"INFORMATION SECURITY"} />
