@@ -17,7 +17,6 @@ const ThemeSwitcher = () => {
         localStorage.setItem('mode', newMode);
     };
 
-
     return(
     <div>
     <IconButton onClick={handleClick} variant='contained' size='large' sx={{mr:1}}>

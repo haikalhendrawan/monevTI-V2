@@ -75,15 +75,15 @@ export default function LoginPage() {
               {({pause, play}) => (
                 
                 <img
-      src={'assets/logomonevti1.svg'}
-      alt="background"
-      style={{
-        width: '70%',
-        height: '100%',
-        objectFit: 'contain',
-        fill: '#FFFFFF'
-      }}
-    />
+                  src={'assets/logomonevti1.svg'}
+                  alt="background"
+                  style={{
+                    width: '50%',
+                    height: '100%',
+                    background:'cover',
+                    fill: '#FFFFFF'
+                  }}
+                />
               )}
             </Waterwave>
           </ StyledSection>

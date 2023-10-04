@@ -8,12 +8,12 @@ const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ 
 const navConfig = [
   {
     title: 'Worksheet',
-    path: '/dashboard/blog',
+    path: '/worksheet',
     icon: icon('pen-workspace'),
   },
   {
     title: 'Asset',
-    path: '/404',
+    path: '/iasset',
     icon: icon('pc-display'),
   },
 ];
@@ -21,17 +21,17 @@ const navConfig = [
 const navConfig2 = [
   {
     title: 'Monitoring',
-    path: '/dashboard/blog',
+    path: '/monitoring',
     icon: icon('video-security-20-regular'), 
   },
   {
     title: 'Log Book TIK',
-    path: '/404',
+    path: '/logbook',
     icon: icon('book'),
   },
   {
     title: 'Topology',
-    path: '/404',
+    path: '/topology',
     icon: icon('network'),
   },
 ];
@@ -55,7 +55,7 @@ const navConfig4 = [
 const navConfig3 = [
   {
     title: 'Home',
-    path: '/dashboard/app',
+    path: '/app',
     icon: icon('home-bold-duotone'),
   },
 ];

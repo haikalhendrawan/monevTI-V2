@@ -36,7 +36,7 @@ const Main = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
  
 export default function RequireAuthLayout({allowedRoles}) {
-  const {auth} = useAuth();  //  { username: xxx, role:xxx, accessToken,msg:xxx}
+  const {auth} = useAuth();  //  { username: xxx, role:xxx, accessToken, msg:xxx}
   const [open, setOpen] = useState(false);
   const location = useLocation();
 
@@ -56,7 +56,7 @@ export default function RequireAuthLayout({allowedRoles}) {
     </StyledRoot>)
   }
   
-  return <Navigate to="/404" state={{from:location}} replace /> // if login (Y), allowed Role (X)
+  return <Navigate to="/404" state={{from:location}} replace /> // if user sudah login, tapi allowed role tidak termasuk
 
   
 }
