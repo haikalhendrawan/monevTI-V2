@@ -1,13 +1,14 @@
 import mysql from "mysql2/promise";
 
 
-const connection = await mysql.createConnection({
+const pool =  mysql.createPool({
     host:'localhost',
     user: 'root',
     password:'Dummypassword99',
-    database:'monevti-v2'
+    database:'monevti-v2',
+    connectionLimit: 20
 });
 
 console.log("connected to database");
 
-export default connection;
+export default pool;

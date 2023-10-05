@@ -1,4 +1,4 @@
-import connection from "../config/db.js";
+import pool from "../config/db.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
@@ -11,7 +11,7 @@ const login = async (req, res)=>{
     const q = "SELECT * FROM user WHERE username = ?";
 
     try{
-        const [rows] = await connection.execute(q, [username]);
+        const [rows] = await pool.execute(q, [username]);
         const hashedPassword = rows[0].password_hash;
         const match = await bcrypt.compare(password, hashedPassword);
         if(match){

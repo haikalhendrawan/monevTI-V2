@@ -1,26 +1,24 @@
 import { Helmet } from 'react-helmet-async';
-import { useState } from 'react';
+import { filter } from 'lodash';
+import { sentenceCase } from 'change-case';
+import { useState, useEffect } from 'react';
 // @mui
-import { Container, Stack, Typography } from '@mui/material';
-
+import {Card, Stack, Paper, Button, Popover, Container, Typography, IconButton,} from '@mui/material';
+// components
+import Label from '../components/label';
+import Iconify from '../components/iconify';
+import Scrollbar from '../components/scrollbar';
+// sections
+import UserSpanTable from "../sections/@dashboard/iasset/UserSpanTable"
+// hooks
+import useMode from "../hooks/display/useMode";
 
 // ----------------------------------------------------------------------
 
 export default function IAssetPage() {
-
-
-  return (
-    <>
-      <Helmet>
-        <title> Dashboard: Products | IAsset </title>
-      </Helmet>
-
-      <Container>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          IAsset
-        </Typography>
-
-      </Container>
-    </>
-  );
+  const {mode, setMode} = useMode();
+    return(
+      mode==='dark'?<UserSpanTable />:<div>A</div>
+    )
 }
+
