@@ -24,6 +24,7 @@ const PRIMARY = {
   dark: '#103996',
   darker: '#061B64',
   contrastText: '#fff',
+  name:'primary'
 };
 
 const SECONDARY = {
@@ -33,6 +34,7 @@ const SECONDARY = {
   dark: '#1939B7',
   darker: '#091A7A',
   contrastText: '#fff',
+  name:'secondary'
 };
 
 const INFO = {
@@ -42,6 +44,7 @@ const INFO = {
   dark: '#0C53B7',
   darker: '#04297A',
   contrastText: '#fff',
+  name:'info'
 };
 
 const SUCCESS = {
@@ -51,6 +54,7 @@ const SUCCESS = {
   dark: '#229A16',
   darker: '#08660D',
   contrastText: GREY[800],
+  name:'success'
 };
 
 const WARNING = {
@@ -60,6 +64,7 @@ const WARNING = {
   dark: '#B78103',
   darker: '#7A4F01',
   contrastText: GREY[800],
+  name:'warning'
 };
 
 const ERROR = {
@@ -69,6 +74,7 @@ const ERROR = {
   dark: '#B72136',
   darker: '#7A0C2E',
   contrastText: '#fff',
+  name:'error'
 };
 
 const GREEN = {
@@ -78,6 +84,7 @@ const GREEN = {
   dark: 'rgb(0, 75, 80)',
   darker: 'rgb(0, 75, 80)',
   contrastText: '#fff',
+  name:'green'
 };
 
 const PURPLE = {
@@ -87,6 +94,7 @@ const PURPLE = {
   dark: 'rgb(32, 10, 105)',
   darker: 'rgb(32, 10, 105)',
   contrastText: '#fff',
+  name:'purple'
 };
 
 const palette = {

@@ -13,14 +13,14 @@ const ThemeSwitcher = () => {
             prev==='dark'?'light':'dark'
         )
         const currentMode = localStorage.getItem('mode');
-        const newMode = currentMode === 'dark' ? 'light' : 'dark';
+        const newMode = currentMode === 'light' ? 'dark' : 'light';
         localStorage.setItem('mode', newMode);
     };
 
     return(
     <div>
     <IconButton onClick={handleClick} variant='contained' size='large' sx={{mr:1}}>
-        <Iconify icon={localStorage.getItem('mode')==='dark'?"tdesign:mode-dark":"material-symbols:light-mode"}sx={{color:'orange'}} />    
+        <Iconify icon={localStorage.getItem('mode')==='light'?"material-symbols:light-mode":"tdesign:mode-dark"}sx={{color:'orange'}} />    
     </IconButton>
     </div>
     )

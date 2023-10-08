@@ -46,6 +46,7 @@ const StyledContent = styled('div')(({ theme }) => ({
   padding: theme.spacing(12, 0),
 }));
 
+
 // ----------------------------------------------------------------------
 
 export default function LoginPage() {
@@ -63,17 +64,16 @@ export default function LoginPage() {
       </Helmet>
 
       <StyledRoot>
-        <Logo
+        {/* <Logo
           sx={{
             position: 'fixed',
             top: { xs: 16, sm: 24, md: 40 },
             left: { xs: 16, sm: 24, md: 40 },
           }}
-        />
+        /> */}
           <StyledSection>
             <Waterwave style={{position: 'absolute', top: 0, left:0 , width: '100%', height: '100%', objectFit: 'contain'}}>
               {({pause, play}) => (
-                
                 <img
                   src={'assets/logomonevti1.svg'}
                   alt="background"
@@ -81,9 +81,11 @@ export default function LoginPage() {
                     width: '50%',
                     height: '100%',
                     background:'cover',
-                    fill: '#FFFFFF'
+                    fill: '#FFFFFF',
+                    animation: 'float 6s ease-in-out infinite'
                   }}
                 />
+
               )}
             </Waterwave>
           </ StyledSection>

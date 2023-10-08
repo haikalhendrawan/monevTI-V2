@@ -22,19 +22,17 @@ ThemeProvider.propTypes = {
 
 export default function ThemeProvider({ children }) {
   const [mode, setMode] = useState('dark');
-  const [primaryColor, setPrimaryColor] = useState(PRIMARY); 
-  const themeOptions = useMemo(
-    () => ({
+  const [primaryColor, setPrimaryColor] = useState(); 
+  const themeOptions = useMemo(() => ({
       palette: {
-        ...localStorage.getItem('mode') === 'dark' ? paletteDark : palette,
+        ...localStorage.getItem('mode') === 'light' ? palette : paletteDark,
         primary: localStorage.getItem('color')?JSON.parse(localStorage.getItem('color')):PRIMARY,
       },
       shape: { borderRadius: 6 },
       typography,
       shadows: shadows(),
       customShadows: customShadows(),
-    }),
-    [mode, primaryColor]
+    }),[mode, primaryColor]
   );
 
   const theme = createTheme(themeOptions);

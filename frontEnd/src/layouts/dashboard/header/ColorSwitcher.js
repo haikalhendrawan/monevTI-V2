@@ -1,6 +1,7 @@
 import {useState, useEffect, useContext} from "react";
-import {styled, alpha} from "@mui/material/styles";
+import {styled, alpha, useTheme} from "@mui/material/styles";
 import {Switch, Button, IconButton, Stack, Popper, Paper, Fade, ClickAwayListener} from "@mui/material";
+import { ThemeContext } from "@emotion/react";
 import useMode, {ModeContext} from "../../../hooks/display/useMode";
 import Iconify from '../../../components/iconify';
 import {GREY, PRIMARY, SECONDARY, INFO, SUCCESS, WARNING, ERROR, GREEN, PURPLE} from '../../../theme/palette';
@@ -9,6 +10,7 @@ import {GREY, PRIMARY, SECONDARY, INFO, SUCCESS, WARNING, ERROR, GREEN, PURPLE} 
 
 const ColorSwitcher = () => {
     const {mode, setMode, primaryColor, setPrimaryColor} = useMode();
+    const theme = useTheme();
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
     const handleClick = (event) => {
@@ -17,7 +19,7 @@ const ColorSwitcher = () => {
     };
     const handleColorClick = (color) => {
         setPrimaryColor(color);
-        localStorage.setItem('color', JSON.stringify(color));
+        localStorage.setItem('color', JSON.stringify(color))
       };
 
     const handleClose= () => {
@@ -37,14 +39,14 @@ const ColorSwitcher = () => {
             <ClickAwayListener onClickAway={handleClose}>
             <div>
                 <Stack direction="row" spacing={2}>
-                    <IconButton onClick={() => handleColorClick(PRIMARY)}><Iconify icon={"carbon:dot-mark"} sx={{color:'#2065d1'}} /></IconButton>
-                    <IconButton onClick={() => handleColorClick(GREEN)}><Iconify icon={"carbon:dot-mark"} sx={{color:'rgb(0, 167, 111)'}} /></IconButton>
-                    <IconButton onClick={() => handleColorClick(PURPLE)}><Iconify icon={"carbon:dot-mark"} sx={{color:'#9c27b0'}} /></IconButton>
+                    <IconButton onClick={() => handleColorClick(PRIMARY)}><Iconify icon={"carbon:dot-mark"} sx={{color:'#2065d1', borderRadius:'50%', backgroundColor: JSON.parse(localStorage.getItem('color')).name==='primary'?theme.palette.action.selected:null}} /></IconButton>
+                    <IconButton onClick={() => handleColorClick(GREEN)}><Iconify icon={"carbon:dot-mark"} sx={{color:'rgb(0, 167, 111)', borderRadius:'50%', backgroundColor: JSON.parse(localStorage.getItem('color')).name==='green'?theme.palette.action.selected:null}} /></IconButton>
+                    <IconButton onClick={() => handleColorClick(PURPLE)}><Iconify icon={"carbon:dot-mark"} sx={{color:'#9c27b0', borderRadius:'50%', backgroundColor: JSON.parse(localStorage.getItem('color')).name==='purple'?theme.palette.action.selected:null}} /></IconButton>
                 </Stack>
                 <Stack direction="row" spacing={2}>
-                    <IconButton onClick={() => handleColorClick(ERROR)}><Iconify icon={"carbon:dot-mark"} sx={{color:ERROR.main}} /></IconButton>
-                    <IconButton onClick={() => handleColorClick(WARNING)}><Iconify icon={"carbon:dot-mark"} sx={{color:WARNING.main}} /></IconButton>
-                    <IconButton onClick={() => handleColorClick(PRIMARY)}><Iconify icon={"bx:reset"} /></IconButton>
+                    <IconButton onClick={() => handleColorClick(ERROR)}><Iconify icon={"carbon:dot-mark"} sx={{color:ERROR.main, borderRadius:'50%', backgroundColor: JSON.parse(localStorage.getItem('color')).name==='error'?theme.palette.action.selected:null}} /></IconButton>
+                    <IconButton onClick={() => handleColorClick(WARNING)}><Iconify icon={"carbon:dot-mark"} sx={{color:WARNING.main, borderRadius:'50%', backgroundColor: JSON.parse(localStorage.getItem('color')).name==='warning'?theme.palette.action.selected:null}} /></IconButton>
+                    <IconButton onClick={() => handleColorClick(PRIMARY)}><Iconify icon={"bx:reset"}/></IconButton>
                 </Stack>
             </div>
             </ClickAwayListener>

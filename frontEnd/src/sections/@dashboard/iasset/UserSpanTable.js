@@ -75,7 +75,7 @@ function applySortFilter(array, comparator, query) {
 
 // ----------------------------------------------------------------------
 
-export default function UserSpanTable() {
+export default function UserSpanTable(props) {
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
@@ -150,11 +150,8 @@ export default function UserSpanTable() {
 
   return (
     <>
-      <Helmet>
-        <title> Asset TIK | MonevTI </title>
-      </Helmet>
-
-      <Container>
+      <Container maxWidth="xl">
+        <Button variant='text' color='inherit' onClick={() => {props.function(1)}} startIcon={<Iconify icon={"eva:arrow-ios-back-outline"} />}>Back</Button>
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
           <Typography variant="h4" gutterBottom>
             User

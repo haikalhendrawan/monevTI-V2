@@ -16,7 +16,7 @@ const login = async (req, res)=>{
         const match = await bcrypt.compare(password, hashedPassword);
         if(match){
             const accessToken = jwt.sign({id:rows[0].user_id, username: rows[0].username, role:rows[0].role},"secretKey", {expiresIn:60*15}); //generate token
-            const refreshToken = jwt.sign({id:rows[0].user_id, username: rows[0].username, role:rows[0].role},"secretRefreshKey",{expiresIn:60*60*24});//generate refreshToken
+            const refreshToken = jwt.sign({id:rows[0].user_id, username: rows[0].username, role:rows[0].role},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
             res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; HttpOnly`);
             res.status(200).json({
                 username: rows[0].username,
@@ -53,7 +53,7 @@ const refresh = (req, res)=>{
         if(err){console.log(err); res.status(401).json({errorMsg:"invalid token"})};
 
         const accessToken = jwt.sign({id:payload.id, username: payload.username, role:payload.role},"secretKey", {expiresIn:60*15}); //generate token
-        const refreshToken = jwt.sign({id:payload.id, username: payload.username, role:payload.role},"secretRefreshKey",{expiresIn:60*60*24});//generate refreshToken
+        const refreshToken = jwt.sign({id:payload.id, username: payload.username, role:payload.role},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
         res.cookie('refreshToken', refreshToken, {httpOnly:true});
         res.status(200).json({
             username: payload.username,
@@ -74,9 +74,8 @@ const refresh = (req, res)=>{
 const logout = (req, res) => {
     const refreshToken = req.cookies;
     res.clearCookie('refreshToken', {httpOnly:true });
-    res.status(200).json(`refresh Token Cookies ${refreshToken} has been cleared`);
-    console.log(`refresh Token Cookies ${refreshToken} has been cleared`);
-
+    res.status(200).json({msg:`User logged out, refresh Token Cookies has been cleared`});
+    console.log(`refresh Token Cookies ${JSON.stringify(refreshToken)} has been cleared`);
 }
 
 export {login, refresh, logout}
