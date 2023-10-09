@@ -23,14 +23,14 @@ const IAssetLanding = (props) => {
 
                             <IAssetSubMenu 
                                 function={props.function} 
-                                title={'Perangkat TIK'} 
-                                subheader={'Data perangkat TIK KPPN Padang'}
+                                title={'Asset'} 
+                                subheader={'Data perangkat pendukung TIK pada KPPN Padang'}
                                 open = {2}  // display {1:generate report, 2:Perangkat TIK, 3:User TIK}
                             />
                             <IAssetSubMenu 
                                 function={props.function} 
-                                title={'User Pengguna TIK'} 
-                                subheader={'Data user KPPN Padang'}
+                                title={'User'} 
+                                subheader={'Data user pengguna aplikasi pada KPPN Padang'}
                                 open = {2}
                             />
 

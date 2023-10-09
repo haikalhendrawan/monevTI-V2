@@ -9,9 +9,9 @@ const GenerateReport = () => {
     return(
         <>
         <Card sx={{height:'100%', width:'100%'}}>
-            <CardHeader title={'wqewqeweq'} subheader={'qweqwew'} />
+            <CardHeader title={'Generate Report'}  />
             <Box sx={{ p: 3, pb: 1 }} dir="ltr">
-            ABC
+            Summary
             </Box>
         </Card>
       </>
