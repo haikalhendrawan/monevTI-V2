@@ -20,7 +20,7 @@ const ThemeSwitcher = () => {
     return(
     <div>
     <IconButton onClick={handleClick} variant='contained' size='large' sx={{mr:1}}>
-        <Iconify icon={localStorage.getItem('mode')==='light'?"material-symbols:light-mode":"tdesign:mode-dark"}sx={{color:'orange'}} />    
+        <Iconify icon={localStorage.getItem('mode')==='light'?"solar:sun-2-bold-duotone":"tdesign:mode-dark"}sx={{color:'orange'}} />    
     </IconButton>
     </div>
     )

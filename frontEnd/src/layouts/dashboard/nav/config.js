@@ -9,12 +9,12 @@ const navConfig = [
   {
     title: 'Worksheet',
     path: '/worksheet',
-    icon: icon('pen-workspace'),
+    icon: icon('solar-document'),
   },
   {
-    title: 'Asset',
+    title: 'Data TIK',
     path: '/iasset',
-    icon: icon('pc-display'),
+    icon: icon('solar-database-bold'),
   },
 ];
 
@@ -22,17 +22,17 @@ const navConfig2 = [
   {
     title: 'Monitoring',
     path: '/monitoring',
-    icon: icon('video-security-20-regular'), 
+    icon: icon('solar-telescope'), 
   },
   {
     title: 'Log Book TIK',
     path: '/logbook',
-    icon: icon('book'),
+    icon: icon('solar-notebook'),
   },
   {
     title: 'Topology',
     path: '/topology',
-    icon: icon('network'),
+    icon: icon('solar-usb'),
   },
 ];
 
@@ -40,7 +40,7 @@ const navConfig5 = [
   {
     title: 'Reference',
     path: '/dashboard/app',
-    icon: icon('security-group'),
+    icon: icon('solar-user-check'),
   },
 ];
 

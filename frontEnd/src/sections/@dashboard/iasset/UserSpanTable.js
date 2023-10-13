@@ -151,11 +151,16 @@ export default function UserSpanTable(props) {
   return (
     <>
       <Container maxWidth="xl">
-        <Button variant='text' color='inherit' onClick={() => {props.function(1)}} startIcon={<Iconify icon={"eva:arrow-ios-back-outline"} />}>Back</Button>
+
         <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Typography variant="h4" gutterBottom>
-            User
-          </Typography>
+          <Stack direction='row' spacing={2}>
+            <IconButton variant='contained' onClick={() => {props.function(1)}}>
+              <Iconify icon={"eva:arrow-ios-back-outline"} />
+            </IconButton> 
+            <Typography variant="h4" gutterBottom>
+              User
+            </Typography>
+          </Stack>
           <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
             New User
           </Button>

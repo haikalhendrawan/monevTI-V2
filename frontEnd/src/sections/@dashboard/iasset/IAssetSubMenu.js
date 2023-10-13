@@ -16,7 +16,7 @@ const IAssetSubMenu = (props) => {
                     <CardHeader title={props.title}  /> 
 
                     <Box sx={{ p: 3, pb: 2 }} dir="ltr">
-                        <Typography variant='body2'>{props.subheader}</Typography>
+                        <Typography variant='body2' color="textSecondary">{props.subheader}</Typography>
                         <Grid container direction="row" sx={{ mt:12, justifyContent: 'space-between' }}>
                             <Button 
                             variant='contained' 

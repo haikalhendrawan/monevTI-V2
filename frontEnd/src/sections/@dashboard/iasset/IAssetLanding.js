@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 // @mui
 import {Card, Box, CardHeader,  Stack, Paper, Button, Popover, Grid, Container, Typography, IconButton, Link} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
+import Iconify from "../../../components/iconify";
 import GenerateReport from './GenerateReport';
 import IAssetSubMenu from './IAssetSubMenu';
 
@@ -12,9 +13,11 @@ const IAssetLanding = (props) => {
     return(
         <>
         <Container maxWidth="xl">
-            <Typography variant="h4" sx={{ mb: 5 }}>
-            Hi, Welcome back;
-            </Typography>
+            <Stack direction="row" spacing={2}>
+                <Typography variant="h4" sx={{ mb: 3 }}>
+                    Data TIK 
+                </Typography>
+            </ Stack>
 
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6} md={6}>
@@ -24,13 +27,13 @@ const IAssetLanding = (props) => {
                             <IAssetSubMenu 
                                 function={props.function} 
                                 title={'Asset'} 
-                                subheader={'Data perangkat pendukung TIK pada KPPN Padang'}
+                                subheader={'Data perangkat TIK pada KPPN Padang'}
                                 open = {2}  // display {1:generate report, 2:Perangkat TIK, 3:User TIK}
                             />
                             <IAssetSubMenu 
                                 function={props.function} 
                                 title={'User'} 
-                                subheader={'Data user pengguna aplikasi pada KPPN Padang'}
+                                subheader={'Data pengguna aplikasi pada KPPN Padang'}
                                 open = {2}
                             />
 

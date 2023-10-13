@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/login", login);
 router.get("/refresh", refresh);
-router.delete("/logout", logout)
+router.delete("/logout", logout);
 
 
 router.get("/", (req, res)=>{

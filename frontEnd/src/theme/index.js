@@ -22,7 +22,7 @@ ThemeProvider.propTypes = {
 
 export default function ThemeProvider({ children }) {
   const [mode, setMode] = useState('dark');
-  const [primaryColor, setPrimaryColor] = useState(); 
+  const [primaryColor, setPrimaryColor] = useState('primary'); 
   const themeOptions = useMemo(() => ({
       palette: {
         ...localStorage.getItem('mode') === 'light' ? palette : paletteDark,

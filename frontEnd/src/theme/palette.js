@@ -98,7 +98,7 @@ const PURPLE = {
 };
 
 const palette = {
-  common: { black: '#000', white: '#fff' },
+  common: { black: '#000', white: '#fff' }, 
   primary: PRIMARY,
   secondary: SECONDARY,
   info: INFO,
