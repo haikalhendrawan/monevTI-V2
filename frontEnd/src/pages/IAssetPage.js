@@ -10,7 +10,7 @@ import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
-import UserSpanTable from "../sections/@dashboard/iasset/UserSpanTable"
+import AssetTikTable from "../sections/@dashboard/iasset/AssetTikTable"
 import IAssetLanding from "../sections/@dashboard/iasset/IAssetLanding"
 // hooks
 import useMode from "../hooks/display/useMode";
@@ -25,7 +25,7 @@ export default function IAssetPage() {
 
   const component = {
     1:<IAssetLanding function={handleClick}/>,
-    2:<UserSpanTable function={handleClick}/>
+    2:<AssetTikTable function={handleClick}/>
   }
 
   return(

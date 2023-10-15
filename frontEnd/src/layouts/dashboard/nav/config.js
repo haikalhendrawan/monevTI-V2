@@ -47,7 +47,7 @@ const navConfig5 = [
 const navConfig4 = [
   {
     title: 'Panduan',
-    path: '/dashboard/app',
+    path: '/dashboard/user',
     icon: icon('help-outline'),
   },
 ];

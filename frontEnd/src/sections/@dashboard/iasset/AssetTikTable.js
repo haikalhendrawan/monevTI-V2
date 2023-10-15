@@ -27,14 +27,14 @@ import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 // sections
-import { UserListHead, UserListToolbar } from '../user';
+import { UserListHead, UserListToolbar } from './iAssetTable';
 // mock
 import USERLIST from '../../../_mock/user';
 
 
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
-  { id: 'Nama', label: 'Nama', alignRight: false },
+  { id: 'name', label: 'Nama', alignRight: false },
   { id: 'company', label: 'Company', alignRight: false },
   { id: 'role', label: 'Role', alignRight: false },
   { id: 'isVerified', label: 'Verified', alignRight: false },
@@ -75,7 +75,7 @@ function applySortFilter(array, comparator, query) {
 
 // ----------------------------------------------------------------------
 
-export default function UserSpanTable(props) {
+export default function AssetTikTable(props) {
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
