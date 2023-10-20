@@ -10,15 +10,14 @@ const IAssetSubMenu = (props) => {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false)
-        },1000)
+        },100)
 
     })
     return (
         <> 
         <Card>
-            
             <Grid container spacing={0}>
-
+            
                 <Grid item xs={6}>
                     <CardHeader title={props.title}  /> 
                     <Box sx={{ p: 3, pb: 2 }} dir="ltr">

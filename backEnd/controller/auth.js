@@ -46,7 +46,8 @@ const login = async (req, res)=>{
 // --untuk verify accessToken di Middleware, utk verify refreshToken disini. Payload RefreshToken bentuknya {id:xx, username:xx, role:,..} ---
 const refresh = (req, res)=>{  
     const refreshToken = req.cookies.refreshToken;
-    if(!refreshToken){res.status(401).json("no token")};
+    if(!refreshToken){
+        return res.status(401).json("no token")};
 
     try{
     jwt.verify(refreshToken, "secretRefreshKey",(err, payload)=>{
@@ -67,6 +68,7 @@ const refresh = (req, res)=>{
         console.log(error);
         res.status(401).json({errorMsg:"something wrong when creating new token or sending it as new cookie"})
     }
+
 }
 
 //3. Fungsi Logout
