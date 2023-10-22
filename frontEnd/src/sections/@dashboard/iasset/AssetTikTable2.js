@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import { filter } from 'lodash';
 import { sentenceCase } from 'change-case';
 import { useState } from 'react';
 // @mui
@@ -27,20 +26,32 @@ import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 // sections
-import { UserListHead, UserListToolbar } from './iAssetTable';
+import { IAsset2Head, IAsset2Toolbar } from './iAssetTable2';
 // mock
 import USERLIST from '../../../_mock/user';
+
+
+// ------ data from backEnd
+
+const OTHERASSET = [
+  {id: 1, jenis_perangkat: 'Printer', model:'HP M401', tahun: '2022', kondisi:1, keterangan:'dipakai kepala kantor', last_update:'1/10/2023',alignRight: false},
+  {id: 2, jenis_perangkat: 'Printer', model:'HP M202', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false}
+
+
+]
+
 
 
 
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
-  { id: 'name', label: 'Nama', alignRight: false },
-  { id: 'company', label: 'Company', alignRight: false },
-  { id: 'role', label: 'Role', alignRight: false },
-  { id: 'isVerified', label: 'Verified', alignRight: false },
-  { id: 'status', label: 'Status', alignRight: false },
-  { id: '' },
+  { id: 'no', label: 'No', alignRight: false },
+  { id: 'name', label: 'Jenis Perangkat', alignRight: false },
+  { id: 'company', label: 'Merk/Model', alignRight: false },
+  { id: 'role', label: 'Tahun', alignRight: false },
+  { id: 'isVerified', label: 'Kondisi', alignRight: false },
+  { id: 'status', label: 'Keterangan', alignRight: false },
+  {id:''}
 ];
 
 
@@ -68,16 +79,23 @@ function applySortFilter(array, comparator, query) {
     if (order !== 0) return order;
     return a[1] - b[1];
   });
+
   if (query) {
-    return filter(array, (_user) => _user.name.toLowerCase().indexOf(query.toLowerCase()) !== -1);
+    const lowerCaseQuery = query.toLowerCase();
+    return array.filter((perangkat) => {
+      return Object.values(perangkat).some((value) =>
+        typeof value === 'string' && value.toLowerCase().includes(lowerCaseQuery)
+      );
+    });
   }
+
   return stabilizedThis.map((el) => el[0]);
 }
 
 
 // ----------------------------------------------------------------------
 
-export default function AssetTikTable(props) {
+export default function AssetTikTable2(props) {
   const [open, setOpen] = useState(null);
 
   const [page, setPage] = useState(0);
@@ -86,7 +104,7 @@ export default function AssetTikTable(props) {
 
   const [selected, setSelected] = useState([]);
 
-  const [orderBy, setOrderBy] = useState('name');
+  const [orderBy, setOrderBy] = useState('no');
 
   const [filterName, setFilterName] = useState('');
 
@@ -169,12 +187,12 @@ export default function AssetTikTable(props) {
         </Stack>
 
         <Card>
-          <UserListToolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <IAsset2Toolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
               <Table>
-                <UserListHead
+                <IAsset2Head
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
@@ -184,14 +202,14 @@ export default function AssetTikTable(props) {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
-                    const { id, name, role, status, company, avatarUrl, isVerified } = row;
+                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
+                    const { no, id, name, role, status, company, avatarUrl, isVerified } = row;
                     const selectedUser = selected.indexOf(name) !== -1;
 
                     return (
-                      <TableRow hover key={id} tabIndex={-1} role="checkbox" selected={selectedUser}>
-                        <TableCell padding="checkbox">
-                          <Checkbox checked={selectedUser} onChange={(event) => handleClick(event, name)} />
+                      <TableRow hover key={id}>
+                        <TableCell>
+                          {no}
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none">

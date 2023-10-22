@@ -25,18 +25,18 @@ const login = async (req, res)=>{
                 msg:"Login Sucess"
             });
         }else{
-            res.status(401).json({errorMsg:"Invalid Password"});
+            return res.status(401).json({errorMsg:"Invalid Password"});
         }
     }catch(error){
         console.log(error);
         if(error.rows){
-            res.status(500).json({errorMsg:"Failed to database query"});
+            return res.status(500).json({errorMsg:"Failed to database query"});
         }else if(error.match){
-            res.status(401).json({errorMsg:"Failed to verify password using Bcrypt"});
+            return res.status(401).json({errorMsg:"Failed to verify password using Bcrypt"});
         }else if(error.accessToken || error.refreshToken){
-            res.status(500).json({errorMsg:"Failed to generate Token using jwt.sign"});
+            return res.status(500).json({errorMsg:"Failed to generate Token using jwt.sign"});
         }else{
-        res.status(401).json({errorMsg:"Invalid Username"});
+        return res.status(401).json({errorMsg:"Invalid Username"});
         }
     }
 }
@@ -66,7 +66,7 @@ const refresh = (req, res)=>{
     });
     }catch(error){
         console.log(error);
-        res.status(401).json({errorMsg:"something wrong when creating new token or sending it as new cookie"})
+        return res.status(401).json({errorMsg:"something wrong when creating new token or sending it as new cookie"})
     }
 
 }
@@ -76,8 +76,8 @@ const refresh = (req, res)=>{
 const logout = (req, res) => {
     const refreshToken = req.cookies;
     res.clearCookie('refreshToken', {httpOnly:true });
-    res.status(200).json({msg:`User logged out, refresh Token Cookies has been cleared`});
     console.log(`refresh Token Cookies ${JSON.stringify(refreshToken)} has been cleared`);
+    return res.status(200).json({msg:`User logged out, refresh Token Cookies has been cleared`});
 }
 
 export {login, refresh, logout}

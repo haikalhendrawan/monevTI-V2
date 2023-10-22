@@ -4,6 +4,7 @@ import { sample } from 'lodash';
 // ----------------------------------------------------------------------
 
 const users = [...Array(24)].map((_, index) => ({
+  no: index+1,
   id: faker.datatype.uuid(),
   avatarUrl: `/assets/images/avatars/avatar_${index + 1}.jpg`,
   name: faker.name.fullName(),
@@ -25,3 +26,6 @@ const users = [...Array(24)].map((_, index) => ({
 }));
 
 export default users;
+
+
+

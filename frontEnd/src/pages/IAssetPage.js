@@ -10,8 +10,9 @@ import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
-import AssetTikTable from "../sections/@dashboard/iasset/AssetTikTable"
-import IAssetLanding from "../sections/@dashboard/iasset/IAssetLanding"
+import AssetTikTable from "../sections/@dashboard/iasset/AssetTikTable";
+import IAssetLanding from "../sections/@dashboard/iasset/IAssetLanding";
+import AssetTikTable2 from "../sections/@dashboard/iasset/AssetTikTable2";
 // hooks
 import useMode from "../hooks/display/useMode";
 
@@ -25,7 +26,7 @@ export default function IAssetPage() {
 
   const component = {
     1:<IAssetLanding function={handleClick}/>,
-    2:<AssetTikTable function={handleClick}/>
+    2:<AssetTikTable2 function={handleClick}/>
   }
 
   return(

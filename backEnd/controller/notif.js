@@ -7,10 +7,10 @@ const getNotif = async (req, res) => {
                     FROM notifjunction INNER JOIN notifications on notifjunction.notif_fk_id = notifications.notif_id 
                     WHERE receiver_fk_id = ?`;
         const [rows] = await pool.execute(q, [userID]);
-        res.status(200).json(rows);
+        return res.status(200).json(rows);
     }catch(err){
-        res.status(500).json({msg:"failed to make database query"});
         console.log(err);
+        return res.status(500).json({msg:"failed to make database query"});
     }
 }
 
@@ -34,11 +34,11 @@ const addNotif = async (req, res) => {
             pool.execute(q3, [notifID, creatorID, row.user_id]);
         })
         await pool.commit();
-        res.status(200).json({msg:"Data inserted successfully"});
+        return res.status(200).json({msg:"Data inserted successfully"});
     }catch (err){
         console.log(err);
         await pool.rollback();
-        res.status(500).json({ msg: "Internal Server Error" });
+        return res.status(500).json({ msg: "Internal Server Error" });
     }
 }
 
