@@ -189,27 +189,25 @@ export default function AssetTikTable2(props) {
               Data Perangkat TIK
             </Typography>
           </Stack>
+          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
+            Add
+          </Button>
 
         </Stack>
 
         <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
           <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:database-bold-duotone" />} label="All" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:monitor-smartphone-bold-duotone" />} label="Computer" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:laptop-bold-duotone" />} label="Laptop" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:printer-bold-duotone" />} label="Printer" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:scanner-bold-duotone" />} label="Scanner" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:washing-machine-bold-duotone" />} label="UPS" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:electric-refueling-bold-duotone" />} label="Genset" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:wi-fi-router-bold-duotone" />} label="Router" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:structure-broken" />} label="Switch" />
-            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:smartphone-2-bold-duotone" />} label="Tablet" />
+            <Tab icon={<Iconify icon="solar:database-bold-duotone" />} label="All" />
+            <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Computer" />
+            <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="Laptop" />
+            <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Printer" />
+            <Tab icon={<Iconify icon="solar:scanner-bold-duotone" />} label="Scanner" />
+            <Tab icon={<Iconify icon="solar:washing-machine-bold-duotone" />} label="UPS"/>
+            <Tab icon={<Iconify icon="solar:electric-refueling-bold-duotone" />} label="Genset" />
+            <Tab icon={<Iconify icon="solar:wi-fi-router-bold-duotone" />} label="Router" />
+            <Tab icon={<Iconify icon="solar:structure-broken" />} label="Switch" />
+            <Tab icon={<Iconify icon="solar:smartphone-2-bold-duotone" />} label="Tablet" />
           </Tabs>
-        </Stack>
-        <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
-        <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New Asset
-          </Button>
         </Stack>
 
         <Card>

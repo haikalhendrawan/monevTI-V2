@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
-import {styled} from "@mui/material/styles";
-import {Switch, Button, IconButton, Badge, Chip, Fab, Popper, Typography, Paper, Fade, ClickAwayListener} from "@mui/material";
+import {styled, useTheme} from "@mui/material/styles";
+import {Switch, Button, Stack, Fab, Popper, Typography, Paper, Fade, ClickAwayListener} from "@mui/material";
 import { DateCalendar  } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -14,6 +14,8 @@ const CurrentDate = () => {
     const date = today.getDate();
     const month = today.getMonth();
     const year = today.getFullYear();
+
+    const theme = useTheme();
 
     const [open, setOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState(null);
@@ -29,10 +31,10 @@ const CurrentDate = () => {
 
     return(
     <>
-    <Fab variant="extended" color='primary' onClick={handleClick}>
-        <Iconify icon={"mdi:calendar"} sx={{ mr: 1 }} />
-        {date} {shortMonth[month]} {year}
-    </Fab>
+    <Button variant="outlined" color='primary' sx={{borderRadius:'24px', height:'50px'}} onClick={handleClick}>
+        <Iconify icon={"mdi:calendar"} sx={{ mr: 1, color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light }} />
+        <span style={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}}>{date} {shortMonth[month]} {year}</span>
+    </Button>
 
     <Popper open={open} anchorEl={anchorEl} placement={'bottom'} transition sx={{ zIndex: 1102 }}>
         {({ TransitionProps }) => (
