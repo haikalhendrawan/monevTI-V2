@@ -1,7 +1,8 @@
+import {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 // @mui
 import { styled, alpha } from '@mui/material/styles';
-import { Toolbar, Tooltip, IconButton, Typography, OutlinedInput, InputAdornment } from '@mui/material';
+import { Toolbar, Tooltip, IconButton, OutlinedInput, InputAdornment, FormControl, InputLabel, Select, MenuItem, Stack } from '@mui/material';
 // component
 import Iconify from '../../../../components/iconify';
 
@@ -38,7 +39,32 @@ IAsset2Toolbar.propTypes = {
   onFilterName: PropTypes.func,
 };
 
-export default function IAsset2Toolbar({ numSelected, filterName, onFilterName }) {
+// -------------------------------------------------------------
+const selectItem = [
+  {jenis:'Printer', icon:'solar:printer-bold-duotone', value:10}, 
+  {jenis:'Scanner', icon:'solar:scanner-bold-duotone', value:20}, 
+  {jenis:'UPS', icon:'solar:washing-machine-bold-duotone', value:30}, 
+  {jenis:'Genset', icon:'solar:electric-refueling-bold-duotone', value:40}, 
+  {jenis:'Router', icon:'solar:wi-fi-router-bold-duotone', value:50}, 
+  {jenis:'Switch', icon:'solar:structure-broken', value:60}, 
+  {jenis:'Tablet', icon:'solar:smartphone-2-bold-duotone', value:70}
+]
+
+// -------------------------------------------------------------------
+
+export default function IAsset2Toolbar({ numSelected, filterName, onFilterName}) {
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('')
+
+  const handleClick = () => {
+    setOpen(prev => !prev)
+  }
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+
   return (
     <StyledRoot
       sx={{
@@ -47,37 +73,48 @@ export default function IAsset2Toolbar({ numSelected, filterName, onFilterName }
           bgcolor: 'primary.lighter',
         }),
       }}
+      
     >
-      {numSelected > 0 ? (
-        <Typography component="div" variant="subtitle1">
-          {numSelected} selected
-        </Typography>
-      ) : (
-        <StyledSearch
-          value={filterName}
-          onChange={onFilterName}
-          placeholder="Search user..."
-          startAdornment={
-            <InputAdornment position="start">
-              <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
-            </InputAdornment>
-          }
-        />
-      )}
 
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <Iconify icon="eva:trash-2-fill" />
-          </IconButton>
-        </Tooltip>
-      ) : (
+      <StyledSearch
+        value={filterName}
+        onChange={onFilterName}
+        placeholder="Search user..."
+        startAdornment={
+          <InputAdornment position="start">
+            <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
+          </InputAdornment>
+        }
+      />
+
+        <div>
         <Tooltip title="Filter list">
-          <IconButton>
+          <IconButton onClick={handleClick}>
             <Iconify icon="ic:round-filter-list" />
           </IconButton>
         </Tooltip>
-      )}
+      {open && (
+        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>Perangkat</InputLabel>
+            <Select 
+              labelId="demo-simple-select-label" 
+              id="demo-simple-select" 
+              value={value} 
+              sx={{width:'140px', typography:'body2'}} 
+              label="Perangkat" 
+              onChange={handleChange}
+              >
+                <MenuItem sx={{typography:'body2'}} value="">All</MenuItem>
+                {selectItem.map((item) => {
+                  return(<MenuItem sx={{typography:'body2'}} value={item.value}><Stack direction="row">{item.jenis} <Iconify sx={{ ml:1}} icon={item.icon} /></Stack></MenuItem>)
+                })}
+            </Select>
+          </FormControl>
+      )} 
+        </div>
+      
+
+      
     </StyledRoot>
   );
 }

@@ -10,7 +10,6 @@ import {
   Avatar,
   Button,
   Popover,
-  Checkbox,
   TableRow,
   MenuItem,
   TableBody,
@@ -20,6 +19,8 @@ import {
   IconButton,
   TableContainer,
   TablePagination,
+  Tabs,
+  Tab,
 } from '@mui/material';
 // components
 import Label from '../../../components/label';
@@ -112,6 +113,7 @@ export default function AssetTikTable2(props) {
 
   const handleOpenMenu = (event) => {
     setOpen(event.currentTarget);
+    console.log(event.currentTarget)  
   };
 
   const handleCloseMenu = () => {
@@ -168,6 +170,12 @@ export default function AssetTikTable2(props) {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
+  const [value, setValue] = useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <>
       <Container maxWidth="xl">
@@ -178,16 +186,34 @@ export default function AssetTikTable2(props) {
               <Iconify icon={"eva:arrow-ios-back-outline"} />
             </IconButton> 
             <Typography variant="h4" gutterBottom>
-              User
+              Data Perangkat TIK
             </Typography>
           </Stack>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            New User
+
+        </Stack>
+
+        <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
+          <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:database-bold-duotone" />} label="All" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:monitor-smartphone-bold-duotone" />} label="Computer" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:laptop-bold-duotone" />} label="Laptop" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:printer-bold-duotone" />} label="Printer" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:scanner-bold-duotone" />} label="Scanner" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:washing-machine-bold-duotone" />} label="UPS" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:electric-refueling-bold-duotone" />} label="Genset" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:wi-fi-router-bold-duotone" />} label="Router" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:structure-broken" />} label="Switch" />
+            <Tab icon={<Iconify sx={{ ml:1}} icon="solar:smartphone-2-bold-duotone" />} label="Tablet" />
+          </Tabs>
+        </Stack>
+        <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
+        <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
+            New Asset
           </Button>
         </Stack>
 
         <Card>
-          <IAsset2Toolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} />
+          <IAsset2Toolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} onFilterOpen={handleOpenMenu}/>
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>
@@ -286,7 +312,7 @@ export default function AssetTikTable2(props) {
       </Container>
 
       <Popover
-        open={Boolean(open)}
+        open={open}
         anchorEl={open}
         onClose={handleCloseMenu}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
@@ -313,6 +339,7 @@ export default function AssetTikTable2(props) {
           Delete
         </MenuItem>
       </Popover>
+
     </>
   );
 }
