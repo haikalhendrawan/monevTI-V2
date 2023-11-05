@@ -13,6 +13,7 @@ import Scrollbar from '../components/scrollbar';
 import AssetTikTable from "../sections/@dashboard/iasset/AssetTikTable";
 import IAssetLanding from "../sections/@dashboard/iasset/IAssetLanding";
 import AssetTikTable2 from "../sections/@dashboard/iasset/AssetTikTable2";
+import AssetTikSection from "../sections/@dashboard/iasset/AssetTikSection";
 // hooks
 import useMode from "../hooks/display/useMode";
 
@@ -25,8 +26,8 @@ export default function IAssetPage() {
   };
 
   const component = {
-    1:<IAssetLanding function={handleClick}/>,
-    2:<AssetTikTable2 function={handleClick}/>
+    1:<IAssetLanding changeSection={handleClick}/>,
+    2:<AssetTikSection changeSection={handleClick}/>
   }
 
   return(

@@ -6,7 +6,7 @@ import jwt from "jsonwebtoken";
 // --cari user di database, kalo gaada catch error. Kemudian compare password hashnya pakai bcrypt.compare(req.password, db.password).
 //   kalo oke lanjut buat token pakai jwt.sign({payload}, secretKey, {expiresIn}). Kirim refreshToken pakai res.Header('Set-Cookie', 'name=value;HttpOnly')
 //   handle accessTokennya di frontEnd pakai variable/browser memory
-const login = async (req, res)=>{
+const login = async (req, res) => {
     const{username, password}=req.body;
     const q = "SELECT * FROM user WHERE username = ?";
 
@@ -44,7 +44,7 @@ const login = async (req, res)=>{
 
 //2. Fungsi refresh Token 
 // --untuk verify accessToken di Middleware, utk verify refreshToken disini. Payload RefreshToken bentuknya {id:xx, username:xx, role:,..} ---
-const refresh = (req, res)=>{  
+const refresh = (req, res) => {  
     const refreshToken = req.cookies.refreshToken;
     if(!refreshToken){
         return res.status(401).json("no token")};

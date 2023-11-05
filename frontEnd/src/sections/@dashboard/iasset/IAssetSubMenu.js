@@ -25,7 +25,7 @@ const IAssetSubMenu = (props) => {
                         <Grid container direction="row" sx={{ mt:12, justifyContent: 'space-between' }}>
                             <Button 
                             variant='contained' 
-                            onClick={() => {props.function(props.open)}}
+                            onClick={() => {props.changeSection(props.open)}}
                             >{/* props.open={1:generate report, 2:Perangkat TIK, 3:User TIK} */}
                                 Edit
                             </Button> 

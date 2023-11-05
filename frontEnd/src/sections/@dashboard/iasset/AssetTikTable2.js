@@ -2,34 +2,14 @@ import { Helmet } from 'react-helmet-async';
 import { sentenceCase } from 'change-case';
 import { useState } from 'react';
 // @mui
-import {
-  Card,
-  Table,
-  Stack,
-  Paper,
-  Avatar,
-  Button,
-  Popover,
-  TableRow,
-  MenuItem,
-  TableBody,
-  TableCell,
-  Container,
-  Typography,
-  IconButton,
-  TableContainer,
-  TablePagination,
-  Tabs,
-  Tab,
-} from '@mui/material';
+import { Card, Table, Stack, Paper, Avatar, Button, Popover, TableRow, MenuItem, TableBody, TableCell, Container, Typography, IconButton, TableContainer, TablePagination, Tabs, Tab} from '@mui/material';
 // components
 import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 // sections
 import { IAsset2Head, IAsset2Toolbar } from './iAssetTable2';
-// mock
-import USERLIST from '../../../_mock/user';
+
 
 
 // ------ data from backEnd
@@ -37,21 +17,16 @@ import USERLIST from '../../../_mock/user';
 const OTHERASSET = [
   {id: 1, jenis_perangkat: 'Printer', model:'HP M401', tahun: '2022', kondisi:1, keterangan:'dipakai kepala kantor', last_update:'1/10/2023',alignRight: false},
   {id: 2, jenis_perangkat: 'Printer', model:'HP M202', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false}
-
-
 ]
-
-
-
 
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
-  { id: 'no', label: 'No', alignRight: false },
-  { id: 'name', label: 'Jenis Perangkat', alignRight: false },
-  { id: 'company', label: 'Merk/Model', alignRight: false },
-  { id: 'role', label: 'Tahun', alignRight: false },
-  { id: 'isVerified', label: 'Kondisi', alignRight: false },
-  { id: 'status', label: 'Keterangan', alignRight: false },
+  { id: 'id', label: 'No', alignRight: false },
+  { id: 'jenis_perangkat', label: 'Jenis Perangkat', alignRight: false },
+  { id: 'model', label: 'Merk/Model', alignRight: false },
+  { id: 'tahun', label: 'Tahun', alignRight: false },
+  { id: 'kondisi', label: 'Kondisi', alignRight: false },
+  { id: 'keterangan', label: 'Keterangan', alignRight: false },
   {id:''}
 ];
 
@@ -97,7 +72,7 @@ function applySortFilter(array, comparator, query) {
 // ----------------------------------------------------------------------
 
 export default function AssetTikTable2(props) {
-  const [open, setOpen] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const [page, setPage] = useState(0);
 
@@ -126,14 +101,14 @@ export default function AssetTikTable2(props) {
     setOrderBy(property);
   };
 
-  const handleSelectAllClick = (event) => {
-    if (event.target.checked) {
-      const newSelecteds = USERLIST.map((n) => n.name);
-      setSelected(newSelecteds);
-      return;
-    }
-    setSelected([]);
-  };
+  // const handleSelectAllClick = (event) => {
+  //  if (event.target.checked) {
+  //    const newSelecteds = USERLIST.map((n) => n.name);
+  //    setSelected(newSelecteds);
+  //    return;
+  //  }
+  //  setSelected([]);
+  // }; 
 
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
@@ -164,52 +139,16 @@ export default function AssetTikTable2(props) {
     setFilterName(event.target.value);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - USERLIST.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - OTHERASSET.length) : 0;
 
-  const filteredUsers = applySortFilter(USERLIST, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(OTHERASSET, getComparator(order, orderBy), filterName);
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
-  const [value, setValue] = useState(0);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
 
   return (
     <>
-      <Container maxWidth="xl">
-
-        <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-          <Stack direction='row' spacing={2}>
-            <IconButton variant='contained' onClick={() => {props.function(1)}}>
-              <Iconify icon={"eva:arrow-ios-back-outline"} />
-            </IconButton> 
-            <Typography variant="h4" gutterBottom>
-              Data Perangkat TIK
-            </Typography>
-          </Stack>
-          <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />}>
-            Add
-          </Button>
-
-        </Stack>
-
-        <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
-          <Tabs value={value} onChange={handleChange} aria-label="icon tabs example">
-            <Tab icon={<Iconify icon="solar:database-bold-duotone" />} label="All" />
-            <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Computer" />
-            <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="Laptop" />
-            <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Printer" />
-            <Tab icon={<Iconify icon="solar:scanner-bold-duotone" />} label="Scanner" />
-            <Tab icon={<Iconify icon="solar:washing-machine-bold-duotone" />} label="UPS"/>
-            <Tab icon={<Iconify icon="solar:electric-refueling-bold-duotone" />} label="Genset" />
-            <Tab icon={<Iconify icon="solar:wi-fi-router-bold-duotone" />} label="Router" />
-            <Tab icon={<Iconify icon="solar:structure-broken" />} label="Switch" />
-            <Tab icon={<Iconify icon="solar:smartphone-2-bold-duotone" />} label="Tablet" />
-          </Tabs>
-        </Stack>
-
+     
         <Card>
           <IAsset2Toolbar numSelected={selected.length} filterName={filterName} onFilterName={handleFilterByName} onFilterOpen={handleOpenMenu}/>
 
@@ -220,39 +159,38 @@ export default function AssetTikTable2(props) {
                   order={order}
                   orderBy={orderBy}
                   headLabel={TABLE_HEAD}
-                  rowCount={USERLIST.length}
+                  rowCount={OTHERASSET.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
-                  onSelectAllClick={handleSelectAllClick}
+                  // onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
                   {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                    const { no, id, name, role, status, company, avatarUrl, isVerified } = row;
-                    const selectedUser = selected.indexOf(name) !== -1;
+                    const selectedUser = selected.indexOf(row.jenis_perangkat) !== -1;
 
                     return (
-                      <TableRow hover key={id}>
+                      <TableRow hover key={row.id}>
                         <TableCell>
-                          {no}
+                          {row.id}
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={name} src={avatarUrl} />
+                            <Avatar alt={row.jenis_perangkat} src={row.jenis_perangkat} />
                             <Typography variant="subtitle2" noWrap>
-                              {name}
+                              {row.jenis_perangkat}
                             </Typography>
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{company}</TableCell>
+                        <TableCell align="left">{row.model}</TableCell>
 
-                        <TableCell align="left">{role}</TableCell>
+                        <TableCell align="left">{row.tahun}</TableCell>
 
-                        <TableCell align="left">{isVerified ? 'Yes' : 'No'}</TableCell>
+                        <TableCell align="left">{row.alignRight ? 'Yes' : 'No'}</TableCell>
 
                         <TableCell align="left">
-                          <Label color={(status === 'banned' && 'error') || 'success'}>{sentenceCase(status)}</Label>
+                          <Label color={ 'success'}>{sentenceCase(row.jenis_perangkat)}</Label>
                         </TableCell>
 
                         <TableCell align="right">
@@ -300,43 +238,42 @@ export default function AssetTikTable2(props) {
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={USERLIST.length}
+            count={OTHERASSET.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
         </Card>
-      </Container>
-
-      <Popover
+        
+        <Popover
         open={open}
         anchorEl={open}
         onClose={handleCloseMenu}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: 'right' }}
         PaperProps={{
-          sx: {
+            sx: {
             p: 1,
             width: 140,
             '& .MuiMenuItem-root': {
-              px: 1,
-              typography: 'body2',
-              borderRadius: 0.75,
+                px: 1,
+                typography: 'body2',
+                borderRadius: 0.75,
             },
-          },
+            },
         }}
-      >
-        <MenuItem>
-          <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }} />
-          Edit
-        </MenuItem>
+        >
+            <MenuItem>
+                <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }} />
+                Edit
+            </MenuItem>
 
-        <MenuItem sx={{ color: 'error.main' }}>
-          <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
-          Delete
-        </MenuItem>
-      </Popover>
+            <MenuItem sx={{ color: 'error.main' }}>
+                <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
+                Delete
+            </MenuItem>
+        </Popover>
 
     </>
   );
