@@ -19,6 +19,11 @@ const OTHERASSET = [
   {id: 2, jenis_perangkat: 'Printer', model:'HP M202', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false}
 ]
 
+const ASSET = [
+  {id: 1, jenis_perangkat: 'Laptop', hostname:'KBN0300G307', nama_pegawai:'andi', model:'Acer P214', tahun: '2022', kondisi:1, cpu: 'Intel Core i5', ip:'25', ram:'8Gb', storage:'250 Gb', serial_number:'waqewqe', keterangan:'dipakai kepala kantor', last_update:'1/10/2023',alignRight: false},
+  {id: 1, jenis_perangkat: 'Komputer', hostname:'KBN0300G307', nama_pegawai:'andi', model:'Acer P214', tahun: '2022', kondisi:1, cpu: 'Intel Core i5', ip:'25', ram:'8Gb', storage:'250 Gb', serial_number:'waqewqe', keterangan:'dipakai kepala kantor', last_update:'1/10/2023',alignRight: false}
+]
+
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
   { id: 'id', label: 'No', alignRight: false },
