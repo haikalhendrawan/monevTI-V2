@@ -10,10 +10,6 @@ router.get("/refresh", refresh);
 router.delete("/logout", logout);
 
 
-router.get("/", (req, res)=>{
-    res.json(req.cookies.refreshToken);
-})
-
 
 
 export default router;

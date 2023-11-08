@@ -8,5 +8,6 @@ router.get("/getNotif", authenticate, getNotif);
 router.post("/addNotif", authenticate, addNotif);
 
 
+
 export default router;
 

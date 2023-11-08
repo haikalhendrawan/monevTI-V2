@@ -1,8 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { sentenceCase } from 'change-case';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 // @mui
-import{useTheme} from "@mui/material/styles"
+import {useTheme} from "@mui/material/styles"
 import {Stack, Button, Container, Typography, IconButton, Tabs, Tab, Modal, Box, FormControl, TextField, FormHelperText, InputAdornment, Paper, InputLabel, Select, MenuItem, OutlinedInput} from '@mui/material';
 // components
 import Label from '../../../components/label';
@@ -27,52 +27,65 @@ const style = {
   };
 
 const selectItem = [
-{jenis:'Baik', value:1, color:'success'},
-{jenis:'Rusak Ringan', value:2, color:'warning'},
-{jenis:'Rusak Berat', value:3, color:'error'}, 
+{jenis:'Baik', value:0, color:'success'},
+{jenis:'Rusak Ringan', value:1, color:'warning'},
+{jenis:'Rusak Berat', value:2, color:'error'}, 
 ]
 
 const SELECTPERANGKAT = [
-  {jenis:'Komputer', value:1, icon:"solar:monitor-smartphone-bold-duotone" },
-  {jenis:'Laptop', value:2, icon:"solar:laptop-bold-duotone"},
-  {jenis:'Printer', value:3, icon:"solar:printer-bold-duotone"}, 
-  {jenis:'Scanner', value:4, icon:"solar:scanner-bold-duotone"},
-  {jenis:'UPS', value:5, icon:"solar:washing-machine-bold-duotone"},
-  {jenis:'Genset', value:6, icon:"solar:electric-refueling-bold-duotone"},
-  {jenis:'Router', value:7, icon:"solar:wi-fi-router-bold-duotone"},
-  {jenis:'Switch', value:8, icon:"solar:structure-broken"},
-  {jenis:'Tablet', value:9, icon:"solar:smartphone-2-bold-duotone"},
+  {jenis:'Komputer', value:0, icon:"solar:monitor-smartphone-bold-duotone" },
+  {jenis:'Laptop', value:1, icon:"solar:laptop-bold-duotone"},
+  {jenis:'Printer', value:2, icon:"solar:printer-bold-duotone"}, 
+  {jenis:'Scanner', value:3, icon:"solar:scanner-bold-duotone"},
+  {jenis:'UPS', value:4, icon:"solar:washing-machine-bold-duotone"},
+  {jenis:'Genset', value:5, icon:"solar:electric-refueling-bold-duotone"},
+  {jenis:'Router', value:6, icon:"solar:wi-fi-router-bold-duotone"},
+  {jenis:'Switch', value:7, icon:"solar:structure-broken"},
+  {jenis:'Tablet', value:8, icon:"solar:smartphone-2-bold-duotone"},
   ]
 
 const SELECTCPU = [
-  {jenis:'Intel Core i3', value:1 },
-  {jenis:'Intel Core i5', value:2},
-  {jenis:'Intel Core i7', value:3}, 
-  {jenis:'Lainnya', value:4},
+  {jenis:'Intel Core i3', value:0 },
+  {jenis:'Intel Core i5', value:1},
+  {jenis:'Intel Core i7', value:2}, 
+  {jenis:'Lainnya', value:3},
   ]
 
 
 // -------------------------------------------------------------------------
 const AssetTikSection = (props) => {
-    const [open, setOpen] = useState();
-    const [showPassword, setShowPassword] = useState(false);
+    const [open, setOpen] = useState(false); // open dan close add perangkat modal
     const [value, setValue] = useState({
-        username:'',
-        nama:'',
-        nik:"",
-        password:""
-    })
-
-    const [tabValue, setTabValue] = useState(0);
+      id: '', 
+      jenis_perangkat: 0, 
+      hostname:'', 
+      nama_pegawai:'', 
+      model:'', 
+      tahun: '', 
+      kondisi:0, 
+      cpu: '', 
+      ip:'', 
+      ram:'', 
+      storage:'', 
+      serial_number:'', 
+      catatan:'', 
+      last_update:'',
+    });
+    const [isComputer, setIsComputer] = useState(false); // akan beda render table head perangkat dan form input
+    const [tabValue, setTabValue] = useState(0); // ganti menu jenis perangkat yang ditampilkan
     const theme = useTheme();
 
-    const handleChange = (event, newValue) => {
-        setValue({
-           ...value,
+    const handleChange = (event) => {
+        setValue((prev) => ({
+           ...prev,
            [event.target.name]:event.target.value
         })
-      setTabValue(newValue);
+        )
     };
+
+    const handleTabChange = (event, newValue) => {
+      setTabValue(newValue);
+    }
 
     const handleClick = () => {
         setOpen(true);
@@ -81,6 +94,26 @@ const AssetTikSection = (props) => {
     const handleClose = () => {
         setOpen(false);
     }
+
+    const handleClear = () => {
+      setValue({
+        id: '', jenis_perangkat: 0, hostname:'', nama_pegawai:'', model:'', tahun: '', kondisi:0, cpu: '', ip:'', ram:'', storage:'', serial_number:'', catatan:'', last_update:''})
+    }
+
+    useEffect(() => {
+      if(value.jenis_perangkat===0 || value.jenis_perangkat===1 ){
+      setIsComputer(true)} else {
+        setIsComputer(false)
+      }
+    },[value.jenis_perangkat])
+
+    useEffect(() => {
+      if(tabValue===0 || tabValue===1 ){
+      setIsComputer(true)} else {
+        setIsComputer(false)
+      }
+
+    },[tabValue])
 
     return(
         <>
@@ -102,27 +135,26 @@ const AssetTikSection = (props) => {
           </Stack>
   
           <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
-            <Tabs value={tabValue} onChange={handleChange} aria-label="icon tabs example">
-              <Tab icon={<Iconify icon="solar:database-bold-duotone" />} label="All" />
-              <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Computer" />
-              <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="Laptop" />
-              <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Printer" />
-              <Tab icon={<Iconify icon="solar:scanner-bold-duotone" />} label="Scanner" />
-              <Tab icon={<Iconify icon="solar:washing-machine-bold-duotone" />} label="UPS"/>
-              <Tab icon={<Iconify icon="solar:electric-refueling-bold-duotone" />} label="Genset" />
-              <Tab icon={<Iconify icon="solar:wi-fi-router-bold-duotone" />} label="Router" />
-              <Tab icon={<Iconify icon="solar:structure-broken" />} label="Switch" />
-              <Tab icon={<Iconify icon="solar:smartphone-2-bold-duotone" />} label="Tablet" />
+            <Tabs value={tabValue} onChange={handleTabChange} aria-label="icon tabs example">
+              {/* <Tab icon={<Iconify icon="solar:database-bold-duotone" />} label="All" /> */}
+              <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Computer" value={0} />
+              <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="Laptop" value={1}/>
+              <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Printer" value={2}/>
+              <Tab icon={<Iconify icon="solar:scanner-bold-duotone" />} label="Scanner" value={3}/>
+              <Tab icon={<Iconify icon="solar:washing-machine-bold-duotone" />} label="UPS" value={4}/>
+              <Tab icon={<Iconify icon="solar:electric-refueling-bold-duotone" />} label="Genset" value={5}/>
+              <Tab icon={<Iconify icon="solar:wi-fi-router-bold-duotone" />} label="Router" value={6}/>
+              <Tab icon={<Iconify icon="solar:structure-broken" />} label="Switch" value={7}/>
+              <Tab icon={<Iconify icon="solar:smartphone-2-bold-duotone" />} label="Tablet" value={8}/>
             </Tabs>
           </Stack>
 
-
           {/* assetTik Table here */}
-          <AssetTikTable2 />
+          <AssetTikTable2 isComputer={isComputer}/>
         
           </Container>
 
-        {/* --------------------------- --------MODAL UNTUK INPUT USER BARU------------------------------------------------- */}
+        {/* --------------------------- --------MODAL UNTUK INPUT PERANGKAT KOMPUTER BARU------------------------------------------------- */}
         
           <Modal open={open} onClose={handleClose}>
             <Box sx={style}>
@@ -135,64 +167,59 @@ const AssetTikSection = (props) => {
                   <Stack direction='row' justifyContent={'space-around'}>
 
                     <Stack direction='column' spacing={3} sx={{width:'40%'}}>
-                    {/* <Tabs aria-label="icon tabs example" value={0} centered>
-                        <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Computer" />
-                        <Tab icon={<Iconify icon="solar:database-bold-duotone" />} label="Lainnya" />
-                    </Tabs> */}
-                    <FormControl sx={{  minWidth: 120 }} required>
+
+                    <FormControl sx={{  minWidth: 120 }} size="small" required>
                           <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>Jenis Perangkat</InputLabel>
                           <Select 
                           required
-                          labelId="demo-simple-jenis-perangkat" 
-                          id="demo-simple-perangkat" 
-                          value={value} 
-                          sx={{ width:'60%', typography:'body2'}} 
+                          name="jenis_perangkat"
+                          value={value.jenis_perangkat} 
+                          sx={{ width:'80%', typography:'body2'}} 
                           label="Jenis Perangkat" 
                           onChange={handleChange}
                           size='small'
                           >
-                              {SELECTPERANGKAT.map((item) => {
-                              return(<MenuItem sx={{typography:'body2'}} value={item.value}>{item.jenis} <Iconify icon={item.icon} sx={{ml:1}}/></MenuItem>)
+                              {SELECTPERANGKAT.map((item, index) => {
+                              return(<MenuItem key={index} sx={{typography:'body2'}} value={item.value}>{item.jenis} <Iconify icon={item.icon} sx={{ml:1}}/></MenuItem>)
                               })}
                           </Select>
                     </FormControl>
 
-                    <FormControl >
-                        <TextField name="username" size='small' label="Hostname" required onChange={handleChange} value={value.username} sx={{width:'60%'}}/>
-                        <FormHelperText>cth: "KBN0300G007"</FormHelperText>
+                    <FormControl sx={{display:isComputer?null:'none'}}>
+                        <TextField name="hostname" size='small' label="Hostname" required onChange={handleChange} value={value.hostname} sx={{width:'80%'}}/>
+                        <FormHelperText>cth: KBN0300G007, Laptop-xxx</FormHelperText>
                     </FormControl>
 
-                    <FormControl >
-                        <TextField name="username" size='small' label="Nama Pegawai"  onChange={handleChange} value={value.username} sx={{width:'80%'}}/>
+                    <FormControl sx={{display:isComputer?null:'none'}}>
+                        <TextField name="nama_pegawai" size='small' label="Nama Pegawai"  onChange={handleChange} value={value.nama_pegawai} sx={{width:'80%'}}/>
                         <FormHelperText>pegawai yang menggunakan</FormHelperText>
                     </FormControl>
 
                     <FormControl>
-                        <TextField name="nama" size='small' label="Merk/Model" onChange={handleChange} value={value.nama} required sx={{width:'80%'}}/>
-                        <FormHelperText>cth: "acer m400"</FormHelperText>
+                        <TextField name="model" size='small' label="Merk/Model" onChange={handleChange} value={value.model} required sx={{width:'80%'}}/>
+                        <FormHelperText>cth: acer m400, hp laserjet 1102</FormHelperText>
                     </FormControl>
 
-                    <FormControl sx={{  minWidth: 120 }} required>
+                    <FormControl sx={{  minWidth: 120, display:isComputer?null:'none' }} size="small">
                           <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>CPU</InputLabel>
                           <Select 
-                          required
+                          name="cpu"
                           labelId="demo-simple-jenis-cpu" 
                           id="demo-simple-cpu" 
-                          value={value} 
+                          value={value.cpu} 
                           sx={{ width:'60%', typography:'body2'}} 
                           label="CPU" 
                           onChange={handleChange}
                           size='small'
                           >
-                              <MenuItem sx={{typography:'body2'}} value="">All</MenuItem>
-                              {SELECTCPU.map((item) => {
-                              return(<MenuItem sx={{typography:'body2'}} value={item.value}>{item.jenis}</MenuItem>)
+                              {SELECTCPU.map((item, index) => {
+                              return(<MenuItem key={index} sx={{typography:'body2'}} value={item.value}>{item.jenis}</MenuItem>)
                               })}
                           </Select>
                     </FormControl>
 
-                    <FormControl >
-                        <TextField name="username" size='small' label="Serial Number"  onChange={handleChange} value={value.username} sx={{width:'60%'}}/>
+                    <FormControl sx={{display:isComputer?null:'none'}}>
+                        <TextField name="serial_number" size='small' label="Serial Number"  onChange={handleChange} value={value.serial_number} sx={{width:'60%'}}/>
                     </FormControl>
 
                     </Stack>
@@ -201,50 +228,61 @@ const AssetTikSection = (props) => {
                                             
                       <Stack direction='row'>
                         <FormControl>
-                          <TextField name="nik" size='small' label="Tahun" required onChange={handleChange} value={value.nik}  sx={{width:'80%'}}/>
+                          <TextField name="tahun" size='small' label="Tahun" required onChange={handleChange} value={value.tahun}  sx={{width:'80%'}}/>
                         </FormControl>
-                        <FormControl >
-                            <TextField name="username" size='small' label="IP Adress" onChange={handleChange} value={value.username} sx={{width:'80%'}}/>
-                        </FormControl>
-                      </Stack>
-
-                      <Stack direction='row'>
-                        <FormControl >
-                            <TextField name="username" size='small' label="RAM" onChange={handleChange} value={value.username} InputProps={{endAdornment: <InputAdornment position="end">Gb</InputAdornment>}} sx={{width:'80%'}}/>
-                        </FormControl>
-
-                        <FormControl >
-                            <TextField name="username" size='small' label="Storage" onChange={handleChange} value={value.username} InputProps={{endAdornment: <InputAdornment position="end">Gb</InputAdornment>}} sx={{width:'80%'}}/>
+                        <FormControl sx={{display:isComputer?null:'none'}}>
+                            <TextField name="ip" size='small' label="IP Adress" onChange={handleChange} value={value.ip} sx={{width:'80%'}}/>
                         </FormControl>
                       </Stack>
 
-                      <FormControl sx={{ m: 1, minWidth: 120 }} required>
+                      <Stack direction='row' sx={{display:isComputer?null:'none'}}>
+                        <FormControl >
+                            <TextField name="ram" size='small' label="RAM" onChange={handleChange} value={value.ram} InputProps={{endAdornment: <InputAdornment position="end">Gb</InputAdornment>}} sx={{width:'80%'}}/>
+                        </FormControl>
+
+                        <FormControl >
+                            <TextField name="storage" size='small' label="Storage" onChange={handleChange} value={value.storage} InputProps={{endAdornment: <InputAdornment position="end">Gb</InputAdornment>}} sx={{width:'80%'}}/>
+                        </FormControl>
+                      </Stack>
+
+                      <FormControl sx={{ m: 1, minWidth: 120 }} size="small" required>
                           <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>Kondisi</InputLabel>
-                          <Select 
+                          <Select
+                          name="kondisi"
                           required
                           labelId="demo-simple-select-label" 
                           id="demo-simple-select" 
-                          value={value} 
+                          value={value.kondisi} 
                           sx={{ width:'40%', typography:'body2'}} 
                           label="Kondisi" 
                           onChange={handleChange}
                           size='small'
                           >
-                              <MenuItem sx={{typography:'body2'}} value="">All</MenuItem>
-                              {selectItem.map((item) => {
-                              return(<MenuItem sx={{typography:'body2', color:theme.palette[item.color].main}} value={item.value}>{item.jenis}</MenuItem>)
+                              {selectItem.map((item, index) => {
+                              return(<MenuItem key={index} sx={{typography:'body2', color:theme.palette[item.color].main}} value={item.value}>{item.jenis}</MenuItem>)
                               })}
                           </Select>
                       </FormControl>
 
                       <FormControl >
-                          <TextField name="nik" size='small' label="Catatan (opsional)" onChange={handleChange} value={value.nik} multiline minRows={4} maxRows={4}/>
-                          <FormHelperText>Cth: "printer seksi bank, scanner di meja tengah, dll"</FormHelperText>
+                          <TextField name="catatan" size='small' label="Catatan (opsional)" onChange={handleChange} value={value.catatan} multiline minRows={4} maxRows={4}/>
+                          <FormHelperText>Catatan untuk mengenali perangkat; cth: printer di meja x, scanner warna x, dll </FormHelperText>
                       </FormControl>
                       
-                      <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />} >
-                          Add
-                      </Button>
+                      <Stack direction='row' justifyContent="center" spacing={2}>
+                        <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />} >
+                            Add
+                        </Button>
+                        <Button 
+                          variant="contained" 
+                          sx={{backgroundColor:theme.palette.common.white, color:theme.palette.common.black}} 
+                          startIcon={<Iconify icon="bx:reset" />} 
+                          onClick={handleClear}
+                          >
+                            Clear
+                        </Button>
+                      </Stack>
+
                     </Stack>
 
                   </Stack>

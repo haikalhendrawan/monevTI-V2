@@ -21,7 +21,7 @@ const OTHERASSET = [
 
 const ASSET = [
   {id: 1, jenis_perangkat: 'Laptop', hostname:'KBN0300G307', nama_pegawai:'andi', model:'Acer P214', tahun: '2022', kondisi:1, cpu: 'Intel Core i5', ip:'25', ram:'8Gb', storage:'250 Gb', serial_number:'waqewqe', keterangan:'dipakai kepala kantor', last_update:'1/10/2023',alignRight: false},
-  {id: 1, jenis_perangkat: 'Komputer', hostname:'KBN0300G307', nama_pegawai:'andi', model:'Acer P214', tahun: '2022', kondisi:1, cpu: 'Intel Core i5', ip:'25', ram:'8Gb', storage:'250 Gb', serial_number:'waqewqe', keterangan:'dipakai kepala kantor', last_update:'1/10/2023',alignRight: false}
+  {id: 2, jenis_perangkat: 'Komputerrr', hostname:'KBN0300G307', nama_pegawai:'andi', model:'Acer P214', tahun: '2022', kondisi:1, cpu: 'Intel Core i5', ip:'25', ram:'8Gb', storage:'250 Gb', serial_number:'waqewqe', keterangan:'dipakai kepala kantor', last_update:'1/10/2023',alignRight: false}
 ]
 
 // ----------------------------------------------------------------------
@@ -33,6 +33,22 @@ const TABLE_HEAD = [
   { id: 'kondisi', label: 'Kondisi', alignRight: false },
   { id: 'keterangan', label: 'Keterangan', alignRight: false },
   {id:''}
+];
+
+const TABLE_HEAD2 = [
+  { id: 'id', label: 'No', alignRight: false },
+  { id: 'jenis_perangkat', label: 'Jenis Perangkat', alignRight: false },
+  { id: 'hostname', label: 'Hostname', alignRight: false },
+  { id: 'nama_pegawai', label: 'Pegawai', alignRight: false },
+  { id: 'model', label: 'Merk/Model', alignRight: false },
+  { id: 'tahun', label: 'Tahun', alignRight: false },
+  { id: 'kondisi', label: 'Kondisi', alignRight: false },
+  { id: 'cpu', label: 'CPU', alignRight: false },
+  { id: 'ip', label: 'IP Adress', alignRight: false },
+  { id: 'ram', label: 'RAM', alignRight: false },
+  { id: 'storage', label: 'Storage', alignRight: false },
+  { id: 'sserial_number', label: 'Serial Number', alignRight: false },
+  { id: 'catatan', label: 'Catatan', alignRight: false },
 ];
 
 
@@ -106,15 +122,6 @@ export default function AssetTikTable2(props) {
     setOrderBy(property);
   };
 
-  // const handleSelectAllClick = (event) => {
-  //  if (event.target.checked) {
-  //    const newSelecteds = USERLIST.map((n) => n.name);
-  //    setSelected(newSelecteds);
-  //    return;
-  //  }
-  //  setSelected([]);
-  // }; 
-
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
@@ -146,7 +153,7 @@ export default function AssetTikTable2(props) {
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - OTHERASSET.length) : 0;
 
-  const filteredUsers = applySortFilter(OTHERASSET, getComparator(order, orderBy), filterName);
+  const filteredUsers = applySortFilter(props.isComputer?ASSET:OTHERASSET, getComparator(order, orderBy), filterName);
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
@@ -163,7 +170,7 @@ export default function AssetTikTable2(props) {
                 <IAsset2Head
                   order={order}
                   orderBy={orderBy}
-                  headLabel={TABLE_HEAD}
+                  headLabel={props.isComputer?TABLE_HEAD2:TABLE_HEAD}
                   rowCount={OTHERASSET.length}
                   numSelected={selected.length}
                   onRequestSort={handleRequestSort}
@@ -179,7 +186,7 @@ export default function AssetTikTable2(props) {
                           {row.id}
                         </TableCell>
 
-                        <TableCell component="th" scope="row" padding="none">
+                        <TableCell component="th" scope="row" padding="none" align="left">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Avatar alt={row.jenis_perangkat} src={row.jenis_perangkat} />
                             <Typography variant="subtitle2" noWrap>
@@ -188,7 +195,8 @@ export default function AssetTikTable2(props) {
                           </Stack>
                         </TableCell>
 
-                        <TableCell align="left">{row.model}</TableCell>
+                        <TableCell align="left">{row.hostname}</TableCell>
+                        {props.isComputer?(<TableCell align="left">{row.nama_pegawai}</TableCell>):null}
 
                         <TableCell align="left">{row.tahun}</TableCell>
 

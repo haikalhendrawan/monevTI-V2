@@ -70,7 +70,6 @@ export default function IAsset2Toolbar({ numSelected, filterName, onFilterName})
           bgcolor: 'primary.lighter',
         }),
       }}
-      
     >
 
       <StyledSearch
@@ -102,8 +101,8 @@ export default function IAsset2Toolbar({ numSelected, filterName, onFilterName})
               onChange={handleChange}
               >
                 <MenuItem sx={{typography:'body2'}} value="">All</MenuItem>
-                {selectItem.map((item) => {
-                  return(<MenuItem sx={{typography:'body2', color:theme.palette[item.color].main}} value={item.value}>{item.jenis}</MenuItem>)
+                {selectItem.map((item, index) => {
+                  return(<MenuItem key={index} sx={{typography:'body2', color:theme.palette[item.color].main}} value={item.value}>{item.jenis}</MenuItem>)
                 })}
             </Select>
           </FormControl>
