@@ -71,7 +71,8 @@ const AssetTikSection = (props) => {
       catatan:'', 
       last_update:'',
     });
-    const [isComputer, setIsComputer] = useState(false); // akan beda render table head perangkat dan form input
+    const [isComputer, setIsComputer] = useState(true); // akan beda render table head 
+    const [isComputerForm, setIsComputerForm] = useState(true);// akan beda render  form input
     const [tabValue, setTabValue] = useState(0); // ganti menu jenis perangkat yang ditampilkan
     const theme = useTheme();
 
@@ -102,8 +103,8 @@ const AssetTikSection = (props) => {
 
     useEffect(() => {
       if(value.jenis_perangkat===0 || value.jenis_perangkat===1 ){
-      setIsComputer(true)} else {
-        setIsComputer(false)
+      setIsComputerForm(true)} else {
+        setIsComputerForm(false)
       }
     },[value.jenis_perangkat])
 
@@ -112,7 +113,6 @@ const AssetTikSection = (props) => {
       setIsComputer(true)} else {
         setIsComputer(false)
       }
-
     },[tabValue])
 
     return(
@@ -150,13 +150,13 @@ const AssetTikSection = (props) => {
           </Stack>
 
           {/* assetTik Table here */}
-          <AssetTikTable2 isComputer={isComputer}/>
+          <AssetTikTable2 isComputer={isComputer} currentTab={tabValue}/>
         
           </Container>
 
         {/* --------------------------- --------MODAL UNTUK INPUT PERANGKAT KOMPUTER BARU------------------------------------------------- */}
         
-          <Modal open={open} onClose={handleClose}>
+        <Modal open={open} onClose={handleClose}>
             <Box sx={style}>
               <Scrollbar>
               <Paper sx={{height:'500px', width:'auto', justifyContent:'center'}}>
@@ -185,12 +185,12 @@ const AssetTikSection = (props) => {
                           </Select>
                     </FormControl>
 
-                    <FormControl sx={{display:isComputer?null:'none'}}>
+                    <FormControl sx={{display:isComputerForm?null:'none'}}>
                         <TextField name="hostname" size='small' label="Hostname" required onChange={handleChange} value={value.hostname} sx={{width:'80%'}}/>
                         <FormHelperText>cth: KBN0300G007, Laptop-xxx</FormHelperText>
                     </FormControl>
 
-                    <FormControl sx={{display:isComputer?null:'none'}}>
+                    <FormControl sx={{display:isComputerForm?null:'none'}}>
                         <TextField name="nama_pegawai" size='small' label="Nama Pegawai"  onChange={handleChange} value={value.nama_pegawai} sx={{width:'80%'}}/>
                         <FormHelperText>pegawai yang menggunakan</FormHelperText>
                     </FormControl>
@@ -200,7 +200,7 @@ const AssetTikSection = (props) => {
                         <FormHelperText>cth: acer m400, hp laserjet 1102</FormHelperText>
                     </FormControl>
 
-                    <FormControl sx={{  minWidth: 120, display:isComputer?null:'none' }} size="small">
+                    <FormControl sx={{  minWidth: 120, display:isComputerForm?null:'none' }} size="small">
                           <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>CPU</InputLabel>
                           <Select 
                           name="cpu"
@@ -218,8 +218,8 @@ const AssetTikSection = (props) => {
                           </Select>
                     </FormControl>
 
-                    <FormControl sx={{display:isComputer?null:'none'}}>
-                        <TextField name="serial_number" size='small' label="Serial Number"  onChange={handleChange} value={value.serial_number} sx={{width:'60%'}}/>
+                    <FormControl sx={{display:isComputerForm?null:'none'}} size="small">
+                        <TextField name="serial_number" size='small' label="Serial Number"  onChange={handleChange} value={value.serial_number} sx={{width:'80%'}}/>
                     </FormControl>
 
                     </Stack>
@@ -230,12 +230,12 @@ const AssetTikSection = (props) => {
                         <FormControl>
                           <TextField name="tahun" size='small' label="Tahun" required onChange={handleChange} value={value.tahun}  sx={{width:'80%'}}/>
                         </FormControl>
-                        <FormControl sx={{display:isComputer?null:'none'}}>
+                        <FormControl sx={{display:isComputerForm?null:'none'}}>
                             <TextField name="ip" size='small' label="IP Adress" onChange={handleChange} value={value.ip} sx={{width:'80%'}}/>
                         </FormControl>
                       </Stack>
 
-                      <Stack direction='row' sx={{display:isComputer?null:'none'}}>
+                      <Stack direction='row' sx={{display:isComputerForm?null:'none'}}>
                         <FormControl >
                             <TextField name="ram" size='small' label="RAM" onChange={handleChange} value={value.ram} InputProps={{endAdornment: <InputAdornment position="end">Gb</InputAdornment>}} sx={{width:'80%'}}/>
                         </FormControl>
