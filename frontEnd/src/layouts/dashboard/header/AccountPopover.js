@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
-
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover, Button } from '@mui/material';
@@ -25,7 +24,7 @@ const MENU_OPTIONS = [
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
-  const {setAuth} = useAuth();
+  const {auth, setAuth} = useAuth();
   const axiosJWT = useAxiosJWT();
   const [userData, setUserData] = useState(null);
 
@@ -53,6 +52,7 @@ export default function AccountPopover() {
       const response = await axiosJWT.get("/getUser");
       console.log(response.data);
       setUserData(response.data);
+      console.log(auth);
       } catch(err){
         console.log(err);
       }
@@ -80,7 +80,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={userData?.image} alt="photoURL" />
+        <Avatar src={auth?.image} alt="photoURL" />
       </IconButton>
 
       <Popover
@@ -104,10 +104,10 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {userData?.name}
+            {auth?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-          {userData?.email}
+          {auth?.email}
           </Typography>
         </Box>
 

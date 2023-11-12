@@ -15,12 +15,17 @@ const login = async (req, res) => {
         const hashedPassword = rows[0].password_hash;
         const match = await bcrypt.compare(password, hashedPassword);
         if(match){
-            const accessToken = jwt.sign({id:rows[0].user_id, username: rows[0].username, role:rows[0].role},"secretKey", {expiresIn:60*30}); //generate token
-            const refreshToken = jwt.sign({id:rows[0].user_id, username: rows[0].username, role:rows[0].role},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
+            const accessToken = jwt.sign({id:rows[0].user_id, username: rows[0].username, role:rows[0].role, kppn:rows[0].kppn},"secretKey", {expiresIn:60*30}); //generate token
+            const refreshToken = jwt.sign({id:rows[0].user_id, username: rows[0].username, role:rows[0].role, kppn:rows[0].kppn},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
             res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; HttpOnly`);
             res.status(200).json({
-                username: rows[0].username,
+                id:rows[0].user_id,
+                username:rows[0].username,
+                name:rows[0].name,
+                email:rows[0].email,
+                image:rows[0].image,
                 role:rows[0].role,
+                kppn:rows[0].kppn,
                 accessToken,
                 msg:"Login Sucess"
             });
@@ -53,12 +58,17 @@ const refresh = (req, res) => {
     jwt.verify(refreshToken, "secretRefreshKey",(err, payload)=>{
         if(err){console.log(err); res.status(401).json({errorMsg:"invalid token"})};
 
-        const accessToken = jwt.sign({id:payload.id, username: payload.username, role:payload.role},"secretKey", {expiresIn:60*30}); //generate token
-        const refreshToken = jwt.sign({id:payload.id, username: payload.username, role:payload.role},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
+        const accessToken = jwt.sign({id:payload.id, username: payload.username, role:payload.role, kppn:payload.kppn},"secretKey", {expiresIn:60*30}); //generate token
+        const refreshToken = jwt.sign({id:payload.id, username: payload.username, role:payload.role, kppn:payload.kppn},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
         res.cookie('refreshToken', refreshToken, {httpOnly:true});
         res.status(200).json({
-            username: payload.username,
+            id:payload.user_id,
+            username:payload.username,
+            name:payload.name,
+            email:payload.email,
+            image:payload.image,
             role:payload.role,
+            kppn:payload.kppn,
             accessToken,
             msg:"Token has been refreshed"
         });

@@ -10,7 +10,7 @@ const useAxiosJWT = () => {
     useEffect(() => {
     const requestIntercept = axiosJWT.interceptors.request.use((config) => {
         if(!config.headers.Authorization){
-            config.headers.Authorization = `Bearer ${auth?.accessToken}`
+            config.headers.Authorization = `Bearer ${auth?.accessToken}` // setiap request kita kirim cookies di header yg valuenya mrpk accessToken
         }
         return config;
     }, (error) => {

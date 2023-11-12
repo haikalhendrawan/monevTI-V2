@@ -3,7 +3,9 @@ import cors from "cors";
 import authRoute from "./routes/authRoute.js";
 import userRoute from "./routes/userRoute.js";
 import notifRoute from "./routes/notifRoute.js";
+import iAssetRoute from "./routes/iAssetRoute.js";
 import cookieParser from "cookie-parser";
+
 
 const app = express();
 
@@ -14,6 +16,7 @@ app.use(cookieParser());
 app.use(authRoute);
 app.use(userRoute);
 app.use(notifRoute);
+app.use(iAssetRoute);
 
 // -------------------------------Db----------------------------------------
 

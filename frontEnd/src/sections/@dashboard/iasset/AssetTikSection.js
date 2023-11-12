@@ -1,15 +1,20 @@
 import { Helmet } from 'react-helmet-async';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
+import axios from "axios";
 // @mui
 import {useTheme} from "@mui/material/styles"
 import {Stack, Button, Container, Typography, IconButton, Tabs, Tab, Modal, Box, FormControl, TextField, FormHelperText, InputAdornment, Paper, InputLabel, Select, MenuItem, OutlinedInput} from '@mui/material';
+// hooks
+import { useAuth } from '../../../hooks/useAuth';
+import useAxiosJWT from '../../../hooks/useAxiosJWT';
 // components
 import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from "../../../components/scrollbar";
 // sub section
 import AssetTikTable2 from './AssetTikTable2';
+
 
 
 // ---------------------------------------------------------------
@@ -75,6 +80,8 @@ const AssetTikSection = (props) => {
     const [isComputerForm, setIsComputerForm] = useState(true);// akan beda render  form input
     const [tabValue, setTabValue] = useState(0); // ganti menu jenis perangkat yang ditampilkan
     const theme = useTheme();
+    const {auth, setAuth} = useAuth(); 
+    const axiosJWT = useAxiosJWT();
 
     const handleChange = (event) => {
         setValue((prev) => ({
@@ -88,8 +95,15 @@ const AssetTikSection = (props) => {
       setTabValue(newValue);
     }
 
-    const handleClick = () => {
+    const handleClick = async () => { // onclick tombol tambah perangkat
         setOpen(true);
+        try{
+          const response = await axiosJWT.get("/getIAsset");
+          console.log(response.data);
+        }catch(err){
+          console.log(err)
+        }
+
     }
 
     const handleClose = () => {
@@ -137,7 +151,7 @@ const AssetTikSection = (props) => {
           <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
             <Tabs value={tabValue} onChange={handleTabChange} aria-label="icon tabs example">
               {/* <Tab icon={<Iconify icon="solar:database-bold-duotone" />} label="All" /> */}
-              <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Computer" value={0} />
+              <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Komputer" value={0} />
               <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="Laptop" value={1}/>
               <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Printer" value={2}/>
               <Tab icon={<Iconify icon="solar:scanner-bold-duotone" />} label="Scanner" value={3}/>

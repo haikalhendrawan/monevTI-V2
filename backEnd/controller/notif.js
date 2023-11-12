@@ -2,7 +2,7 @@ import pool from "../config/db.js";
 
 const getNotif = async (req, res) => {
     try{
-        const userID = req.payload.id;
+        const userID = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
         const q = `SELECT *, notifications.notif_msg, notifications.notif_title, notifications.notif_created_at, notifications.notif_type 
                     FROM notifjunction INNER JOIN notifications on notifjunction.notif_fk_id = notifications.notif_id 
                     WHERE receiver_fk_id = ?`;
@@ -16,7 +16,7 @@ const getNotif = async (req, res) => {
 
 const addNotif = async (req, res) => {
     const {notifTitle, notifMessage, notifType} = req.body;
-    const creatorID = req.payload.id;
+    const creatorID = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
     try{
         await pool.beginTransaction();
         const q = "INSERT INTO notifications(notif_title, notif_msg, notif_type) VALUES (?,?, ?)"; // masukkan data ke table notifications
