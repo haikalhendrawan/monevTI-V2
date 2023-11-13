@@ -83,7 +83,7 @@ const AssetTikSection = (props) => {
     const {auth, setAuth} = useAuth(); 
     const axiosJWT = useAxiosJWT();
 
-    const handleChange = (event) => {
+    const handleChange = (event) => {  // setiap form tambah asset berubah
         setValue((prev) => ({
            ...prev,
            [event.target.name]:event.target.value
@@ -91,7 +91,7 @@ const AssetTikSection = (props) => {
         )
     };
 
-    const handleTabChange = (event, newValue) => {
+    const handleTabChange = (event, newValue) => { // setiap tab jenis asset berubah
       setTabValue(newValue);
     }
 
@@ -106,25 +106,49 @@ const AssetTikSection = (props) => {
 
     }
 
-    const handleClose = () => {
+    const handleAddAsset = async () => {
+        try{
+          const response = await axiosJWT.post("/addIAsset",{
+            jenis_perangkat: value.jenis_perangkat, 
+            hostname: value.hostname, 
+            nama_pegawai: value.nama_pegawai, 
+            model: value.model, 
+            tahun: value.tahun, 
+            kondisi: value.kondisi, 
+            cpu: value.cpu, 
+            ip: value.ip, 
+            ram: value.ram, 
+            storage: value.storage, 
+            serial_number: value.serial_number, 
+            catatan: value.catatan, 
+            periode: value.periode
+          });
+          console.log(response);
+          
+        }catch(err){
+          console.log(err);
+        }
+    }
+
+    const handleClose = () => { // onclick area di luar modal, menutup modal
         setOpen(false);
     }
 
-    const handleClear = () => {
+    const handleClear = () => { // onclick tombol clear form data
       setValue({
         id: '', jenis_perangkat: 0, hostname:'', nama_pegawai:'', model:'', tahun: '', kondisi:0, cpu: '', ip:'', ram:'', storage:'', serial_number:'', catatan:'', last_update:''})
     }
 
-    useEffect(() => {
+    useEffect(() => { // untuk nge render form secara dynamic jenis komputer atau bukan 
       if(value.jenis_perangkat===0 || value.jenis_perangkat===1 ){
-      setIsComputerForm(true)} else {
+        setIsComputerForm(true)} else {
         setIsComputerForm(false)
       }
     },[value.jenis_perangkat])
 
-    useEffect(() => {
+    useEffect(() => { // untuk ngerender table head dan body secara dynamic, di pass ke child component AssetTIKTable
       if(tabValue===0 || tabValue===1 ){
-      setIsComputer(true)} else {
+        setIsComputer(true)} else {
         setIsComputer(false)
       }
     },[tabValue])
@@ -284,7 +308,7 @@ const AssetTikSection = (props) => {
                       </FormControl>
                       
                       <Stack direction='row' justifyContent="center" spacing={2}>
-                        <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />} >
+                        <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />} onClick={handleAddAsset}>
                             Add
                         </Button>
                         <Button 

@@ -22,7 +22,7 @@ app.use(iAssetRoute);
 
 //-------------------------------  ENDPOINT ---------------------------------
 app.get('/', (req, res) => {
-res.json({msg:"ok"})
+    res.json({msg:"ok"})
 })
 app.listen('8080', ()=>{
     console.log("app running on port 8080")
