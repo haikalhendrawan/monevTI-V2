@@ -97,13 +97,6 @@ const AssetTikSection = (props) => {
 
     const handleClick = async () => { // onclick tombol tambah perangkat
         setOpen(true);
-        try{
-          const response = await axiosJWT.get("/getIAsset");
-          console.log(response.data);
-        }catch(err){
-          console.log(err)
-        }
-
     }
 
     const handleAddAsset = async () => {
@@ -174,7 +167,6 @@ const AssetTikSection = (props) => {
   
           <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
             <Tabs value={tabValue} onChange={handleTabChange} aria-label="icon tabs example">
-              {/* <Tab icon={<Iconify icon="solar:database-bold-duotone" />} label="All" /> */}
               <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Komputer" value={0} />
               <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="Laptop" value={1}/>
               <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Printer" value={2}/>

@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {styled, useTheme} from "@mui/material/styles";
-import {Switch, Button, Stack, Fab, Popper, Typography, Paper, Fade, ClickAwayListener} from "@mui/material";
+import {Button, Stack, Popper, Paper, Fade, ClickAwayListener, Divider, Select, MenuItem, Typography, FormControl, InputLabel} from "@mui/material";
 import { DateCalendar  } from '@mui/x-date-pickers/DateCalendar';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -40,13 +40,27 @@ const CurrentDate = () => {
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
             <Paper sx={{boxShadow:"0px 5px 5px -3px rgba(145, 158, 171, 0.2), 0px 8px 10px 1px rgba(145, 158, 171, 0.14), 0px 3px 14px 2px rgba(145, 158, 171, 0.12)"}}>
-            <ClickAwayListener onClickAway={handleClose}>
-            <div>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DateCalendar />
-                </LocalizationProvider>
-            </div>
-            </ClickAwayListener>
+                <ClickAwayListener onClickAway={handleClose}>
+                    <div>
+                        <LocalizationProvider dateAdapter={AdapterDayjs}>
+                            <DateCalendar/>
+                        </LocalizationProvider>
+
+                        <Divider />
+
+                        <Stack direction={'row'} spacing={1} justifyContent={'center'} >
+                            <Typography variant="h6">Ganti Periode</Typography>
+                            <FormControl size="small">
+                                <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>CPU</InputLabel>
+                                <Select>
+                                    <MenuItem>S</MenuItem>
+                                </Select>
+                            </FormControl>
+                        </Stack>
+
+                    </div>
+                </ClickAwayListener>
+
             </Paper>
           </Fade>
         )}

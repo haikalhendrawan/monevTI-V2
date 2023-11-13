@@ -26,6 +26,7 @@ const useAxiosJWT = () => {
             prevRequest.headers.Authorization = `Bearer ${newAccessToken}`;
             return axiosJWT(prevRequest);
         }
+        console.log(error)
         return Promise.reject(error);
     });
 

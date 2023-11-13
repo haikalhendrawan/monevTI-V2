@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import axios from "axios";
 // @mui
 import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton, Popover, Button } from '@mui/material';
+import { Box, Divider, Typography, Stack, MenuItem, Avatar, Select, 
+        IconButton, Popover, Menu, ListItemText, ListItem, List } from '@mui/material';
 import Iconify from '../../../components/iconify';
 // hooks and other stuff
 import {useAuth} from "../../../hooks/useAuth";
@@ -18,15 +19,19 @@ const MENU_OPTIONS = [
     label: 'Settings',
     icon: 'eva:settings-2-fill',
   },
+  {
+    label: 'Smt 1 2023',
+    icon: 'mdi:calendar',
+  },
 ];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
   const [open, setOpen] = useState(null);
-  const {auth, setAuth} = useAuth();
-  const axiosJWT = useAxiosJWT();
-  const [userData, setUserData] = useState(null);
+  const {auth, setAuth } = useAuth();
+  const [anchorEl, setAnchorEl] = useState(null); 
+  const openPeriod = Boolean(anchorEl); 
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -36,29 +41,21 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
+  const handleOpenPeriod = (event) => {
+    setAnchorEl(event.currentTarget);
+    console.log(openPeriod)
+  }
+
   const logout = async () => {
     setAuth(null);
-    try{
-      const response = await axios.delete("/logout", {withCredentials:true});
+    try {
+      const response = await axios.delete("/logout", { withCredentials: true });
       console.log(response);
-    }catch(err){
-      console.log(err)
+    } catch (err) {
+      console.log(err);
     }
-  }    
+  };
 
-  useEffect(() => {
-    const getUser= async() =>{
-      try{
-      const response = await axiosJWT.get("/getUser");
-      console.log(response.data);
-      setUserData(response.data);
-      console.log(auth);
-      } catch(err){
-        console.log(err);
-      }
-    };
-    getUser();
-  }, [])
 
 // -----------------------------------------------------------------------------------------------
   return (
@@ -115,11 +112,21 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleClose}>
-              <Iconify icon={option.icon} sx={{mr:1}}/>
+            <MenuItem key={option.label} onClick={handleOpenPeriod}>
+              <Iconify icon={option.icon} sx={{mr:1}} />
               {option.label}
             </MenuItem>
           ))}
+
+            <Menu anchorEl={anchorEl} open={openPeriod} onClose={()=>{setAnchorEl(null)}}>
+              <MenuItem key={1}>
+                <Typography variant='body2' >Smt 1 2023</Typography>
+              </MenuItem>
+              <MenuItem key={2}>
+                <Typography variant='body2' >Smt 2 2023</Typography>
+              </MenuItem>
+            </Menu>
+            
         </Stack>
 
         <Divider sx={{ borderStyle: 'dashed' }} />
@@ -129,6 +136,7 @@ export default function AccountPopover() {
           Logout
         </MenuItem>
       </Popover>
+
     </>
   );
 }

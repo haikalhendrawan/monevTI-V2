@@ -49,7 +49,7 @@ export default function LoginForm() {
     event.preventDefault();
     try{
       const response = await axios.post("/login", {username:value.username, password:value.password});
-      setAuth(response.data);  //  { username: xxx, role:xxx, accessToken,msg:xxx}
+      setAuth(response.data);  // { username: xxx, role:xxx, accessToken,msg:xxx}
       localStorage.setItem('mode', 'dark');
       navigate("/app");
     }catch(err){
