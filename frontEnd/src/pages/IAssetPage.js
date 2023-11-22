@@ -12,6 +12,7 @@ import Scrollbar from '../components/scrollbar';
 // sections
 import IAssetLanding from "../sections/@dashboard/iasset/IAssetLanding";
 import AssetTikSection from "../sections/@dashboard/iasset/AssetTikSection";
+import UserTikSection from "../sections/@dashboard/iasset/UserTikSection";
 // hooks
 import useMode from "../hooks/display/useMode";
 import { AssetProvider } from '../sections/@dashboard/iasset/useAsset';
@@ -24,11 +25,13 @@ export default function IAssetPage() {
     setOpen(number);
   };
 
-  const component = {
+  const component = 
+  {
     1:<IAssetLanding changeSection={handleClick}/>,
     2:<AssetProvider>
         <AssetTikSection changeSection={handleClick}/>
-      </AssetProvider>
+      </AssetProvider>,
+    3:<UserTikSection changeSection={handleClick}/>  
   }
 
   return(

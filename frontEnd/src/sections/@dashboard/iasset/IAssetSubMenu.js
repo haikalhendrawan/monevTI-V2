@@ -39,7 +39,7 @@ const IAssetSubMenu = (props) => {
                 <Grid item xs={6}>
                     <Box sx={{ overflow:'hidden', p: 1, pt: 2, display:'inline-block', height:'100%', background:'cover'}} >
                         {!loading?
-                        <img src="https://www.minimaldesksetups.com/wp-content/uploads/2020/10/06-u-xramzal.jpg.webp" style={{borderRadius:'12px', height:'245px'}} alt="tes"/>:
+                        <img src={props.image} style={{borderRadius:'12px', height:'245px'}} alt="tes"/>:
                         <Skeleton variant='rounded' sx={{borderRadius:'12px'}} height={245} width={225}/>
                         }
                     </Box>

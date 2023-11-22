@@ -17,7 +17,7 @@ const IAssetLanding = (props) => {
                 <Typography variant="h4" sx={{ mb: 3 }}>
                     Data TIK 
                 </Typography>
-            </ Stack>
+            </Stack>
 
             <Grid container spacing={3}>
                 <Grid item xs={12} sm={6} md={6}>
@@ -28,13 +28,15 @@ const IAssetLanding = (props) => {
                                 changeSection={props.changeSection} 
                                 title={'Asset'} 
                                 subheader={'Data perangkat TIK pada KPPN Padang'}
+                                image={"https://www.minimaldesksetups.com/wp-content/uploads/2020/10/06-u-xramzal.jpg.webp"}
                                 open = {2}  // display {1:generate report, 2:Perangkat TIK, 3:User TIK}
                             />
                             <IAssetSubMenu 
                                 changeSection={props.changeSection} 
                                 title={'User'} 
                                 subheader={'Data pengguna aplikasi pada KPPN Padang'}
-                                open = {2}
+                                image={"https://img.freepik.com/premium-photo/concentrated-young-asian-man-using-computer-sitting-dark-room-home_171337-77076.jpg"}
+                                open = {3}
                             />
 
                         </Stack>
