@@ -2,18 +2,22 @@ import { Helmet } from 'react-helmet-async';
 import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 // @mui
-import { Card, Table, Stack, Paper, Avatar, Button, Popover, TableRow, MenuItem, TableBody, TableCell, Container, 
-    Typography, IconButton, TableContainer, TablePagination, Tabs, Tab, Modal, Box, InputLabel, FormControl, Select, TextField,
-    FormHelperText, InputAdornment  } from '@mui/material';
+import { Card, Table, Stack, Paper, Avatar, Button, MenuItem,  
+    Typography, Modal, Box, InputLabel, FormControl, Select, TextField,
+    FormHelperText, InputAdornment, Snackbar, Alert } from '@mui/material';
 import {useTheme} from "@mui/material/styles";
+// hooks
+import useAxiosJWT from '../../../../hooks/useAxiosJWT';
+import useAsset from '../useAsset';
 // components
 import Label from '../../../../components/label';
 import Iconify from '../../../../components/iconify';
 import Scrollbar from '../../../../components/scrollbar';
 
 
+
 const SELECTCPU = [
-    {jenis:'Intel Core i3', value:0 },
+    {jenis:'Intel Core i3', value:0},
     {jenis:'Intel Core i5', value:1},
     {jenis:'Intel Core i7', value:2}, 
     {jenis:'Lainnya', value:3},
@@ -50,28 +54,75 @@ const style = {
     borderRadius:'12px',
 };
 
+const DEFAULT_VALUE = {
+    id: '', 
+    jenis_perangkat: 0, 
+    hostname:'', 
+    nama_pegawai:'', 
+    model:'', 
+    tahun: '', 
+    kondisi:0, 
+    cpu: 0, 
+    ip:'', 
+    ram:'', 
+    storage:'', 
+    serial_number:'', 
+    catatan:'', 
+    last_update:'',
+  }
+
 //----------------------
 
 const IAssetEditModal = (props) => {
+    const {ASSET, setASSET, getIAsset} = useAsset();
+
     const [isComputerForm, setIsComputerForm] = useState(true);// akan beda render  form input
 
     const theme = useTheme();
 
-    const [value, setValue] = useState({
-        id: '', 
-        jenis_perangkat: 0, 
-        hostname:'', 
-        nama_pegawai:'', 
-        model:'', 
-        tahun: '', 
-        kondisi:0, 
-        cpu: 0, 
-        ip:'', 
-        ram:'', 
-        storage:'', 
-        serial_number:'', 
-        catatan:'', 
-        last_update:'',
+    const [value, setValue] = useState({...DEFAULT_VALUE});
+
+    const [isError, setIsError] = useState({
+        hostname:false,
+        model:false,
+        tahun:false
+      });
+    
+    const checkInput = async () => {
+        let invalid = false;
+
+        if(value.jenis_perangkat<=1){
+            if(value.hostname.length<1){
+            setIsError((prev) => ({...prev, hostname:true}));
+            invalid = true;
+            }else{
+            setIsError((prev) => ({...prev, hostname:false}));
+            }
+        };
+        
+        if(value.tahun.length!==4){
+            setIsError((prev) => ({...prev, tahun:true}));
+            invalid = true;
+        }else{
+            setIsError((prev) => ({...prev, tahun:false}));
+        };
+
+        if(value.model.length<1){
+            setIsError((prev) => ({...prev, model:true}));
+            invalid = true;
+        }else{
+            setIsError((prev) => ({...prev, model:false}));
+        };
+
+        return !invalid
+    }
+
+    const axiosJWT = useAxiosJWT();
+
+    const [snackbar, setSnackbar] = useState({
+        open:false,
+        color:null,
+        text:'No value'
       });
 
     const handleChange = (event) => {
@@ -82,54 +133,105 @@ const IAssetEditModal = (props) => {
         )
     };
 
-    useEffect(() => {
-        if(value.jenis_perangkat===0 || value.jenis_perangkat===1 ){
-        setIsComputerForm(true)} else {
-        setIsComputerForm(false)
-        }
-    },[value.jenis_perangkat])
-
-    useEffect(() => {
-        setValue({
-            id: props.data.id, 
-            jenis_perangkat: props.data.jenis_perangkat, 
-            hostname:props.data.hostname, 
-            nama_pegawai:props.data.nama_pegawai, 
-            model:props.data.model, 
-            tahun: props.data.tahun, 
-            kondisi: props.data.kondisi, 
-            cpu: props.data.cpu?props.data.cpu:0, 
-            ip: props.data.ip, 
-            ram: props.data.ram, 
-            storage:props.data.storage, 
-            serial_number:props.data.serial_number, 
-            catatan: props.data.catatan, 
-            last_update: props.data.last_update,
-        })
-    },[props.data])
-
-    const handleClose = () => {
-        props.modalClose();
-        setValue({
-            id: props.data.id, 
-            jenis_perangkat: props.data.jenis_perangkat, 
-            hostname:props.data.hostname, 
-            nama_pegawai:props.data.nama_pegawai, 
-            model:props.data.model, 
-            tahun: props.data.tahun, 
-            kondisi: props.data.kondisi, 
-            cpu: props.data.cpu?props.data.cpu:0, 
-            ip: props.data.ip, 
-            ram: props.data.ram, 
-            storage:props.data.storage, 
-            serial_number:props.data.serial_number, 
-            catatan: props.data.catatan, 
-            last_update: props.data.last_update,
+    const handleSnackbarClose = () =>{
+        setSnackbar({
+          ...snackbar,
+          open:false
         })
     }
 
-    // ---------------------------------
+    const handleEditAsset = async () => {
+        const isValid = await checkInput();
+
+        if(!isValid){return};
+  
+        try{ 
+          const response = await axiosJWT.post("/editIAsset",{
+            id: props.data.id,
+            jenis_perangkat: value.jenis_perangkat, 
+            hostname: value.hostname, 
+            nama_pegawai: value.nama_pegawai, 
+            model: value.model, 
+            tahun: value.tahun, 
+            kondisi: value.kondisi, 
+            cpu: value.jenis_perangkat<=1 ? value.cpu : 3, 
+            ip: value.ip, 
+            ram: value.ram, 
+            storage: value.storage, 
+            serial_number: value.serial_number, 
+            catatan: value.catatan, 
+            periode: value.periode
+          });
+          console.log(response);
+          getIAsset();
+          setSnackbar({
+            open:true,
+            color:response.data.msg?"success":"error",
+            text:response?.data?.msg?response.data.msg:response.data.errMsg
+          });
+          props.modalClose();
+          setValue({...DEFAULT_VALUE});
+        }catch(err){
+          console.log(err);
+          setSnackbar({
+            open:true,
+            color:"error",
+            text:`Fail to insert Data (${err.response.data.errMsg})`
+          });
+        }
+    }
+
+    useEffect(() => {
+        if(value.jenis_perangkat===0 || value.jenis_perangkat===1 ){
+            setIsComputerForm(true)
+        } else {
+            setIsComputerForm(false)
+        };
+    },[value.jenis_perangkat]);
+
+    useEffect(() => {
+        setValue({
+            id: props.data.id, 
+            jenis_perangkat: props.data.jenis_perangkat, 
+            hostname:props.data.hostname, 
+            nama_pegawai:props.data.nama_pegawai, 
+            model:props.data.model, 
+            tahun: props.data.tahun, 
+            kondisi: props.data.kondisi, 
+            cpu: props.data.cpu?props.data.cpu:0, 
+            ip: props.data.ip, 
+            ram: props.data.ram, 
+            storage:props.data.storage, 
+            serial_number:props.data.serial_number, 
+            catatan: props.data.catatan, 
+            last_update: props.data.last_update,
+        })
+    },[props.data]);
+
+    const handleClose = () => {
+        props.modalClose();
+        setValue({ 
+            id: props.data.id, 
+            jenis_perangkat: props.data.jenis_perangkat, 
+            hostname:props.data.hostname, 
+            nama_pegawai:props.data.nama_pegawai, 
+            model:props.data.model, 
+            tahun: props.data.tahun, 
+            kondisi: props.data.kondisi, 
+            cpu: props.data.cpu?props.data.cpu:0, 
+            ip: props.data.ip, 
+            ram: props.data.ram, 
+            storage:props.data.storage, 
+            serial_number:props.data.serial_number, 
+            catatan: props.data.catatan, 
+            last_update: props.data.last_update
+        });
+        setIsError({hostname:false, model:false, tahun:false});
+    }
+
+    // ----------------------------------------------------------------------------------------
     return(
+        <>
         <Modal open={props.modalOpen} onClose={handleClose}>
             <Box sx={style}>
             <Scrollbar>
@@ -160,7 +262,7 @@ const IAssetEditModal = (props) => {
                     </FormControl>
 
                     <FormControl sx={{display:isComputerForm?null:'none'}}>
-                        <TextField name="hostname" size='small' label="Hostname" required onChange={handleChange} value={value.hostname} sx={{width:'80%'}}/>
+                        <TextField name="hostname" error={isError.hostname} size='small' label="Hostname" required onChange={handleChange} value={value.hostname} sx={{width:'80%'}}/>
                         <FormHelperText>cth: KBN0300G007, Laptop-xxx</FormHelperText>
                     </FormControl>
 
@@ -170,7 +272,7 @@ const IAssetEditModal = (props) => {
                     </FormControl>
 
                     <FormControl>
-                        <TextField name="model" size='small' label="Merk/Model" onChange={handleChange} value={value.model} required sx={{width:'80%'}}/>
+                        <TextField name="model" error={isError.model} size='small' label="Merk/Model" onChange={handleChange} value={value.model} required sx={{width:'80%'}}/>
                         <FormHelperText>cth: acer m400, hp laserjet 1102</FormHelperText>
                     </FormControl>
 
@@ -202,7 +304,7 @@ const IAssetEditModal = (props) => {
                                             
                     <Stack direction='row'>
                         <FormControl>
-                        <TextField name="tahun" size='small' label="Tahun" required onChange={handleChange} value={value.tahun}  sx={{width:'80%'}}/>
+                        <TextField name="tahun" error={isError.tahun} size='small' label="Tahun" required onChange={handleChange} value={value.tahun}  sx={{width:'80%'}}/>
                         </FormControl>
                         <FormControl sx={{display:isComputerForm?null:'none'}}>
                             <TextField name="ip" size='small' label="IP Adress" onChange={handleChange} value={value.ip} sx={{width:'80%'}}/>
@@ -244,7 +346,7 @@ const IAssetEditModal = (props) => {
                     </FormControl>
                     
                     <Stack direction='row' justifyContent="center" spacing={2}>
-                        <Button variant="contained" color="warning" startIcon={<Iconify icon="eva:edit-fill" />} >
+                        <Button variant="contained" color="warning" startIcon={<Iconify icon="eva:edit-fill" />} onClick={handleEditAsset}>
                             Update
                         </Button>
                         <Button 
@@ -264,6 +366,20 @@ const IAssetEditModal = (props) => {
             </Box>
     
         </Modal>
+        
+        {/*  snackbar untuk show notification di kanan atas  */}
+        <Snackbar open={Boolean(snackbar.open)} autoHideDuration={4000} onClose={handleSnackbarClose} anchorOrigin={{vertical:'top', horizontal:'right'}} >
+            <Alert 
+            onClose={handleSnackbarClose} 
+            variant="filled" 
+            severity={snackbar.color?snackbar.color:'info'} 
+            sx={{ width: '100%' }}
+            >
+            {snackbar?.text}
+            </Alert>
+        </Snackbar>
+
+        </>
     )
 }
 

@@ -104,7 +104,7 @@ export default function AccountPopover() {
             {auth?.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-          {auth?.email}
+            {auth?.email}
           </Typography>
         </Box>
 
@@ -114,7 +114,7 @@ export default function AccountPopover() {
           {MENU_OPTIONS.map((option) => (
             <MenuItem key={option.label} onClick={handleOpenPeriod}>
               <Iconify icon={option.icon} sx={{mr:1}} />
-              {option.label}
+              <Typography variant='body2' sx={{ color: 'text.secondary' }} >{option.label}</Typography>
             </MenuItem>
           ))}
 

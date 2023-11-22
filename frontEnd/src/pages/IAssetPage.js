@@ -10,12 +10,11 @@ import Label from '../components/label';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 // sections
-import AssetTikTable from "../sections/@dashboard/iasset/AssetTikTable";
 import IAssetLanding from "../sections/@dashboard/iasset/IAssetLanding";
-import AssetTikTable2 from "../sections/@dashboard/iasset/AssetTikTable2";
 import AssetTikSection from "../sections/@dashboard/iasset/AssetTikSection";
 // hooks
 import useMode from "../hooks/display/useMode";
+import { AssetProvider } from '../sections/@dashboard/iasset/useAsset';
 
 // ----------------------------------------------------------------------
 
@@ -27,7 +26,9 @@ export default function IAssetPage() {
 
   const component = {
     1:<IAssetLanding changeSection={handleClick}/>,
-    2:<AssetTikSection changeSection={handleClick}/>
+    2:<AssetProvider>
+        <AssetTikSection changeSection={handleClick}/>
+      </AssetProvider>
   }
 
   return(

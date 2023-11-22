@@ -27,7 +27,7 @@ import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 // sections
-import { UserListHead, UserListToolbar } from './iAssetTable';
+import { UserListHead, UserListToolbar } from './iUserTable';
 // mock
 import USERLIST from '../../../_mock/user';
 

@@ -9,9 +9,9 @@ import Iconify from "../../../components/iconify";
 const date = new Date();
 const currentDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 const changeIcon =[
-    {type:"plus", icon:"solar:double-alt-arrow-up-bold-duotone", color:'rgb(0, 167, 111)'},
-    {type:"minus", icon:"solar:double-alt-arrow-down-bold-duotone", color:'#FF4842'},
-    {type:"edit", icon:"solar:double-alt-arrow-right-bold-duotone", color:'#FFC107'},
+    {type:"plus", icon:"mingcute:trending-up-fill", color:'rgb(0, 167, 111)'},
+    {type:"minus", icon:"mingcute:trending-down-fill", color:'#FF4842'},
+    {type:"edit", icon:"mingcute:arrow-right-fill", color:'#FFC107'},
 ];
 const assetData =[
     {number:10, text:'Penambahan PC SPAN, Laptop'},
@@ -47,7 +47,7 @@ const GenerateReport = () => {
                                         <Typography variant="body2" color='textSecondary' sx={{ whiteSpace: 'nowrap', overflow: 'hidden',textOverflow: 'ellipsis',maxWidth: '100%', ml:2  }}> {item.text}</Typography>
                                     </Grid>
                                     <Grid item xs={3}>
-                                        <Stack direction='row'>
+                                        <Stack direction='row' spacing={1}>
                                             <Iconify icon={changeIcon[index].icon} color={changeIcon[index].color}/>
                                             <Typography variant="body2">{item.number}</Typography>
                                         </Stack>
@@ -71,7 +71,7 @@ const GenerateReport = () => {
                                         <Typography variant="body2" color='textSecondary' sx={{ whiteSpace: 'nowrap', overflow: 'hidden',textOverflow: 'ellipsis',maxWidth: '100%', ml:2  }}> {item.text}</Typography>
                                     </Grid>
                                     <Grid item xs={3}>
-                                        <Stack direction='row'>
+                                        <Stack direction='row'spacing={1}>
                                             <Iconify icon={changeIcon[index].icon} color={changeIcon[index].color}/>
                                             <Typography variant="body2">{item.number}</Typography>
                                         </Stack>

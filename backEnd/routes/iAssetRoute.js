@@ -7,7 +7,7 @@ const Router = express.Router();
 
 Router.get(("/getIAsset"), authenticate, getIAsset);
 Router.post(("/addIAsset"), authenticate, addIAsset);
-Router.post(("/updateIAsset"), authenticate, editIAsset);
-Router.delete(("/deleteIAsset"), authenticate, deleteIAsset);
+Router.post(("/editIAsset"), authenticate, editIAsset);
+Router.delete(("/deleteIAsset/:rowId/kppn/:kppn"), authenticate, deleteIAsset);
 
 export default Router;

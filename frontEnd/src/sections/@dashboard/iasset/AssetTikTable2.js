@@ -3,32 +3,19 @@ import { sentenceCase } from 'change-case';
 import { useState, useEffect } from 'react';
 // @mui
 import { Card, Table, Stack, Paper, Avatar, Button, Popover, TableRow, MenuItem, TableBody, TableCell, Container, 
-  Typography, IconButton, TableContainer, TablePagination} from '@mui/material';
+  Typography, IconButton, TableContainer, TablePagination, Snackbar, Alert} from '@mui/material';
 import {useTheme} from "@mui/material/styles";
 // hooks
 import useAxiosJWT from '../../../hooks/useAxiosJWT';
+import {useAuth} from "../../../hooks/useAuth";
+import useAsset from './useAsset';
 // components
 import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from '../../../components/scrollbar';
 // sections
-import { IAsset2Head, IAsset2Toolbar } from './iAssetTable2';
-import IAssetEditModal from './iAssetTable2/IAssetEditModal';
-
-
-
-// ------ data from backEnd
-
-// const OTHERASSET = [
-//   {id: 1, jenis_perangkat: 2, model:'HP M401', tahun: '2022', kondisi:1, keterangan:'dipakai kepala kantor', last_update:'1/10/2023',alignRight: false},
-//   {id: 2, jenis_perangkat: 3, model:'HP M202', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false},
-//   {id: 3, jenis_perangkat: 4, model:'HP M203', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false},
-//   {id: 4, jenis_perangkat: 5, model:'HP M204', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false},
-//   {id: 5, jenis_perangkat: 6, model:'HP M205', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false},
-//   {id: 6, jenis_perangkat: 7, model:'HP M206', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false},
-//   {id: 7, jenis_perangkat: 8, model:'HP M207', tahun: '2023', kondisi:2, keterangan:null, last_update:'1/10/2023',alignRight: false}
-// ]
-
+import { IAsset2Head, IAsset2Toolbar } from './iAssetTable';
+import IAssetEditModal from './iAssetTable/IAssetEditModal';
 
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
@@ -173,7 +160,7 @@ function applySortFilter(array, comparator, query, type) {
 // ----------------------------------------------------------------------
 
 export default function AssetTikTable2(props) {
-  const [ASSET, setASSET] = useState([]);
+  const {ASSET, setASSET, getIAsset} = useAsset();
 
   const [open, setOpen] = useState(false); // membuka popover edit dan delete data
 
@@ -183,13 +170,11 @@ export default function AssetTikTable2(props) {
 
   const [order, setOrder] = useState('asc'); // mengurutkan data asc or desc, masuk ke function applySortFilter
 
-  const [orderBy, setOrderBy] = useState('no');
+  const [orderBy, setOrderBy] = useState('id');
 
   const [filterName, setFilterName] = useState(''); // set filter name di search bar, di pass ke IAssetToolbar
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const [selectedRowId, setSelectedRowId] = useState(null);
 
   const [rowToEdit, setRowToEdit] = useState({});
 
@@ -197,14 +182,30 @@ export default function AssetTikTable2(props) {
 
   const [isComputerForm, setIsComputerForm] = useState(true);// akan beda render  form input
 
+  const [snackbar, setSnackbar] = useState({
+    open:false,
+    color:"warning",
+    text:''
+  });
+
+  const handleSnackbarClose = () =>{
+    setSnackbar({
+      ...snackbar,
+      open:false
+    })
+  };
+
+  const {auth, setAuth} = useAuth(); 
+
+  const theme = useTheme();
+
   const axiosJWT = useAxiosJWT();
 
-  const handleOpenMenu = (rowId, event) => {  // buka popover dan pass Id asset  nya untuk ngedit
+  const handleOpenMenu = (rowId, event) => {  // buka popover dan pass Id asset nya untuk ngedit row yang dipilih
     setOpen(event.currentTarget);
-    setSelectedRowId(rowId);
     setRowToEdit(...ASSET?.filter((item) => {
       return item.id===rowId
-    }))
+    }));
   };
 
   const handleCloseMenu = () => { // close popover
@@ -236,27 +237,32 @@ export default function AssetTikTable2(props) {
     setFilterName(event.target.value);
   };
 
-  useEffect(() => {
-    const getIAsset = async () => {
-      try{
-        const response = await axiosJWT.get("/getIAsset");
-        console.log(response.data);
-        setASSET(response.data);
-      }catch(err){
-        console.log(err)
-      }
-    };
+  const handleDelete = async (rowId) => { // Delete row dari tabel, reload data, tutup popover, munculkan snackbar
+    try{
+      const response = await axiosJWT.delete(`/deleteIAsset/${rowId}/kppn/${auth.kppn}`);
+      getIAsset();
+      setOpen(null);
+      console.log(response.data);
+      setSnackbar({open:true, color:response.data.msg?"success":"error", text:response?.data?.msg?response.data.msg:response.data.errMsg});
+    }catch(err){
+      console.log(err);
+      setSnackbar({
+        open:true,
+        color:"error",
+        text:`Fail to delete Data(${err.response.data.errMsg})`
+      });
+    }
+  };
 
-    getIAsset();
-  },[])
-
-  const theme = useTheme();
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ASSET?.length) : 0;
 
-  const filteredUsers = applySortFilter(ASSET && ASSET, getComparator(order, orderBy), filterName, props.currentTab);
+  const filteredAssets = applySortFilter(ASSET && ASSET, getComparator(order, orderBy), filterName, props.currentTab);
 
-  const isNotFound = !filteredUsers.length && !!filterName;
+  const isNotFound = !filteredAssets.length && !!filterName;
+
+  // buat array baru isinya sama kyk filteredAsset cuman yg ini gak akan berubah ketika ada sort atau filter
+  const tempArray = ASSET.filter((item) => item.jenis_perangkat===props.currentTab); 
 
   return (
     <>
@@ -275,18 +281,19 @@ export default function AssetTikTable2(props) {
                   onRequestSort={handleRequestSort}
                 />
                 <TableBody>
-                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
-                    
+                  {filteredAssets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
+                    // buat dapet nomor urut dari masing-masing row
+                    const rowIndex = tempArray.findIndex(item => item.id === row.id) + 1;
 
                     return (
-                      <TableRow hover key={row.id}>
+                      <TableRow hover key={index}>
                         <TableCell>
-                          {row.id}
+                          {rowIndex}
                         </TableCell>
 
                         <TableCell component="th" scope="row" padding="none" align="left">
                           <Stack direction="row" alignItems="center" spacing={2}>
-                            <Avatar alt={row.jenis_perangkat} > <Iconify sx={{color:theme.palette.primary.main}} icon={AVATAR[row.jenis_perangkat]} /> </Avatar>
+                            <Avatar alt={assetRef[row.jenis_perangkat]} > <Iconify sx={{color:theme.palette.primary.main}} icon={AVATAR[row.jenis_perangkat]} /> </Avatar>
                             <Typography variant="subtitle2" noWrap>
                               {assetRef[row.jenis_perangkat]}
                             </Typography>
@@ -307,8 +314,8 @@ export default function AssetTikTable2(props) {
                             row.kondisi===0?"baik":row.kondisi===1?"rusak ringan":row.kondisi===2?"rusak berat":null
                             }</Label>
                         </TableCell>
-
-                        {props.isComputer?(<TableCell align="left">{row.cpu}</TableCell>):null}
+                        
+                        {props.isComputer?(<TableCell align="left">{SELECTCPU[row.cpu].jenis}</TableCell>):null}
 
                         {props.isComputer?(<TableCell align="left">{row.ip}</TableCell>):null}
 
@@ -352,7 +359,7 @@ export default function AssetTikTable2(props) {
                             No results found for &nbsp;
                             <strong>&quot;{filterName}&quot;</strong>.
                             <br /> Try checking for typos or using complete words.
-                          </Typography>
+                          </Typography> 
                         </Paper>
                       </TableCell>
                     </TableRow>
@@ -375,7 +382,7 @@ export default function AssetTikTable2(props) {
 
         {/*  popover di koolom paling akhir table utk pilihan edit dan delete */}
         <Popover
-        open={open}
+        open={Boolean(open)}
         anchorEl={open}
         onClose={handleCloseMenu}
         anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
@@ -397,13 +404,28 @@ export default function AssetTikTable2(props) {
                 Edit
             </MenuItem>
 
-            <MenuItem sx={{color:'error.main'}}>
+            <MenuItem sx={{color:'error.main'}} onClick={() => {handleDelete(rowToEdit?.id)}}>
                 <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
                 Delete
             </MenuItem>
         </Popover>
 
+        {/* Modal untuk meng edit data */}
         <IAssetEditModal modalOpen={modalOpen} modalClose={handleModalClose} data={rowToEdit}/>
+
+
+        {/*  snackbar untuk show notification di kanan atas  */}
+        <Snackbar open={Boolean(snackbar.open)} autoHideDuration={4000} onClose={handleSnackbarClose} anchorOrigin={{vertical:'top', horizontal:'right'}} >
+          <Alert 
+            onClose={handleSnackbarClose} 
+            variant="filled" 
+            severity={snackbar?.color} 
+            sx={{ width: '100%'}}
+          >
+            {snackbar?.text}
+          </Alert>
+        </Snackbar>
+       
 
     </>
   );

@@ -16,6 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `app`
+--
+
+DROP TABLE IF EXISTS `app`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `app` (
+  `app_id` int NOT NULL AUTO_INCREMENT,
+  `app_name` varchar(45) DEFAULT NULL,
+  `app_desc` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`app_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `app`
+--
+
+LOCK TABLES `app` WRITE;
+/*!40000 ALTER TABLE `app` DISABLE KEYS */;
+INSERT INTO `app` VALUES (1,'span',NULL),(2,'sakti',NULL),(3,'gaji',NULL),(4,'lainnya',NULL);
+/*!40000 ALTER TABLE `app` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `iasset`
 --
 
@@ -84,7 +109,7 @@ CREATE TABLE `iassetcpu` (
 
 LOCK TABLES `iassetcpu` WRITE;
 /*!40000 ALTER TABLE `iassetcpu` DISABLE KEYS */;
-INSERT INTO `iassetcpu` VALUES (0,'Intel Core i3'),(1,'Intel Core i5'),(2,'Intel Core i7'),(3,'lainnya');
+INSERT INTO `iassetcpu` VALUES (0,'Intel Core i3'),(1,'Intel Core i5'),(2,'Intel Core i7'),(3,'Lainnya');
 /*!40000 ALTER TABLE `iassetcpu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,12 +144,12 @@ CREATE TABLE `iassetjunction` (
   KEY `fk_cpu_idx` (`cpu`),
   KEY `fk_kppn_idx` (`kppn`),
   KEY `fk_periode_idx` (`periode`),
-  CONSTRAINT `fk_cpu` FOREIGN KEY (`cpu`) REFERENCES `iassetcpu` (`cpu_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_jenisperangkat` FOREIGN KEY (`jenis_perangkat`) REFERENCES `iasset` (`iasset_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_kondisi` FOREIGN KEY (`kondisi`) REFERENCES `iassetcondition` (`condition_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_kppn` FOREIGN KEY (`kppn`) REFERENCES `kppn` (`kppn_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_periode` FOREIGN KEY (`periode`) REFERENCES `periode` (`periode_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `fk_cpu` FOREIGN KEY (`cpu`) REFERENCES `iassetcpu` (`cpu_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_jenisperangkat` FOREIGN KEY (`jenis_perangkat`) REFERENCES `iasset` (`iasset_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_kondisi` FOREIGN KEY (`kondisi`) REFERENCES `iassetcondition` (`condition_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_kppn` FOREIGN KEY (`kppn`) REFERENCES `kppn` (`kppn_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `fk_periode` FOREIGN KEY (`periode`) REFERENCES `periode` (`periode_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +158,7 @@ CREATE TABLE `iassetjunction` (
 
 LOCK TABLES `iassetjunction` WRITE;
 /*!40000 ALTER TABLE `iassetjunction` DISABLE KEYS */;
-INSERT INTO `iassetjunction` VALUES (6,4,'erqwewe','213wqewq','wqw','1323',1,2,'553','224','2323','wqeqwewet43','ewrr43',0,'2023-11-12 07:31:23','2023-11-12 13:27:38',1),(7,1,'wktjky','tytrtrjky','jmtyj','5468',2,3,'44','56','876','rtgkyukyu','nrynrj',4,'2023-11-12 07:31:23',NULL,2),(8,1,'wktjky','tytrtrjky','jmtyj','5468',2,3,'44','56','876','rtgkyukyu','nrynrj',0,'2023-11-12 07:31:23','2023-11-12 13:27:38',2),(9,1,'wktjky','tytrtrjky','jmtyj','5468',2,3,'44','56','876','rtgkyukyu','nrynrj',0,'2023-11-12 07:31:23','2023-11-12 13:27:38',2);
+INSERT INTO `iassetjunction` VALUES (6,4,'erqwewe','213wqewq','wqw','1323',1,1,'553','16','229','wqeqwewet43','ewrr43',0,'2023-11-12 07:31:23','2023-11-15 07:01:39',1),(7,1,'KBN0300G007','Didi','jmtyj','5468',2,2,'44','8','360','UNV0399245BNS','nrynrj',4,'2023-11-12 07:31:23','2023-11-15 07:03:16',2),(35,2,'','','brother','2011',1,3,'','','','','',0,'2023-11-19 11:31:00',NULL,1),(36,3,'','','fujitsu','2011',2,3,'','','','','ojeneqwnlejqwn',0,'2023-11-19 11:34:04',NULL,1),(40,4,'','','UPS2','2019',0,3,'','','','','asa',0,'2023-11-20 15:26:29','2023-11-21 02:25:59',1),(41,1,'LKBN0202','','2019','2017',0,0,'','','','','',0,'2023-11-21 02:28:19',NULL,1),(42,1,'Laptop3','','Acer','2019',0,0,'','','','','',0,'2023-11-21 03:07:34',NULL,1),(43,0,'KBNL03007','','HP','2017',0,0,'','','','','',0,'2023-11-21 03:38:58',NULL,1),(46,1,'K','','K','2011',0,0,'','','','','',0,'2023-11-21 03:51:32',NULL,1),(49,1,'55','','5','2015',0,0,'','','','','',0,'2023-11-21 06:21:07',NULL,1);
 /*!40000 ALTER TABLE `iassetjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,6 +226,41 @@ LOCK TABLES `inventik` WRITE;
 /*!40000 ALTER TABLE `inventik` DISABLE KEYS */;
 INSERT INTO `inventik` VALUES (1,'Haikal','win 11 pro','KBNL0300G001','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244004630601','Acer Travelmate P214',36,'10.20.20.72'),(2,'Asep Darna','win 11 pro','KBNL0300G002','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G245006300601','Acer Travelmate P214',37,'10.20.20.220'),(3,'Pramadhi','win 11 pro','KBNL0300G003','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244001AE0601','Acer Travelmate P214',47,'10.20.20.47'),(4,'Alvin','win 11 pro','KBNL0300G004','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G24400CBE0601','Acer Travelmate P214',39,NULL),(5,'Aqima','win 11 pro','KBNL0300G005','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244008BB0601','Acer Travelmate P214',38,'10.20.20.158'),(6,'Khakim','win 11 pro','KBNL0300G006','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G2440102A0601','Acer Travelmate P214',35,NULL),(7,NULL,'win 11 pro','KBNL0300G007','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G242017DD0601','Acer Travelmate P214',31,NULL),(8,'Inka','win 11 pro','KBNL0300G008','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244001E10601','Acer Travelmate P214',33,NULL),(9,'Rizma','win 11 pro','KBNL0300G009','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G24400E4C0601','Acer Travelmate P214',32,''),(10,'Putut Sad .H','win 11 pro','KBNL0300G010','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244005F10601','Acer Travelmate P214',34,''),(11,'Wahyu','win 11 pro','KBNL0300G011','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G24404FA1O601','Acer Travelmate P214',46,'10.20.20.55'),(12,'Muthia M.','win 11 pro','KBNL0300G012','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G24400ED10601','Acer Travelmate P214',28,'10.20.20.64'),(13,'Lili','win 11 pro','KBNL0300G013','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G24401A410601','Acer Travelmate P214',29,'10.20.20.65'),(14,'Dika','win 11 pro','KBNL0300G014','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244007FA0601','Acer Travelmate P214',30,''),(15,'Rofi','win 11 pro','KBNL0300G015','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244003890601','Acer Travelmate P214',45,'10.20.20.40'),(16,'Widiastuti','win 11 pro','KBNL0300G016','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244001C30601','Acer Travelmate P214',23,'10.20.20.82'),(17,'Nyoman','win 11 pro','KBNL0300G017','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G24400E2C0601','Acer Travelmate P214',27,'10.20.20.88'),(18,'Irwan','win 11 pro','KBNL0300G018','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G24400F420601','Acer Travelmate P214',26,''),(19,'Benny','win 11 pro','KBNL0300G019','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244005D40601','Acer Travelmate P214',24,'10.20.20.79'),(20,'Nova','win 11 pro','KBNL0300G020','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G2440091B0601','Acer Travelmate P214',25,''),(21,'Dhilla','win 11 pro','KBNL0300G021','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244005FC0601','Acer Travelmate P214',49,'10.20.20.43'),(22,'Johan','win 11 pro','KBNL0300G022','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G2440174E0601','Acer Travelmate P214',48,'10.20.20.68'),(23,'Meilisa','win 11 pro','KBNL0300G023','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G2440039D0601','Acer Travelmate P214',41,''),(24,'Agus','win 11 pro','KBNL0300G024','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G2440026E0601','Acer Travelmate P214',42,''),(25,'Vinny','win 11 pro','KBNL0300G025','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244003DD0601','Acer Travelmate P214',40,''),(26,'Resty','win 11 pro','KBNL0300G026','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244009430601','Acer Travelmate P214',44,'10.20.20.42'),(27,'Darno','win 11 pro','KBNL0300G027','2022','Intel Core i5','Intel Core i5','8gb','250gb',0,'UNVU7SD00G244009460601','Acer Travelmate P214',43,'10.20.20.48'),(28,'Zulfitri','win 11 pro','KBNL0300G028','2021','Intel Core i5','Intel Core i5','8gb','500gb',0,'5CG1361G3G','HP 240 68 NOTEBOOK',55,''),(29,'Endang','win 11 pro','KBNL0300G029','2021','Intel Core i5','Intel Core i5','8gb','500gb',0,'5CG1361G39','HP 240 68 NOTEBOOK',54,'10.20.20.113'),(30,'Zulfikar','win 10 pro','KBNL0300G030','2021','Intel Core i5','Intel Core i5','8gb','500 Gb',0,'5CG1361FSM','HP 240 68 NOTEBOOK',53,''),(31,'Muthia F.','win 10 pro','KBNL0300G031','2021','Intel Core i5','Intel Core i5','8gb','500 Gb',0,'5CG1361FFT','HP 240 68 NOTEBOOK',51,'10.20.20.189'),(32,'Tsaqib','win 10 pro','KBNL0300G032','2021','Intel Core i5','Intel Core i5','8gb','500 Gb',0,'5CG1361FFP','HP 240 68 NOTEBOOK',52,'10.20.20.145'),(33,'Jasmiwita','win 11 pro','KBNL0300G033','2021','Intel Core i5','Intel Core i5','8gb','500 Gb',0,'5CG1361DS7','HP 240 68 NOTEBOOK',50,''),(34,'Sherin','win 10 pro','KBNL0300G034','2021','Intel Core i5','Intel Core i5','8gb','500 Gb',0,'5CG136DBP','HP 240 68 NOTEBOOK',61,''),(35,'','win 11 pro','KBNL0300G035','2020','intel i7','intel i7','16GB','1TB',0,'1TL1GW2','Dell Latitude 3400',58,''),(36,'Elizabeth','win 11 pro','KBNL0300G038','2021','intel i7','intel i7','16GB','1TB',0,'6SL1GW2','Dell Latitude 3400',56,'Access Point'),(37,'Andi Permana','win 11 pro','KBNL0300G039','2021','intel i7','intel i7','16GB','1TB',0,'3SL1GW2','Dell Latitude 3400',60,'Access Point'),(38,'Irfan Huzairin','win 11 pro','KBNL0300G040','2022','intel i7','intel i7','16GB','1TB',0,'558T2J3','DELL PRECISION 5560',62,'Access Point'),(39,'','win 10 pro','KBNL0300G042','2016','intel i7','intel i7','8gb','900Gb',0,'H7N0CX01V507270','ASUS X456UQK',0,''),(40,'Rudi','win 11 pro','KBNL0300G044','2022','intel i7','intel i7','16GB','1TB',0,'BC7P2J3','DELL PRECISION 5560',63,'Access Point'),(41,'','win 11 home','Laptop HP PPA 1','2021','intel i7','intel i7','8gb','900Gb',0,'5CG8337G92','HP Laptop 14s-cf0xxx',14,''),(42,'Aldo','win 11 home','Laptop HP PPA 2','2021','intel i7','intel i7','8gb','1TB',0,'5CG83674J1','HP Laptop 14s-cf0xxx',15,'Access Point');
 /*!40000 ALTER TABLE `inventik` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `iuserjunction`
+--
+
+DROP TABLE IF EXISTS `iuserjunction`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `iuserjunction` (
+  `iuserjunction_id` int NOT NULL AUTO_INCREMENT,
+  `iuser_name` varchar(255) DEFAULT NULL,
+  `iuser_username` varchar(255) DEFAULT NULL,
+  `iuser_role` varchar(45) DEFAULT NULL,
+  `iuser_email` varchar(45) DEFAULT NULL,
+  `iuser_permasalahan` varchar(255) DEFAULT NULL,
+  `iuser_pelatihan` tinyint(1) DEFAULT NULL,
+  `iuser_kppn` int DEFAULT NULL,
+  `iuser_app` int DEFAULT NULL,
+  PRIMARY KEY (`iuserjunction_id`),
+  KEY `iuser_kppn_idx` (`iuser_kppn`),
+  KEY `iuser_app_idx` (`iuser_app`),
+  CONSTRAINT `iuser_app` FOREIGN KEY (`iuser_app`) REFERENCES `app` (`app_id`),
+  CONSTRAINT `iuser_kppn` FOREIGN KEY (`iuser_kppn`) REFERENCES `kppn` (`kppn_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `iuserjunction`
+--
+
+LOCK TABLES `iuserjunction` WRITE;
+/*!40000 ALTER TABLE `iuserjunction` DISABLE KEYS */;
+INSERT INTO `iuserjunction` VALUES (1,'Haikal Hendrawan','3174050804990001','Operator Monsakti','abc@gmail.com','tidak ada',1,0,1);
+/*!40000 ALTER TABLE `iuserjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -318,19 +378,19 @@ DROP TABLE IF EXISTS `notifjunction`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notifjunction` (
   `notif_junction_id` int NOT NULL AUTO_INCREMENT,
-  `notif_fk_id` int NOT NULL,
-  `creator_fk_id` int NOT NULL,
+  `notif_fk_id` int DEFAULT NULL,
+  `creator_fk_id` int DEFAULT NULL,
   `receiver_fk_id` int DEFAULT NULL,
   `status` int DEFAULT '0',
-  `assigned_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `assigned_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `completed_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`notif_junction_id`),
   KEY `notif_id_idx` (`notif_fk_id`),
   KEY `creator_fk_id_idx` (`creator_fk_id`),
   KEY `receiver_fk_id_idx` (`receiver_fk_id`),
-  CONSTRAINT `creator_fk_id` FOREIGN KEY (`creator_fk_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `notif_fk_id` FOREIGN KEY (`notif_fk_id`) REFERENCES `notifications` (`notif_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `receiver_fk_id` FOREIGN KEY (`receiver_fk_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `creator_fk_id` FOREIGN KEY (`creator_fk_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `notif_fk_id` FOREIGN KEY (`notif_fk_id`) REFERENCES `notifications` (`notif_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `receiver_fk_id` FOREIGN KEY (`receiver_fk_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -385,11 +445,15 @@ CREATE TABLE `user` (
   `email` varchar(255) DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `kppn` int DEFAULT NULL,
+  `periode` int DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
   KEY `fk_kppn_idx` (`kppn`),
-  CONSTRAINT `kppn` FOREIGN KEY (`kppn`) REFERENCES `kppn` (`kppn_id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_periode_idx` (`periode`),
+  KEY `periode_user_idx` (`periode`),
+  CONSTRAINT `kppn` FOREIGN KEY (`kppn`) REFERENCES `kppn` (`kppn_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `periode_user` FOREIGN KEY (`periode`) REFERENCES `periode` (`periode_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -399,7 +463,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (7,'root','$2b$10$ZTDQTuuOPA6wu338p7n6YOpjrmt/gf36TLsoAVLEUiCFzmRm.3K0S',2,'Admin',1,'root@kemenkeu.go.id','/assets/images/avatars/avatar_12.jpg',0),(9,'root2','$2b$10$RHXc6P3Tb5j2ioF9NMU0OuEoquNwFHaCj5CqUr1NKLcSb9plz6CZ2',1,'Admin2',NULL,NULL,NULL,2),(11,'root3','$2b$10$BjkU81OreSbHJ9WOcHIgkOdloNsW2Zux.cq2Ad8lP3i/zGKLH7sqq',1,'Admin3',NULL,NULL,NULL,2),(12,'root4','$2b$10$.pnm5ade59YJ6Cb2bhDZP.McBEBpTBOsWRdtTMxLpZPg8EHFOLG7m',1,'Admin4',NULL,NULL,NULL,2);
+INSERT INTO `user` VALUES (7,'root','$2b$10$ZTDQTuuOPA6wu338p7n6YOpjrmt/gf36TLsoAVLEUiCFzmRm.3K0S',2,'Admin',1,'root@kemenkeu.go.id','/assets/images/avatars/avatar_12.jpg',0,1),(9,'root2','$2b$10$RHXc6P3Tb5j2ioF9NMU0OuEoquNwFHaCj5CqUr1NKLcSb9plz6CZ2',1,'Admin2',NULL,NULL,NULL,2,2),(11,'root3','$2b$10$BjkU81OreSbHJ9WOcHIgkOdloNsW2Zux.cq2Ad8lP3i/zGKLH7sqq',1,'Admin3',NULL,NULL,NULL,2,1),(12,'root4','$2b$10$.pnm5ade59YJ6Cb2bhDZP.McBEBpTBOsWRdtTMxLpZPg8EHFOLG7m',1,'Admin4',NULL,NULL,NULL,2,2);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -412,4 +476,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-12 22:31:12
+-- Dump completed on 2023-11-22 19:14:43
