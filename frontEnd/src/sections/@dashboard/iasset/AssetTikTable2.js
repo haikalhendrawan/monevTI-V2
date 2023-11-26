@@ -20,7 +20,6 @@ import IAssetEditModal from './iAssetTable/IAssetEditModal';
 // ----------------------------------------------------------------------
 const TABLE_HEAD = [
   { id: 'id', label: 'No', alignRight: false },
-  { id: 'jenis_perangkat', label: 'Jenis Perangkat', alignRight: false },
   { id: 'model', label: 'Merk/Model', alignRight: false },
   { id: 'tahun', label: 'Tahun', alignRight: false },
   { id: 'kondisi', label: 'Kondisi', alignRight: false },
@@ -31,7 +30,6 @@ const TABLE_HEAD = [
 
 const TABLE_HEAD2 = [
   { id: 'id', label: 'No', alignRight: false },
-  { id: 'jenis_perangkat', label: 'Jenis Perangkat', alignRight: false },
   { id: 'hostname', label: 'Hostname', alignRight: false },
   { id: 'nama_pegawai', label: 'Pegawai', alignRight: false },
   { id: 'model', label: 'Merk/Model', alignRight: false },
@@ -125,7 +123,7 @@ function getComparator(order, orderBy) {
 }
 
 function applySortFilter(array, comparator, query, type) {
-  let filteredData = [...array]; // Create a copy of the original array
+  let filteredData = [...array]; // Buat array copy
 
   const stabilizedThis = filteredData.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -164,8 +162,8 @@ export default function AssetTikTable2(props) {
 
   const [open, setOpen] = useState(false); // membuka popover edit dan delete data
 
-  const [modalOpen, setModalOpen] = useState(false); // membuka popover edit dan delete data
-
+  const [modalOpen, setModalOpen] = useState(false); // membuka modal 
+  
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc'); // mengurutkan data asc or desc, masuk ke function applySortFilter
@@ -212,7 +210,7 @@ export default function AssetTikTable2(props) {
     setOpen(null);
   };
 
-  const handleRequestSort = (event, property) => {  // 
+  const handleRequestSort = (event, property) => {  
     const isAsc = orderBy === property && order === 'asc';
     setOrder(isAsc ? 'desc' : 'asc');
     setOrderBy(property);
@@ -239,7 +237,7 @@ export default function AssetTikTable2(props) {
 
   const handleDelete = async (rowId) => { // Delete row dari tabel, reload data, tutup popover, munculkan snackbar
     try{
-      const response = await axiosJWT.delete(`/deleteIAsset/${rowId}/kppn/${auth.kppn}`);
+      const response = await axiosJWT.delete(`/deleteIAsset/${rowId}`);
       getIAsset();
       setOpen(null);
       console.log(response.data);
@@ -283,7 +281,8 @@ export default function AssetTikTable2(props) {
                 <TableBody>
                   {filteredAssets.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
                     // buat dapet nomor urut dari masing-masing row
-                    const rowIndex = tempArray.findIndex(item => item.id === row.id) + 1;
+                    const tempArraySorted = tempArray.sort((a, b) => a.id-b.id)
+                    const rowIndex = tempArraySorted.findIndex(item => item.id === row.id) + 1;
 
                     return (
                       <TableRow hover key={index}>
@@ -291,20 +290,27 @@ export default function AssetTikTable2(props) {
                           {rowIndex}
                         </TableCell>
 
-                        <TableCell component="th" scope="row" padding="none" align="left">
+                        {props.isComputer
+                        ? (<TableCell component="th" scope="row" padding="none" align="left">
                           <Stack direction="row" alignItems="center" spacing={2}>
                             <Avatar alt={assetRef[row.jenis_perangkat]} > <Iconify sx={{color:theme.palette.primary.main}} icon={AVATAR[row.jenis_perangkat]} /> </Avatar>
                             <Typography variant="subtitle2" noWrap>
-                              {assetRef[row.jenis_perangkat]}
+                              {row.hostname}
                             </Typography>
                           </Stack>
-                        </TableCell>
-
-                        {props.isComputer?(<TableCell align="left">{row.hostname}</TableCell>):null}
+                          </TableCell>)
+                        : (<TableCell component="th" scope="row" padding="none" align="left">
+                          <Stack direction="row" alignItems="center" spacing={2}>
+                            <Avatar alt={assetRef[row.jenis_perangkat]} > <Iconify sx={{color:theme.palette.primary.main}} icon={AVATAR[row.jenis_perangkat]} /> </Avatar>
+                            <Typography variant="subtitle2" noWrap>
+                              {row.model}
+                            </Typography>
+                          </Stack>
+                        </TableCell>)}
 
                         {props.isComputer?(<TableCell align="left">{row.nama_pegawai}</TableCell>):null}
 
-                        <TableCell align="left">{row.model}</TableCell>
+                        {props.isComputer?(<TableCell align="left">{row.model}</TableCell>):null}
 
                         <TableCell align="left">{row.tahun}</TableCell>
 
@@ -380,7 +386,7 @@ export default function AssetTikTable2(props) {
           />
         </Card>
 
-        {/*  popover di koolom paling akhir table utk pilihan edit dan delete */}
+        {/*  -------------- -popover di kolom paling akhir table utk pilihan edit dan delete -----------*/}
         <Popover
         open={Boolean(open)}
         anchorEl={open}
@@ -400,21 +406,21 @@ export default function AssetTikTable2(props) {
         }}
         >
             <MenuItem onClick={()=> {setModalOpen(true)}}>
-                <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }}/>
-                Edit
+              <Iconify icon={'eva:edit-fill'} sx={{ mr: 2 }}/>
+              Edit
             </MenuItem>
 
             <MenuItem sx={{color:'error.main'}} onClick={() => {handleDelete(rowToEdit?.id)}}>
-                <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
-                Delete
+              <Iconify icon={'eva:trash-2-outline'} sx={{ mr: 2 }} />
+              Delete
             </MenuItem>
         </Popover>
 
-        {/* Modal untuk meng edit data */}
+        {/* -------------------------------- Modal untuk meng edit data *--------------------------------- */}
         <IAssetEditModal modalOpen={modalOpen} modalClose={handleModalClose} data={rowToEdit}/>
 
 
-        {/*  snackbar untuk show notification di kanan atas  */}
+        {/*  ------------------------snackbar untuk show notification di kanan atas --------------------- */}
         <Snackbar open={Boolean(snackbar.open)} autoHideDuration={4000} onClose={handleSnackbarClose} anchorOrigin={{vertical:'top', horizontal:'right'}} >
           <Alert 
             onClose={handleSnackbarClose} 

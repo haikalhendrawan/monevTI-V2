@@ -48,16 +48,6 @@ const CurrentDate = () => {
 
                         <Divider />
 
-                        <Stack direction={'row'} spacing={1} justifyContent={'center'} >
-                            <Typography variant="h6">Ganti Periode</Typography>
-                            <FormControl size="small">
-                                <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>CPU</InputLabel>
-                                <Select>
-                                    <MenuItem>S</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Stack>
-
                     </div>
                 </ClickAwayListener>
 

@@ -1,9 +1,12 @@
 import {useState, useEffect} from 'react';
+import ReactPDF, { PDFDownloadLink } from '@react-pdf/renderer';
 // @mui
 import {Card, Box, CardHeader,  Stack, Paper, Button, Popover, Grid, Container, Typography, IconButton, Divider} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ThemeContext } from '@emotion/react';
 import Iconify from "../../../components/iconify";
+// PDF File
+import MyDocument from '../../../pages/MyDocument';
 // ----------------------------------------------------------------------
 
 const date = new Date();
@@ -85,9 +88,11 @@ const GenerateReport = () => {
                 <Divider sx={{mt:8, mb:2}}/>
                 
                 <Stack direction="row" sx={{alignItems:'center', justifyContent:'space-around', mt:4}} spacing={1}>
-                    <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2" color='#FF4842'/>}>
-                        Generate
-                    </Button>
+                    <PDFDownloadLink document={<MyDocument />} filename="my_document">
+                        <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2" color='#FF4842'/>}>
+                            Generate
+                        </Button>
+                    </PDFDownloadLink>
                     <Button size="large" variant="outlined"  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="vscode-icons:file-type-excel" color='#FF4842'/>}>
                         Generate
                     </Button>

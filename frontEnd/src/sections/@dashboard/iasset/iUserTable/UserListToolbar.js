@@ -41,26 +41,25 @@ UserListToolbar.propTypes = {
 
 // -------------------------------------------------------------
 const selectItem = [
-  {jenis:'Baik', value:1, color:'success'},
-  {jenis:'Rusak Ringan', value:2, color:'warning'},
-  {jenis:'Rusak Berat', value:3, color:'error'}, 
+  {jenis:'Pernah', value:0, color:'success'},
+  {jenis:'Belum', value:1, color:'error'},
 ]
 
 // -------------------------------------------------------------------
 
-export default function UserListToolbar({ numSelected, filterName, onFilterName}) {
+export default function UserListToolbar({ numSelected, filterName, onFilterName, onFilterPelatihan}) {
   const [open, setOpen] = useState(false); // open dan close filter icon
   const [value, setValue] = useState(''); // value dari searchbar
   const theme = useTheme();
 
   const handleClick = () => {
-    setOpen(prev => !prev)
+    setOpen(prev => !prev);
   }
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    onFilterPelatihan(event.target.value);
   };
-
 
   return (
     <StyledRoot
@@ -91,7 +90,7 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName}
         </Tooltip>
       {open && (
         <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>Kondisi</InputLabel>
+            <InputLabel id="demo-simple-select-label" sx={{typography:'body2'}}>Pelatihan</InputLabel>
             <Select 
               labelId="simple-select-label" 
               id="simple-select" 
@@ -100,7 +99,7 @@ export default function UserListToolbar({ numSelected, filterName, onFilterName}
               label="Kondisi" 
               onChange={handleChange}
               >
-                <MenuItem sx={{typography:'body2'}} value="">All</MenuItem>
+                <MenuItem sx={{typography:'body2'}} value={2}>All</MenuItem>
                 {selectItem.map((item, index) => {
                   return(<MenuItem key={index} sx={{typography:'body2', color:theme.palette[item.color].main}} value={item.value}>{item.jenis}</MenuItem>)
                 })}

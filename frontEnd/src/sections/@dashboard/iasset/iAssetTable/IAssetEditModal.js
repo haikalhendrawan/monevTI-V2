@@ -170,7 +170,6 @@ const IAssetEditModal = (props) => {
             text:response?.data?.msg?response.data.msg:response.data.errMsg
           });
           props.modalClose();
-          setValue({...DEFAULT_VALUE});
         }catch(err){
           console.log(err);
           setSnackbar({

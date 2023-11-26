@@ -4,6 +4,7 @@ import authRoute from "./routes/authRoute.js";
 import userRoute from "./routes/userRoute.js";
 import notifRoute from "./routes/notifRoute.js";
 import iAssetRoute from "./routes/iAssetRoute.js";
+import iUserRoute from "./routes/iUserRoute.js";
 import cookieParser from "cookie-parser";
 
 
@@ -17,6 +18,7 @@ app.use(authRoute);
 app.use(userRoute);
 app.use(notifRoute);
 app.use(iAssetRoute);
+app.use(iUserRoute);
 
 // -------------------------------Db----------------------------------------
 

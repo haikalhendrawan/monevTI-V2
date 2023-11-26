@@ -15,7 +15,8 @@ import AssetTikSection from "../sections/@dashboard/iasset/AssetTikSection";
 import UserTikSection from "../sections/@dashboard/iasset/UserTikSection";
 // hooks
 import useMode from "../hooks/display/useMode";
-import { AssetProvider } from '../sections/@dashboard/iasset/useAsset';
+import { AssetProvider } from "../sections/@dashboard/iasset/useAsset";
+import {IUserProvider} from "../sections/@dashboard/iasset/useIUser";
 
 // ----------------------------------------------------------------------
 
@@ -31,7 +32,9 @@ export default function IAssetPage() {
     2:<AssetProvider>
         <AssetTikSection changeSection={handleClick}/>
       </AssetProvider>,
-    3:<UserTikSection changeSection={handleClick}/>  
+    3:<IUserProvider>
+        <UserTikSection changeSection={handleClick}/>  
+      </IUserProvider>,
   }
 
   return(
