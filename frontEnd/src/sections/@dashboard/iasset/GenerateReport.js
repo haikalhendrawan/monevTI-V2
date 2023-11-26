@@ -7,6 +7,9 @@ import { ThemeContext } from '@emotion/react';
 import Iconify from "../../../components/iconify";
 // PDF File
 import MyDocument from '../../../pages/MyDocument';
+// Context Provider
+import { AssetProvider } from './useAsset';
+import { IUserProvider } from './useIUser';
 // ----------------------------------------------------------------------
 
 const date = new Date();
@@ -88,7 +91,9 @@ const GenerateReport = () => {
                 <Divider sx={{mt:8, mb:2}}/>
                 
                 <Stack direction="row" sx={{alignItems:'center', justifyContent:'space-around', mt:4}} spacing={1}>
-                    <PDFDownloadLink document={<MyDocument />} filename="my_document">
+                    <PDFDownloadLink 
+                        document={<MyDocument />} 
+                        filename="my_document">
                         <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2" color='#FF4842'/>}>
                             Generate
                         </Button>
