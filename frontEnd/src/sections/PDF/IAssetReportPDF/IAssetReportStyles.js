@@ -10,9 +10,11 @@ const styles = StyleSheet.create({
       display: "table", 
       width: "auto", 
       borderStyle: "solid", 
-      borderWidth: 1, 
+      borderTopWidth: 0, 
       borderRightWidth: 0, 
-      borderBottomWidth: 0 
+      borderBottomWidth: 0,
+      borderLeftWidth:1,
+      marginBottom:30
     }, 
     tableRow: { 
       margin: 0, 
@@ -23,21 +25,22 @@ const styles = StyleSheet.create({
       borderStyle: "solid", 
       borderWidth: 1, 
       borderLeftWidth: 0, 
-      borderTopWidth: 0 
+      borderTopWidth: 0 ,
     }, 
     tableHead: { 
       width: "25%", 
       borderStyle: "solid", 
-      borderWidth: 1, 
-      borderLeftWidth: 0, 
-      borderTopWidth: 0 ,
+      borderWidth:1,
+      borderLeftWidth:0,
       backgroundColor: '#f0f0f0',
-      height:20
+      height:30,
+      textAlign:'center',
+      justifyContent:'center'
     }, 
     tableHeadCell: { 
       fontWeight: 700,
       fontFamily: 'Helvetica-Bold',
-      fontSize:12,
+      fontSize:10,
       alignSelf:'center',
       justifyContent:'center',
       alignItems:'center'
@@ -61,10 +64,11 @@ const styles = StyleSheet.create({
       marginTop:40,
       bottom:0,
       position:'absolute',
-      justifyContent:'center',
+      justifyContent:'flex-end',
       alignItems:'center',
       alignContent:'center',
-      fontSize:8
+      fontSize:8,
+      flexDirection:'row'
     },
     title:{
       height:40,
@@ -75,11 +79,20 @@ const styles = StyleSheet.create({
       alignContent:'center',
       fontSize:14,
       fontWeight:'bold',
+      flexDirection:'column'
     },
     logo:{
       height:70,
       width:70
-    }
+    },
+    tte:{
+      width:'auto',
+      flexDirection:'column',
+      justifyContent:'flex-end',
+      alignItems:'flex-end',
+      alignContent:'flex-end',
+      marginTop:100
+    },
   });
 
 export default styles;

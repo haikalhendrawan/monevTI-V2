@@ -331,7 +331,7 @@ export default function AssetTikTable2(props) {
 
                         <TableCell align="left">{row.serial_number}</TableCell>
 
-                        <TableCell align="left">{row.keterangan}</TableCell>
+                        <TableCell align="left">{row.catatan}</TableCell>
 
                         <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={(event) => {handleOpenMenu(row.id, event)}}>

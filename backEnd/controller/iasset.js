@@ -46,13 +46,13 @@ const editIAsset = async (req, res) => {
     const periode = 1;  
     const kppn = req.payload.kppn; //payload jwt yang udh di decode di middleware authenticate
     const {id, jenis_perangkat, hostname, nama_pegawai, model, tahun, kondisi, cpu, ip, ram, storage, serial_number, catatan} = req.body; 
-    const {perangkatFilter, modelFilter, cpuFilter} = sanitizeInput(jenis_perangkat, model, cpu);
+    const {perangkatFilter, cpuFilter} = sanitizeInput(jenis_perangkat, cpu);
 
     const q =  `UPDATE iassetjunction 
                 SET jenis_perangkat=?, hostname=?, nama_pegawai=?, model=?, tahun=?, kondisi=?, cpu=?, ip=?, ram=?, storage=?, serial_number=?, catatan=?, periode=?
                 WHERE id=? AND kppn=?`;
     try{
-        await pool.execute(q, [perangkatFilter, hostname, nama_pegawai, modelFilter, tahun, kondisi, cpuFilter, ip, ram, storage, serial_number, catatan, periode, id, kppn]);
+        await pool.execute(q, [perangkatFilter, hostname, nama_pegawai, model, tahun, kondisi, cpuFilter, ip, ram, storage, serial_number, catatan, periode, id, kppn]);
         return res.status(200).json({msg:"data inserted successfully"});
     }catch(err){
         if(!kppn){
