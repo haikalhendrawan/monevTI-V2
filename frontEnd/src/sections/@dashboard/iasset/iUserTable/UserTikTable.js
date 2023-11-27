@@ -103,7 +103,7 @@ function applySortFilter(array, comparator, query, type, pelatihan) {
 
 // ----------------------------------------------------------------------
 
-export default function AssetTikTable(props) {
+export default function UserTikTable(props) {
   const {IUSER, setIUSER, getIUser} = useIUser(); // hook untuk dapetkan data User menggunakan Context Provider.
 
   const {auth, setAuth} = useAuth(); 

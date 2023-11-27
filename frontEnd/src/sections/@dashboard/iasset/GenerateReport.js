@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles';
 import { ThemeContext } from '@emotion/react';
 import Iconify from "../../../components/iconify";
 // PDF File
-import MyDocument from '../../../pages/MyDocument';
+import MyDocument from '../../../pages/GeneratePDFPage';
 // Context Provider
 import { AssetProvider } from './useAsset';
 import { IUserProvider } from './useIUser';

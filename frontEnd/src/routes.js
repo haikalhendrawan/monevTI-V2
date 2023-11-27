@@ -1,4 +1,6 @@
 import { Navigate, useRoutes, createBrowserRouter, Routes, Route } from 'react-router-dom';
+import { PDFViewer } from '@react-pdf/renderer';
+
 // layouts
 import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
@@ -17,12 +19,14 @@ import WorksheetPage from './pages/WorksheetPage';
 import MonitoringPage from './pages/MonitoringPage';
 import LogBookPage from './pages/LogBookPage';
 import TopologyPage from './pages/TopologyPage';
+import GeneratePDFPage from './pages/GeneratePDFPage';
 // ----------------------------------------------------------------------
 
 export default function Router() {
   return (
   <Routes>
     <Route path="/login" element={ <LoginPage />} />
+    <Route path="/pdf" element={<PDFViewer width={'100%'} height={'100%'}><GeneratePDFPage /></PDFViewer>} />
 
     <Route element={<PersistLogin />}> 
       <Route element={<RequireAuthLayout allowedRoles={[1,2]}/>}> { /* we want to protect this route */}

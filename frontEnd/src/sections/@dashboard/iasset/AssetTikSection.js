@@ -15,7 +15,7 @@ import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from "../../../components/scrollbar";
 // sub section
-import AssetTikTable2 from './AssetTikTable2';
+import UserTikTable2 from './AssetTikTable2';
 
 // ---------------------------------------------------------------
 const style = {
@@ -255,7 +255,7 @@ const AssetTikSection = (props) => {
           </Stack>
 
           {/* assetTik Table here */}
-          <AssetTikTable2 isComputer={isComputer} currentTab={tabValue}/>
+          <UserTikTable2 isComputer={isComputer} currentTab={tabValue}/>
         
           </Container>
 
