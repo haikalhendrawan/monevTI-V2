@@ -36,7 +36,7 @@ CREATE TABLE `app` (
 
 LOCK TABLES `app` WRITE;
 /*!40000 ALTER TABLE `app` DISABLE KEYS */;
-INSERT INTO `app` VALUES (1,'span',NULL),(2,'sakti',NULL),(3,'gaji',NULL),(4,'lainnya',NULL);
+INSERT INTO `app` VALUES (0,'span',NULL),(1,'sakti',NULL),(2,'gaji',NULL),(3,'lainnya',NULL);
 /*!40000 ALTER TABLE `app` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,7 +149,7 @@ CREATE TABLE `iassetjunction` (
   CONSTRAINT `fk_kondisi` FOREIGN KEY (`kondisi`) REFERENCES `iassetcondition` (`condition_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_kppn` FOREIGN KEY (`kppn`) REFERENCES `kppn` (`kppn_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_periode` FOREIGN KEY (`periode`) REFERENCES `periode` (`periode_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +158,7 @@ CREATE TABLE `iassetjunction` (
 
 LOCK TABLES `iassetjunction` WRITE;
 /*!40000 ALTER TABLE `iassetjunction` DISABLE KEYS */;
-INSERT INTO `iassetjunction` VALUES (6,4,'erqwewe','213wqewq','wqw','1323',1,1,'553','16','229','wqeqwewet43','ewrr43',0,'2023-11-12 07:31:23','2023-11-15 07:01:39',1),(7,1,'KBN0300G007','Didi','jmtyj','5468',2,2,'44','8','360','UNV0399245BNS','nrynrj',4,'2023-11-12 07:31:23','2023-11-15 07:03:16',2),(35,2,'','','brother','2011',1,3,'','','','','',0,'2023-11-19 11:31:00',NULL,1),(36,3,'','','fujitsu','2011',2,3,'','','','','ojeneqwnlejqwn',0,'2023-11-19 11:34:04',NULL,1),(40,4,'','','UPS2','2019',0,3,'','','','','asa',0,'2023-11-20 15:26:29','2023-11-21 02:25:59',1),(41,1,'LKBN0202','','2019','2017',0,0,'','','','','',0,'2023-11-21 02:28:19',NULL,1),(42,1,'Laptop3','','Acer','2019',0,0,'','','','','',0,'2023-11-21 03:07:34',NULL,1),(43,0,'KBNL03007','','HP','2017',0,0,'','','','','',0,'2023-11-21 03:38:58',NULL,1),(46,1,'K','','K','2011',0,0,'','','','','',0,'2023-11-21 03:51:32',NULL,1),(49,1,'55','','5','2015',0,0,'','','','','',0,'2023-11-21 06:21:07',NULL,1);
+INSERT INTO `iassetjunction` VALUES (6,4,'erqwewe','213wqewq','wqw','1323',1,1,'553','16','229','wqeqwewet43','ewrr43',0,'2023-11-12 07:31:23','2023-11-15 07:01:39',1),(7,1,'KBN0300G007','Didi','jmtyj','5468',2,2,'44','8','360','UNV0399245BNS','nrynrj',4,'2023-11-12 07:31:23','2023-11-15 07:03:16',2),(35,2,'','','brother','2011',1,3,'','','','','',0,'2023-11-19 11:31:00',NULL,1),(36,3,'','','fujitsu','2011',2,3,'','','','','ojeneqwnlejqwn',0,'2023-11-19 11:34:04',NULL,1),(40,4,'','','UPS2','2019',0,3,'','','','','asa',0,'2023-11-20 15:26:29','2023-11-21 02:25:59',1),(41,1,'LKBN0202','','2019','2017',0,0,'','','','','',0,'2023-11-21 02:28:19',NULL,1),(43,0,'KBNL030076','sasad','HP','2017',0,3,'ewqwe','','qewqwe','saddas','ln wqem wqem ew wqkemwqkomwekm wqelkwqmlkwqem wqelkmwqelkew',0,'2023-11-21 03:38:58','2023-11-27 14:38:17',1),(50,0,'abc','qwewqe','wqewqeewq','1213',0,3,'','','','','',0,'2023-11-28 15:06:56',NULL,1);
 /*!40000 ALTER TABLE `iassetjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -236,21 +236,24 @@ DROP TABLE IF EXISTS `iuserjunction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `iuserjunction` (
-  `iuserjunction_id` int NOT NULL AUTO_INCREMENT,
-  `iuser_name` varchar(255) DEFAULT NULL,
-  `iuser_username` varchar(255) DEFAULT NULL,
-  `iuser_role` varchar(45) DEFAULT NULL,
-  `iuser_email` varchar(45) DEFAULT NULL,
-  `iuser_permasalahan` varchar(255) DEFAULT NULL,
-  `iuser_pelatihan` tinyint(1) DEFAULT NULL,
-  `iuser_kppn` int DEFAULT NULL,
-  `iuser_app` int DEFAULT NULL,
-  PRIMARY KEY (`iuserjunction_id`),
-  KEY `iuser_kppn_idx` (`iuser_kppn`),
-  KEY `iuser_app_idx` (`iuser_app`),
-  CONSTRAINT `iuser_app` FOREIGN KEY (`iuser_app`) REFERENCES `app` (`app_id`),
-  CONSTRAINT `iuser_kppn` FOREIGN KEY (`iuser_kppn`) REFERENCES `kppn` (`kppn_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `id` int NOT NULL AUTO_INCREMENT,
+  `app` int DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `username` varchar(255) DEFAULT NULL,
+  `role` varchar(45) DEFAULT NULL,
+  `email` varchar(45) DEFAULT NULL,
+  `pelatihan` tinyint(1) DEFAULT NULL,
+  `catatan` varchar(255) DEFAULT NULL,
+  `kppn` int DEFAULT NULL,
+  `periode` int DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `iuser_kppn_idx` (`kppn`),
+  KEY `iuser_app_idx` (`app`),
+  CONSTRAINT `iuser_app` FOREIGN KEY (`app`) REFERENCES `app` (`app_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  CONSTRAINT `iuser_kppn` FOREIGN KEY (`kppn`) REFERENCES `kppn` (`kppn_id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +262,7 @@ CREATE TABLE `iuserjunction` (
 
 LOCK TABLES `iuserjunction` WRITE;
 /*!40000 ALTER TABLE `iuserjunction` DISABLE KEYS */;
-INSERT INTO `iuserjunction` VALUES (1,'Haikal Hendrawan','3174050804990001','Operator Monsakti','abc@gmail.com','tidak ada',1,0,1);
+INSERT INTO `iuserjunction` VALUES (1,0,'Haikal Hendrawan','3174050804990001','Operator Monsakti','abc@gmail.com',0,'tidak ada sadsadsa wqewqeqwewqe sadsadasd eqwewqewqe asdasdasd wqewqew',0,1,'2023-11-26 01:21:05','2023-11-27 14:33:51'),(9,1,'Andi Permana','qwepkwoqkwq','q','',0,'',0,1,'2023-11-26 04:48:13','2023-11-26 05:02:33'),(10,2,'qw','hmghghmhmgm , ','rertetre','',0,'',0,1,'2023-11-26 05:04:32','2023-11-26 05:04:44');
 /*!40000 ALTER TABLE `iuserjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -476,4 +479,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-22 19:14:43
+-- Dump completed on 2023-11-28 23:41:34

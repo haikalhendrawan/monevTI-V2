@@ -44,28 +44,60 @@ const SELECTCPU = [
   {jenis:'Lainnya', value:3},
   ];
 
-const SELECTITEM = [
+const SELECTKONDISI = [
   {jenis:'Baik', value:0, color:'success'},
   {jenis:'Rusak Ringan', value:1, color:'warning'},
   {jenis:'Rusak Berat', value:2, color:'error'}, 
   ];
 
+const SELECTAPP = [
+  {jenis:'SPAN', value:0, icon:"solar:monitor-smartphone-bold-duotone" },
+  {jenis:'SAKTI', value:1, icon:"solar:laptop-bold-duotone"},
+  {jenis:'Gaji', value:2, icon:"solar:printer-bold-duotone"}, 
+  {jenis:'Lainnya', value:3, icon:"solar:electric-refueling-bold-duotone"},
+  ];
+
+const colorKondisi = {
+  0:'#54D62C',
+  1:'#FFC107',
+  2:'#FF4842'
+}
+
+// -------------------------------------------------------------
+
 
 export default function IAssetReportPDF() {
   const [ASSET,setASSET] = useState(null);
+  const sortedByType = ASSET?.sort((a,b) => a.jenis_perangkat-b.jenis_perangkat);
+  const sortedByTypeAndID = sortedByType?.sort((a,b) => a.id-b.id);
+  const KOMPUTERASSET = sortedByTypeAndID?.filter((row) => {return row.jenis_perangkat===0});
+  const LAPTOPASSET = sortedByTypeAndID?.filter((row) => {return row.jenis_perangkat===1});
+  const LAINNYAASSET = sortedByTypeAndID?.filter((row) => {return row.jenis_perangkat>1});
+  const countAsset = ASSET?.length;
+  const countAssetBaik = ASSET?.filter((row)=>{return row.kondisi===0}).length;
+  const countAssetRR = ASSET?.filter((row)=>{return row.kondisi===1}).length;
+  const countAssetRB = ASSET?.filter((row)=>{return row.kondisi===2}).length;
+
 
   const [USER, setUSER] = useState(null);
+  const sortedByAPP = USER?.sort((a,b) => a.app-b.app);
+  const sortedByAPPAndID = sortedByAPP?.sort((a,b) => a.id-b.id);
+  const SPANUSER = sortedByAPPAndID?.filter((row) => {return row.app===0});
+  const SAKTIUSER = sortedByAPPAndID?.filter((row) => {return row.app===1});
+  const LAINNYAUSER = sortedByAPPAndID?.filter((row) => {return row.app===2});
+  const countUser = USER?.length;
+  const withCatatan = USER?.filter((row) => {return row.catatan!==null}).length;
 
-  const [KPPN, setKPPN] = useState();
+  const [KPPN, setKPPN] = useState(0);
 
   const currentDate = new Date();
   const date = currentDate.getDate();
-  const month = currentDate.getMonth();
+  const month = currentDate.getMonth()+1;
   const year = currentDate.getFullYear();
   const hour = currentDate.getHours();
   const minute = currentDate.getMinutes();
   let second = currentDate.getSeconds();
-  second = (second).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})
+  second = (second).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 
 
   const refresh = async() => {
@@ -85,7 +117,7 @@ export default function IAssetReportPDF() {
       setASSET(response.data);
       setUSER(response2.data);
       setKPPN(kppn);
-      console.log(response.data);
+      console.log(response.data.sort((a,b) => a.jenis_perangkat - b.jenis_perangkat));
       console.log(response2.data);
     }catch(err){
       console.log(err);
@@ -112,7 +144,7 @@ export default function IAssetReportPDF() {
 
     <View style={styles.title} wrap={false}>
       <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Data Aset TIK </Text>
-      <Text style={{fontSize:8}}> 103 Perangkat, 23 Baik, 12 Rusak Ringan, 15 Rusak Berat</Text>
+      <Text style={{fontSize:8}}> {`${countAsset}`} Perangkat, {`${countAssetBaik}`} Baik, {`${countAssetRR}`} Rusak Ringan, {`${countAssetRB}`} Rusak Berat</Text>
     </View>
     
     {/*  -------- 1. tabel Komputer-------- */}
@@ -122,9 +154,6 @@ export default function IAssetReportPDF() {
           <View style={{...styles.tableHead, width:'8%'}}> 
             <Text style={styles.tableHeadCell}>No</Text> 
           </View> 
-          <View style={styles.tableHead} wrap> 
-            <Text style={styles.tableHeadCell} wrap>Jenis Perangkat</Text> 
-          </View>
           <View style={styles.tableHead}> 
             <Text style={styles.tableHeadCell}>Hostname</Text> 
           </View>
@@ -134,6 +163,9 @@ export default function IAssetReportPDF() {
           <View style={{...styles.tableHead, width:'15%'}}> 
             <Text style={styles.tableHeadCell}>Tahun</Text> 
           </View>
+          <View style={styles.tableHead}> 
+            <Text style={styles.tableHeadCell}>Kondisi</Text> 
+          </View> 
           <View style={styles.tableHead}> 
             <Text style={styles.tableHeadCell}>Serial Number</Text> 
           </View>
@@ -146,19 +178,16 @@ export default function IAssetReportPDF() {
           <View style={{...styles.tableHead, width:'15%'}}> 
             <Text style={styles.tableHeadCell}>Storage</Text> 
           </View>
-          <View style={{...styles.tableHead, width:'25%'}}> 
+          <View style={{...styles.tableHead, width:'30%'}}> 
             <Text style={styles.tableHeadCell}>Catatan</Text> 
           </View> 
         </View>
-        {ASSET && ASSET.map((row, index)=> {
+        {KOMPUTERASSET && KOMPUTERASSET.map((row, index)=> {
           return (
             <>
             <View style={styles.tableRow} key={index}> 
               <View style={{...styles.tableCol, width:'8%'}}> 
-                <Text style={styles.tableCell}>{row.id}</Text> 
-              </View> 
-              <View style={styles.tableCol}> 
-                <Text style={styles.tableCell}>{row.jenis_perangkat}</Text> 
+                <Text style={styles.tableCell}>{index+1}</Text> 
               </View> 
               <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>{row.hostname}</Text> 
@@ -168,12 +197,15 @@ export default function IAssetReportPDF() {
               </View>
               <View style={{...styles.tableCol, width:'15%'}}> 
                 <Text style={styles.tableCell}>{row.tahun}</Text> 
+              </View>
+              <View style={styles.tableCol}> 
+                <Text style={{...styles.tableCell, color:colorKondisi[row.kondisi]}}>{SELECTKONDISI[row.kondisi].jenis}</Text> 
               </View> 
               <View style={styles.tableCol}> 
                 <Text style={styles.tableCell}>{row.serial_number}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'20%'}}> 
-                <Text style={styles.tableCell}>{row.cpu}</Text> 
+                <Text style={styles.tableCell}>{SELECTCPU[row.cpu].jenis}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'15%'}}> 
                 <Text style={styles.tableCell}>{row.ram}</Text> 
@@ -181,7 +213,7 @@ export default function IAssetReportPDF() {
               <View style={{...styles.tableCol, width:'15%'}}> 
                 <Text style={styles.tableCell}>{row.storage}</Text> 
               </View>
-              <View style={{...styles.tableCol, width:'25%'}}> 
+              <View style={{...styles.tableCol, width:'30%'}}> 
                 <Text style={styles.tableCell}>{row.catatan}</Text> 
               </View>  
             </View>           
@@ -197,9 +229,6 @@ export default function IAssetReportPDF() {
           <View style={{...styles.tableHead, width:'8%'}}> 
             <Text style={styles.tableHeadCell}>No</Text> 
           </View> 
-          <View style={styles.tableHead} wrap> 
-            <Text style={styles.tableHeadCell} wrap>Jenis Perangkat</Text> 
-          </View>
           <View style={styles.tableHead}> 
             <Text style={styles.tableHeadCell}>Hostname</Text> 
           </View>
@@ -208,6 +237,9 @@ export default function IAssetReportPDF() {
           </View> 
           <View style={{...styles.tableHead, width:'15%'}}> 
             <Text style={styles.tableHeadCell}>Tahun</Text> 
+          </View>
+          <View style={styles.tableHead}> 
+            <Text style={styles.tableHeadCell}>Kondisi</Text> 
           </View>
           <View style={styles.tableHead}> 
             <Text style={styles.tableHeadCell}>Serial Number</Text> 
@@ -221,19 +253,16 @@ export default function IAssetReportPDF() {
           <View style={{...styles.tableHead, width:'15%'}}> 
             <Text style={styles.tableHeadCell}>Storage</Text> 
           </View>
-          <View style={{...styles.tableHead, width:'25%'}}> 
+          <View style={{...styles.tableHead, width:'30%'}}> 
             <Text style={styles.tableHeadCell}>Catatan</Text> 
           </View> 
         </View>
-        {ASSET && ASSET.map((row, index)=> {
+        {LAPTOPASSET && LAPTOPASSET.map((row, index)=> {
           return (
             <>
             <View style={styles.tableRow} key={index}> 
               <View style={{...styles.tableCol, width:'8%'}}> 
-                <Text style={styles.tableCell}>{row.id}</Text> 
-              </View> 
-              <View style={styles.tableCol}> 
-                <Text style={styles.tableCell}>{row.jenis_perangkat}</Text> 
+                <Text style={styles.tableCell}>{index+1}</Text> 
               </View> 
               <View style={styles.tableCol}>
                 <Text style={styles.tableCell}>{row.hostname}</Text> 
@@ -243,12 +272,15 @@ export default function IAssetReportPDF() {
               </View>
               <View style={{...styles.tableCol, width:'15%'}}> 
                 <Text style={styles.tableCell}>{row.tahun}</Text> 
+              </View>
+              <View style={styles.tableCol}> 
+                <Text style={{...styles.tableCell, color:colorKondisi[row.kondisi]}}>{SELECTKONDISI[row.kondisi].jenis}</Text> 
               </View> 
               <View style={styles.tableCol}> 
                 <Text style={styles.tableCell}>{row.serial_number}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'20%'}}> 
-                <Text style={styles.tableCell}>{row.cpu}</Text> 
+                <Text style={styles.tableCell}>{SELECTCPU[row.cpu].jenis}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'15%'}}> 
                 <Text style={styles.tableCell}>{row.ram}</Text> 
@@ -256,7 +288,7 @@ export default function IAssetReportPDF() {
               <View style={{...styles.tableCol, width:'15%'}}> 
                 <Text style={styles.tableCell}>{row.storage}</Text> 
               </View>
-              <View style={{...styles.tableCol, width:'25%'}}> 
+              <View style={{...styles.tableCol, width:'30%'}}> 
                 <Text style={styles.tableCell}>{row.catatan}</Text> 
               </View>  
             </View>           
@@ -269,16 +301,16 @@ export default function IAssetReportPDF() {
     <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 12, marginBottom:3}}> 3. Lainnya </Text> 
     <View style={{...styles.table}} > 
     <View style={styles.tableRow} fixed> 
-      <View style={{...styles.tableHead, width:'8%'}}> 
+      <View style={{...styles.tableHead, width:'6%'}}> 
         <Text style={styles.tableHeadCell}>No</Text> 
       </View> 
-      <View style={styles.tableHead} wrap> 
+      <View style={{...styles.tableHead, width:'20%'}} wrap> 
         <Text style={styles.tableHeadCell} wrap>Jenis Perangkat</Text> 
       </View>
-      <View style={styles.tableHead}> 
+      <View style={{...styles.tableHead, width:'20%'}}> 
         <Text style={styles.tableHeadCell}>Merk/Model</Text> 
       </View> 
-      <View style={{...styles.tableHead, width:'15%'}}> 
+      <View style={{...styles.tableHead, width:'10%'}}> 
         <Text style={styles.tableHeadCell}>Tahun</Text> 
       </View>
       <View style={styles.tableHead}> 
@@ -291,24 +323,24 @@ export default function IAssetReportPDF() {
         <Text style={styles.tableHeadCell}>Catatan</Text> 
       </View> 
     </View>
-    {ASSET && ASSET.map((row, index)=> {
+    {LAINNYAASSET && LAINNYAASSET.map((row, index)=> {
       return (
         <>
         <View style={styles.tableRow} key={index}> 
-          <View style={{...styles.tableCol, width:'8%'}}> 
-            <Text style={styles.tableCell}>{row.id}</Text> 
+          <View style={{...styles.tableCol, width:'6%'}}> 
+            <Text style={styles.tableCell}>{index+1}</Text> 
           </View> 
-          <View style={styles.tableCol}> 
-            <Text style={styles.tableCell}>{row.jenis_perangkat}</Text> 
+          <View style={{...styles.tableCol, width:'20%'}}> 
+            <Text style={styles.tableCell}>{assetRef[row.jenis_perangkat]}</Text> 
           </View> 
-          <View style={styles.tableCol}> 
+          <View style={{...styles.tableCol, width:'20%'}}> 
             <Text style={styles.tableCell}>{row.model}</Text> 
           </View>
-          <View style={{...styles.tableCol, width:'15%'}}> 
+          <View style={{...styles.tableCol, width:'10%'}}> 
             <Text style={styles.tableCell}>{row.tahun}</Text> 
           </View>
           <View style={styles.tableCol}> 
-            <Text style={styles.tableCell}>{row.kondisi}</Text> 
+            <Text style={{...styles.tableCell, color:colorKondisi[row.kondisi]}}>{SELECTKONDISI[row.kondisi].jenis}</Text> 
           </View>
           <View style={styles.tableCol}> 
             <Text style={styles.tableCell}>{row.serial_number}</Text> 
@@ -352,7 +384,7 @@ export default function IAssetReportPDF() {
       {/*  -------- Title ---------- */}
       <View style={styles.title} wrap={false}>
         <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Data Pengguna Aplikasi </Text>
-        <Text style={{fontSize:8}}> 34 Unique user, 0 catatan</Text> 
+        <Text style={{fontSize:8}}> {countUser} Unique user, {withCatatan} catatan</Text> 
       </View>
 
       {/*  -------- 1. tabel User SPAN ---------- */}
@@ -374,19 +406,16 @@ export default function IAssetReportPDF() {
             <View style={styles.tableHead}> 
               <Text style={styles.tableHeadCell}>Email</Text> 
             </View>
-            <View style={{...styles.tableHead, width:'15%'}}> 
-              <Text style={styles.tableHeadCell}>Pelatihan</Text> 
-            </View>
             <View style={{...styles.tableHead, width:'25%'}}> 
               <Text style={styles.tableHeadCell}>Catatan</Text> 
             </View> 
           </View>
-          {USER && USER.map((row, index)=> {
+          {SPANUSER && SPANUSER.map((row, index)=> {
             return (
               <>
               <View style={styles.tableRow} key={index}> 
                 <View style={{...styles.tableCol, width:'8%'}}> 
-                  <Text style={styles.tableCell}>{row.id}</Text> 
+                  <Text style={styles.tableCell}>{index+1}</Text> 
                 </View> 
                 <View style={styles.tableCol}> 
                   <Text style={styles.tableCell}>{row.name}</Text> 
@@ -399,9 +428,6 @@ export default function IAssetReportPDF() {
                 </View>
                 <View style={{...styles.tableCol}}> 
                   <Text style={styles.tableCell}>{row.email}</Text> 
-                </View> 
-                <View style={{...styles.tableCol, width:'15%'}}> 
-                  <Text style={styles.tableCell}>{row.pelatihan}</Text> 
                 </View> 
                 <View style={{...styles.tableCol, width:'25%'}}> 
                   <Text style={styles.tableCell}>{row.catatan}</Text> 
@@ -432,19 +458,16 @@ export default function IAssetReportPDF() {
             <View style={styles.tableHead}> 
               <Text style={styles.tableHeadCell}>Email</Text> 
             </View>
-            <View style={{...styles.tableHead, width:'15%'}}> 
-              <Text style={styles.tableHeadCell}>Pelatihan</Text> 
-            </View>
             <View style={{...styles.tableHead, width:'25%'}}> 
               <Text style={styles.tableHeadCell}>Catatan</Text> 
             </View> 
           </View>
-          {USER && USER.map((row, index)=> {
+          {SAKTIUSER && SAKTIUSER.map((row, index)=> {
             return (
               <>
               <View style={styles.tableRow} key={index}> 
                 <View style={{...styles.tableCol, width:'8%'}}> 
-                  <Text style={styles.tableCell}>{row.id}</Text> 
+                  <Text style={styles.tableCell}>{index+1}</Text> 
                 </View> 
                 <View style={styles.tableCol}> 
                   <Text style={styles.tableCell}>{row.name}</Text> 
@@ -457,9 +480,6 @@ export default function IAssetReportPDF() {
                 </View>
                 <View style={{...styles.tableCol}}> 
                   <Text style={styles.tableCell}>{row.email}</Text> 
-                </View> 
-                <View style={{...styles.tableCol, width:'15%'}}> 
-                  <Text style={styles.tableCell}>{row.pelatihan}</Text> 
                 </View> 
                 <View style={{...styles.tableCol, width:'25%'}}> 
                   <Text style={styles.tableCell}>{row.catatan}</Text> 
@@ -477,7 +497,10 @@ export default function IAssetReportPDF() {
         <View style={styles.tableRow} fixed> 
           <View style={{...styles.tableHead, width:'8%'}}> 
             <Text style={styles.tableHeadCell}>No</Text> 
-          </View> 
+          </View>
+          <View style={styles.tableHead} wrap> 
+            <Text style={styles.tableHeadCell} wrap>Aplikasi</Text> 
+          </View>
           <View style={styles.tableHead} wrap> 
             <Text style={styles.tableHeadCell} wrap>Nama</Text> 
           </View>
@@ -490,20 +513,20 @@ export default function IAssetReportPDF() {
           <View style={styles.tableHead}> 
             <Text style={styles.tableHeadCell}>Email</Text> 
           </View>
-          <View style={{...styles.tableHead, width:'15%'}}> 
-            <Text style={styles.tableHeadCell}>Pelatihan</Text> 
-          </View>
           <View style={{...styles.tableHead, width:'25%'}}> 
             <Text style={styles.tableHeadCell}>Catatan</Text> 
           </View> 
         </View>
-        {USER && USER.map((row, index)=> {
+        {LAINNYAUSER && LAINNYAUSER.map((row, index)=> {
           return (
             <>
             <View style={styles.tableRow} key={index}> 
               <View style={{...styles.tableCol, width:'8%'}}> 
-                <Text style={styles.tableCell}>{row.id}</Text> 
-              </View> 
+                <Text style={styles.tableCell}>{index+1}</Text> 
+              </View>
+              <View style={styles.tableCol}> 
+                <Text style={styles.tableCell}>{SELECTAPP[row.app].jenis}</Text> 
+              </View>
               <View style={styles.tableCol}> 
                 <Text style={styles.tableCell}>{row.name}</Text> 
               </View> 
@@ -516,9 +539,6 @@ export default function IAssetReportPDF() {
               <View style={{...styles.tableCol}}> 
                 <Text style={styles.tableCell}>{row.email}</Text> 
               </View> 
-              <View style={{...styles.tableCol, width:'15%'}}> 
-                <Text style={styles.tableCell}>{row.pelatihan}</Text> 
-              </View> 
               <View style={{...styles.tableCol, width:'25%'}}> 
                 <Text style={styles.tableCell}>{row.catatan}</Text> 
               </View>  
@@ -529,7 +549,7 @@ export default function IAssetReportPDF() {
             })}
       </View>
 
-          {/*  -------- 4. TTE ------ */}
+      {/*  -------- 4. TTE ------ */}
       <View style={styles.tte}>
         <Text style={{fontSize: 10, color:'#59606b'}}> Ditandatangani secara elektronik</Text>
         <Text style={{fontSize: 10, marginRight:85}}> Syukriah H G</Text>
