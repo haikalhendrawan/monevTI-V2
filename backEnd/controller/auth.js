@@ -56,9 +56,7 @@ const refresh = (req, res) => {
 
     try{
     jwt.verify(refreshToken, "secretRefreshKey",(err, payload)=>{
-        console.log(payload.id)
         if(err){console.log(err); res.status(401).json({errorMsg:"invalid token"})};
-
         const accessToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn},"secretKey", {expiresIn:60*30}); //generate token
         const refreshToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
         res.cookie('refreshToken', refreshToken, {httpOnly:true});

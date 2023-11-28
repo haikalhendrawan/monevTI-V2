@@ -91,7 +91,8 @@ const styles = StyleSheet.create({
       justifyContent:'flex-end',
       alignItems:'flex-end',
       alignContent:'flex-end',
-      marginTop:100
+      marginTop:100,
+      marginRight:18
     },
   });
 

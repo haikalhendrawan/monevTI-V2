@@ -54,7 +54,7 @@ const assetRef = {
   6: "Router",
   7: "Switch",
   8: "Tablet"
-}
+};
 
 const style = {
   position: 'absolute',
@@ -86,13 +86,13 @@ const SELECTCPU = [
   {jenis:'Intel Core i5', value:1},
   {jenis:'Intel Core i7', value:2}, 
   {jenis:'Lainnya', value:3},
-  ]
+  ];
 
 const SELECTITEM = [
   {jenis:'Baik', value:0, color:'success'},
   {jenis:'Rusak Ringan', value:1, color:'warning'},
   {jenis:'Rusak Berat', value:2, color:'error'}, 
-  ]
+  ];
 
 const AVATAR = {
   0:"solar:monitor-smartphone-bold-duotone",

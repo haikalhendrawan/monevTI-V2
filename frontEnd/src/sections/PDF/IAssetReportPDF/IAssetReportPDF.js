@@ -15,6 +15,41 @@ const selectKPPN = {
   6:'Painan'
 };
 
+const kepalaKantor = {
+  0:'Syukriah HG',
+  1:'Joko Supriyanto',
+  2:'Khairil Indra',
+  3:'Ika Sari Heniyatun',
+  4:'Khairil Indra',
+  5:'Ika Sari Heniyatun',
+  6:'Refenalria Azwar',
+};
+
+const assetRef = {
+  0: "Komputer",
+  1: "Laptop",
+  2: "Printer",
+  3: "Scanner",
+  4: "UPS",
+  5: "Genset",
+  6: "Router",
+  7: "Switch",
+  8: "Tablet"
+};
+
+const SELECTCPU = [
+  {jenis:'Intel Core i3', value:0 },
+  {jenis:'Intel Core i5', value:1},
+  {jenis:'Intel Core i7', value:2}, 
+  {jenis:'Lainnya', value:3},
+  ];
+
+const SELECTITEM = [
+  {jenis:'Baik', value:0, color:'success'},
+  {jenis:'Rusak Ringan', value:1, color:'warning'},
+  {jenis:'Rusak Berat', value:2, color:'error'}, 
+  ];
+
 
 export default function IAssetReportPDF() {
   const [ASSET,setASSET] = useState(null);
