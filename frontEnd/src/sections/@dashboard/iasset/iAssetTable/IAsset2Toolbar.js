@@ -41,14 +41,14 @@ IAsset2Toolbar.propTypes = {
 
 // -------------------------------------------------------------
 const selectItem = [
-  {jenis:'Baik', value:1, color:'success'},
-  {jenis:'Rusak Ringan', value:2, color:'warning'},
-  {jenis:'Rusak Berat', value:3, color:'error'}, 
+  {jenis:'Baik', value:0, color:'success'},
+  {jenis:'Rusak Ringan', value:1, color:'warning'},
+  {jenis:'Rusak Berat', value:2, color:'error'}, 
 ]
 
 // -------------------------------------------------------------------
 
-export default function IAsset2Toolbar({ numSelected, filterName, onFilterName}) {
+export default function IAsset2Toolbar({ numSelected, filterName, onFilterName, onFilterKondisi, kondisi}) {
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState('');
   const theme = useTheme();
@@ -59,8 +59,9 @@ export default function IAsset2Toolbar({ numSelected, filterName, onFilterName})
 
   const handleChange = (event) => {
     setValue(event.target.value);
+    onFilterKondisi(event.target.value);
+    console.log(kondisi);
   };
-
 
   return (
     <StyledRoot
@@ -75,7 +76,7 @@ export default function IAsset2Toolbar({ numSelected, filterName, onFilterName})
       <StyledSearch
         value={filterName}
         onChange={onFilterName}
-        placeholder="Search user..."
+        placeholder="Search asset..."
         startAdornment={
           <InputAdornment position="start">
             <Iconify icon="eva:search-fill" sx={{ color: 'text.disabled', width: 20, height: 20 }} />
@@ -100,7 +101,7 @@ export default function IAsset2Toolbar({ numSelected, filterName, onFilterName})
               label="Kondisi" 
               onChange={handleChange}
               >
-                <MenuItem sx={{typography:'body2'}} value="">All</MenuItem>
+                <MenuItem sx={{typography:'body2'}} value={3}>All</MenuItem>
                 {selectItem.map((item, index) => {
                   return(<MenuItem key={index} sx={{typography:'body2', color:theme.palette[item.color].main}} value={item.value}>{item.jenis}</MenuItem>)
                 })}

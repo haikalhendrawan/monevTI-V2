@@ -7,10 +7,10 @@ import jwt from "jsonwebtoken";
 //   kalo oke lanjut buat token pakai jwt.sign({payload}, secretKey, {expiresIn}). Kirim refreshToken pakai res.Header('Set-Cookie', 'name=value;HttpOnly')
 //   handle accessTokennya di frontEnd pakai variable/browser memory
 const login = async (req, res) => {
-    const{username, password}=req.body;
-    const q = "SELECT * FROM user WHERE username = ?";
-
     try{
+        const{username, password}=req.body;
+        const q = "SELECT * FROM user WHERE username = ?";
+        
         const [rows] = await pool.execute(q, [username]);
         const hashedPassword = rows[0].password_hash;
         const match = await bcrypt.compare(password, hashedPassword);
@@ -50,29 +50,28 @@ const login = async (req, res) => {
 //2. Fungsi refresh Token 
 // --untuk verify accessToken di Middleware, utk verify refreshToken disini. Payload RefreshToken bentuknya {id:xx, username:xx, role:,..} ---
 const refresh = (req, res) => {  
-    const refreshToken = req.cookies.refreshToken;
-    if(!refreshToken){
-        return res.status(401).json("no token")};
-
     try{
-    jwt.verify(refreshToken, "secretRefreshKey",(err, payload)=>{
-        if(err){console.log(err); res.status(401).json({errorMsg:"invalid token"})};
-        const accessToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn},"secretKey", {expiresIn:60*30}); //generate token
-        const refreshToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
-        res.cookie('refreshToken', refreshToken, {httpOnly:true});
-        res.status(200).json({
-            id:payload.id,
-            username:payload.username,
-            name:payload.name,
-            email:payload.email,
-            image:payload.image,
-            role:payload.role,
-            kppn:payload.kppn,
-            accessToken,
-            msg:"Token has been refreshed"
-        });
-
-    });
+      const refreshToken = req.cookies.refreshToken;
+      if(!refreshToken){
+          return res.status(401).json("no token")};
+          
+      jwt.verify(refreshToken, "secretRefreshKey",(err, payload)=>{
+          if(err){console.log(err); res.status(401).json({errorMsg:"invalid token"})};
+          const accessToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn},"secretKey", {expiresIn:60*30}); //generate token
+          const refreshToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn},"secretRefreshKey",{expiresIn:60*60*4});//generate refreshToken
+          res.cookie('refreshToken', refreshToken, {httpOnly:true});
+          res.status(200).json({
+              id:payload.id,
+              username:payload.username,
+              name:payload.name,
+              email:payload.email,
+              image:payload.image,
+              role:payload.role,
+              kppn:payload.kppn,
+              accessToken,
+              msg:"Token has been refreshed"
+          })
+      });
     }catch(error){
         console.log(error);
         return res.status(401).json({errorMsg:"something wrong when creating new token or sending it as new cookie"})

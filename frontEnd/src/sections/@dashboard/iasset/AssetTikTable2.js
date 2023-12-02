@@ -122,7 +122,7 @@ function getComparator(order, orderBy) {
     : (a, b) => -descendingComparator(a, b, orderBy);
 }
 
-function applySortFilter(array, comparator, query, type) {
+function applySortFilter(array, comparator, query, type, kondisi) {
   let filteredData = [...array]; // Buat array copy
 
   const stabilizedThis = filteredData.map((el, index) => [el, index]);
@@ -132,13 +132,19 @@ function applySortFilter(array, comparator, query, type) {
     return a[1] - b[1];
   });
 
-  if (!query && type !== null) {
+  if (!query!== null && !kondisi !== 3) {
     filteredData = filteredData.filter((perangkat) => {
       return perangkat.jenis_perangkat === type;
     });
-  }
+  };
 
-  if (query && type !== null) {
+  if (!query!== null && kondisi !== 3) {
+    filteredData = filteredData.filter((perangkat) => {
+      return perangkat.jenis_perangkat === type && perangkat.kondisi === kondisi;
+    });
+  };
+
+  if (query!== null && !kondisi !== 3) {
     const lowerCaseQuery = query.toLowerCase();
     filteredData = filteredData.filter((perangkat) => {
       return Object.values(perangkat).some(
@@ -148,12 +154,27 @@ function applySortFilter(array, comparator, query, type) {
           perangkat.jenis_perangkat === type
       );
     });
-  }
+  };
+
+  if (query!== null && kondisi !== 3) {
+    const lowerCaseQuery = query.toLowerCase();
+    filteredData = filteredData.filter((perangkat) => {
+      return Object.values(perangkat).some(
+        (value) =>
+          typeof value === 'string' &&
+          value.toLowerCase().includes(lowerCaseQuery) &&
+          perangkat.jenis_perangkat === type &&
+          perangkat.kondisi === kondisi
+      );
+    });
+  };
+
+
 
   return stabilizedThis
     .filter((el) => filteredData.includes(el[0])) // Filter the sorted data based on filteredData
     .map((el) => el[0]); // Return the sorted and filtered data
-}
+};
 
 // ----------------------------------------------------------------------
 
@@ -171,6 +192,8 @@ export default function AssetTikTable2(props) {
   const [orderBy, setOrderBy] = useState('id');
 
   const [filterName, setFilterName] = useState(''); // set filter name di search bar, di pass ke IAssetToolbar
+
+  const [filterKondisi, setFilterKondisi] = useState(3); // set filter kondisi di toolbar
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -255,7 +278,7 @@ export default function AssetTikTable2(props) {
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - ASSET?.length) : 0;
 
-  const filteredAssets = applySortFilter(ASSET && ASSET, getComparator(order, orderBy), filterName, props.currentTab);
+  const filteredAssets = applySortFilter(ASSET && ASSET, getComparator(order, orderBy), filterName, props.currentTab, filterKondisi);
 
   const isNotFound = !filteredAssets.length && !!filterName;
 
@@ -266,7 +289,7 @@ export default function AssetTikTable2(props) {
     <>
      
         <Card>
-          <IAsset2Toolbar filterName={filterName} onFilterName={handleFilterByName} onFilterOpen={handleOpenMenu}/>
+          <IAsset2Toolbar filterName={filterName} onFilterName={handleFilterByName} onFilterOpen={handleOpenMenu} onFilterKondisi={setFilterKondisi} kondisi={filterKondisi}/>
 
           <Scrollbar>
             <TableContainer sx={{ minWidth: 800 }}>

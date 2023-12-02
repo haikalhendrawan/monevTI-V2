@@ -112,20 +112,20 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} onClick={handleOpenPeriod}>
+            <MenuItem key={option.label}>
               <Iconify icon={option.icon} sx={{mr:1}} />
               <Typography variant='body2' sx={{ color: 'text.secondary' }} >{option.label}</Typography>
             </MenuItem>
           ))}
 
-            <Menu anchorEl={anchorEl} open={openPeriod} onClose={()=>{setAnchorEl(null)}}>
+            {/* <Menu anchorEl={anchorEl} open={openPeriod} onClose={()=>{setAnchorEl(null)}}>
               <MenuItem key={1}>
                 <Typography variant='body2' >Smt 1 2023</Typography>
               </MenuItem>
               <MenuItem key={2}>
                 <Typography variant='body2' >Smt 2 2023</Typography>
               </MenuItem>
-            </Menu>
+            </Menu> */}
             
         </Stack>
 

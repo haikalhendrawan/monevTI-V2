@@ -3,9 +3,9 @@ import bcrypt from "bcrypt";
 
 // 1. fungsi menambahkan user ke Database, Respons dalam bentuk JSON, kalau ada errorMsg -> error
 const addUser = async (req, res) => {   
-    const saltRound = 10;
-    const {username, password, role, name} = req.body;
     try{
+        const saltRound = 10;
+        const {username, password, role, name} = req.body;
         const hashedPassword = await bcrypt.hash(password, saltRound);
         if(username && password && role){
             const q = "INSERT INTO user (username, password_hash, role, name) VALUES (?, ?, ?, ?)";

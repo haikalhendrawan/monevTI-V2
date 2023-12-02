@@ -3,15 +3,16 @@ import jwt from "jsonwebtoken";
 
 
 const addIUser = async (req, res) => {
-    const periode = 1;  
-    const kppn = req.payload.kppn; //payload jwt yang udh di decode di middleware authenticate
-    const {app, name, username, role, email, pelatihan, catatan} = req.body; 
-    const {pelatihanFilter} = sanitizeInput(pelatihan); 
-
-    const q = `INSERT INTO 
-                iuserjunction (app, name, username, role, email, pelatihan, catatan, kppn, periode) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
     try{
+        const periode = 1;  
+        const kppn = req.payload.kppn; //payload jwt yang udh di decode di middleware authenticate
+        const {app, name, username, role, email, pelatihan, catatan} = req.body; 
+        const {pelatihanFilter} = sanitizeInput(pelatihan); 
+    
+        const q = `INSERT INTO 
+                    iuserjunction (app, name, username, role, email, pelatihan, catatan, kppn, periode) 
+                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+
         await pool.execute(q, [app, name, username, role, email, pelatihanFilter, catatan, kppn, periode]);
         return res.status(200).json({msg:"data inserted successfully"});
     }catch(err){
@@ -25,9 +26,10 @@ const addIUser = async (req, res) => {
 };
 
 const getIUser = async (req, res) => {
-    const kppn = req.payload.kppn //payload jwt yang udh di decode di middleware authenticate 
-    const q = "SELECT * FROM iuserjunction WHERE kppn=?";
     try{
+        const kppn = req.payload.kppn //payload jwt yang udh di decode di middleware authenticate 
+        const q = "SELECT * FROM iuserjunction WHERE kppn=?";
+        
         const [rows] = await pool.execute(q, [kppn]);
         return res.status(200).json(rows);
     }catch(err){
@@ -41,15 +43,16 @@ const getIUser = async (req, res) => {
 };
 
 const editIUser = async (req, res) => {
-    const periode = 1;  
-    const kppn = req.payload.kppn; //payload jwt yang udh di decode di middleware authenticate
-    const {id, app, name, username, role, email, pelatihan, catatan} = req.body; 
-    const {pelatihanFilter} = sanitizeInput(pelatihan); 
-
-    const q =  `UPDATE iuserjunction 
-                SET app=?, name=?, username=?, role=?, email=?, pelatihan=?, catatan=?, periode=?
-                WHERE id=? AND kppn=?`;
     try{
+        const periode = 1;  
+        const kppn = req.payload.kppn; //payload jwt yang udh di decode di middleware authenticate
+        const {id, app, name, username, role, email, pelatihan, catatan} = req.body; 
+        const {pelatihanFilter} = sanitizeInput(pelatihan); 
+    
+        const q =  `UPDATE iuserjunction 
+                    SET app=?, name=?, username=?, role=?, email=?, pelatihan=?, catatan=?, periode=?
+                    WHERE id=? AND kppn=?`;
+
         await pool.execute(q, [app, name, username, role, email, pelatihanFilter, catatan, periode, id, kppn]);
         return res.status(200).json({msg:"data inserted successfully"});
     }catch(err){
@@ -64,10 +67,11 @@ const editIUser = async (req, res) => {
 
 
 const deleteIUser = async (req, res) => {
-    const id = req.params.rowId;
-    const kppn = req.payload.kppn;
-    const q = "DELETE from iuserjunction WHERE id = ? AND kppn = ?";
     try{
+        const id = req.params.rowId;
+        const kppn = req.payload.kppn;
+        const q = "DELETE from iuserjunction WHERE id = ? AND kppn = ?";
+        
         console.log(id);
         await pool.query(q, [id, kppn]);
         return res.status(200).json({msg:"successfuly delete data"});

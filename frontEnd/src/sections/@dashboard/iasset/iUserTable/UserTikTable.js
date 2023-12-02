@@ -31,6 +31,12 @@ const TABLE_HEAD = [
   {id:''}
 ];
 
+const SELECTAPP = [
+  {jenis:'SPAN', value:0, icon:<img src="../assets/images/iuser/span.png" alt='span'style={{width:30}}/>},
+  {jenis:'SAKTI', value:1, icon:<img src="../assets/images/iuser/sakti_original.svg" alt='sakti greyscale' style={{width:25}}/>},
+  {jenis:'Lainnya', value:2, icon:<Iconify icon="solar:database-bold" sx={{width:50, height:30}}/>}
+  ];
+
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -39,15 +45,15 @@ function descendingComparator(a, b, orderBy) {
     return 1;
   }
   return 0;
-}
+};
 
 function getComparator(order, orderBy) {
   return order === 'desc'
     ? (a, b) => descendingComparator(a, b, orderBy)
     : (a, b) => -descendingComparator(a, b, orderBy);
-}
+};
 
-function applySortFilter(array, comparator, query, type, pelatihan) {
+function applySortFilter(array, comparator, query, app, pelatihan) {
   let filteredData = [...array]; // Buat array copy
 
   const stabilizedThis = filteredData.map((el, index) => [el, index]);
@@ -60,13 +66,13 @@ function applySortFilter(array, comparator, query, type, pelatihan) {
 
   if (!query!== null && !pelatihan !== 2) {  // gaada query, cuma filter per jenis
     filteredData = filteredData.filter((user) => {
-      return user.app === type;
+      return user.app === app;
     });
   };
 
   if (!query!== null && pelatihan !== 2) {  // gaada query dan ada filter pelatihan
     filteredData = filteredData.filter((user) => {
-      return user.app === type && user.pelatihan===pelatihan;
+      return user.app === app && user.pelatihan===pelatihan;
     });
   };
 
@@ -77,7 +83,7 @@ function applySortFilter(array, comparator, query, type, pelatihan) {
         (value) =>
           typeof value === 'string' &&
           value.toLowerCase().includes(lowerCaseQuery) &&
-          user.app === type
+          user.app === app
       );
     });
   }
@@ -89,7 +95,7 @@ function applySortFilter(array, comparator, query, type, pelatihan) {
         (value) =>
           typeof value === 'string' &&
           value.toLowerCase().includes(lowerCaseQuery) &&
-          user.app === type &&
+          user.app === app &&
           user.pelatihan === pelatihan
       );
     });
@@ -98,7 +104,7 @@ function applySortFilter(array, comparator, query, type, pelatihan) {
   return stabilizedThis
     .filter((el) => filteredData.includes(el[0])) // Filter the sorted data based on filteredData
     .map((el) => el[0]); // Return the sorted and filtered data
-}
+};
 
 
 // ----------------------------------------------------------------------
@@ -253,7 +259,7 @@ export default function UserTikTable(props) {
 
                       <TableCell component="th" scope="row" padding="none">
                         <Stack direction="row" alignItems="center" spacing={2}>
-                          <Avatar alt={row.name} />
+                        <Avatar alt={SELECTAPP[row.app].jenis}> {SELECTAPP[row.app].icon} </Avatar>
                           <Typography variant="subtitle2" noWrap>
                           {row.name}
                           </Typography>

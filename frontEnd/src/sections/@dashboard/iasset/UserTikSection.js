@@ -32,9 +32,9 @@ const style = {
   };
 
 const SELECTAPP = [
-  {jenis:'SPAN', value:0, icon:"solar:monitor-smartphone-bold-duotone" },
-  {jenis:'SAKTI', value:1, icon:"solar:laptop-bold-duotone"},
-  {jenis:'Gaji', value:2, icon:"solar:printer-bold-duotone"}, 
+  {jenis:'SPAN', value:0, icon:"../assets/images/iuser/span.png"},
+  {jenis:'SAKTI', value:1, icon:"../assets/images/iuser/sakti_original.svg"},
+  {jenis:'Gaji', value:2, icon:"solar:database-bold"}, 
   {jenis:'Lainnya', value:3, icon:"solar:electric-refueling-bold-duotone"},
   ];
 
@@ -183,10 +183,9 @@ const UserTikSection = (props) => {
   
           <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
             <Tabs value={tabValue} onChange={handleTabChange} aria-label="icon tabs example">
-              <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="SPAN" value={0} />
-              <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="SAKTI" value={1}/>
-              <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Lainnya" value={2}/>
-              <Tab icon={<Iconify icon="solar:scanner-bold-duotone" />} label="Scanner" value={3}/>
+              <Tab icon={<img src="../assets/images/iuser/span.png" alt='span'style={{width:40}}/>} value={0} />
+              <Tab icon={<img src="../assets/images/iuser/sakti_original.svg" alt='sakti greyscale' style={{width:40}}/>}value={1}/>
+              <Tab icon={<Iconify icon="solar:database-bold" sx={{width:50, height:30}}/>} label="Lainnya" value={2}/>
             </Tabs>
           </Stack>
 
