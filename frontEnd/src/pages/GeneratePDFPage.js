@@ -5,10 +5,10 @@ import IAssetReportPDF from "../sections/PDF/IAssetReportPDF/IAssetReportPDF";
 
 
 // Create Document Component
-function GeneratePDFPage() {
+function GeneratePDFPage(props) {
 
   return(
-    <IAssetReportPDF />
+    <IAssetReportPDF word={props.word} />
   )
   
 };

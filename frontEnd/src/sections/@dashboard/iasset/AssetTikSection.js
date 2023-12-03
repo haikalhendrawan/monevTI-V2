@@ -15,7 +15,7 @@ import Label from '../../../components/label';
 import Iconify from '../../../components/iconify';
 import Scrollbar from "../../../components/scrollbar";
 // sub section
-import UserTikTable2 from './AssetTikTable2';
+import UserTikTable2 from './iAssetTable/AssetTikTable2';
 
 // ---------------------------------------------------------------
 const style = {
@@ -85,6 +85,8 @@ const AssetTikSection = (props) => {
 
   const [isComputerForm, setIsComputerForm] = useState(true);// akan beda render  form input
 
+  const [isCallingAPI, setIsCallingAPI] = useState(false); // cek apakah sedang query ke database utk mencegah double click add/edit button
+
   const [tabValue, setTabValue] = useState(0); // ganti menu jenis perangkat yang ditampilkan
 
   const [snackbar, setSnackbar] = useState({
@@ -152,6 +154,7 @@ const AssetTikSection = (props) => {
 
   const handleAddAsset = async () => {
     const isValid = await checkInput();
+    setIsCallingAPI(true);
 
     if(!isValid){return};
 
@@ -180,6 +183,7 @@ const AssetTikSection = (props) => {
       });
       setOpen(false);
       setValue({...DEFAULT_VALUE, jenis_perangkat:value.jenis_perangkat});
+      setIsCallingAPI(false);
     }catch(err){
       console.log(err);
       setSnackbar({
@@ -187,6 +191,7 @@ const AssetTikSection = (props) => {
         color:"error",
         text:`Fail to insert Data (${err.response.data.errMsg?err.response.data.errMsg:err.response.data})`
       });
+      setIsCallingAPI(false);
     }
   };
 
@@ -375,7 +380,7 @@ const AssetTikSection = (props) => {
                     </FormControl>
                     
                     <Stack direction='row' justifyContent="center" spacing={2}>
-                      <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />} onClick={handleAddAsset}>
+                      <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />} disabled={isCallingAPI && isCallingAPI} onClick={handleAddAsset}>
                           Add
                       </Button>
                       <Button 

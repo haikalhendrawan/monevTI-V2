@@ -17,7 +17,6 @@ import UserTikSection from "../sections/@dashboard/iasset/UserTikSection";
 import useMode from "../hooks/display/useMode";
 import { AssetProvider } from "../sections/@dashboard/iasset/useAsset";
 import {IUserProvider} from "../sections/@dashboard/iasset/useIUser";
-
 // ----------------------------------------------------------------------
 
 export default function IAssetPage() {
@@ -27,14 +26,10 @@ export default function IAssetPage() {
   };
 
   const component = 
-  {
+  { 
     1:<IAssetLanding changeSection={handleClick}/>,
-    2:<AssetProvider>
-        <AssetTikSection changeSection={handleClick}/>
-      </AssetProvider>,
-    3:<IUserProvider>
-        <UserTikSection changeSection={handleClick}/>  
-      </IUserProvider>,
+    2:<AssetTikSection changeSection={handleClick}/>,
+    3:<UserTikSection changeSection={handleClick}/>
   }
 
   return(
@@ -43,7 +38,12 @@ export default function IAssetPage() {
         <title> Data TIK | MonevTI  </title>
       </Helmet>
 
-      {component[open]}
+      <AssetProvider>
+        <IUserProvider>
+          {component[open]}
+        </IUserProvider>
+      </AssetProvider>
+      
 
     </>
   )

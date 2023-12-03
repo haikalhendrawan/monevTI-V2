@@ -25,9 +25,9 @@ import GeneratePDFPage from './pages/GeneratePDFPage';
 export default function Router() {
   return (
   <Routes>
+  
     <Route path="/login" element={ <LoginPage />} />
-    <Route path="/pdf" element={<PDFViewer width={'100%'} height={'100%'}><GeneratePDFPage /></PDFViewer>} />
-
+ 
     <Route element={<PersistLogin />}> 
       <Route element={<RequireAuthLayout allowedRoles={[1,2]}/>}> { /* we want to protect this route */}
         <Route path="/" element={<DashboardAppPage />} />
@@ -51,7 +51,7 @@ export default function Router() {
         <Route path="iasset" element={<IAssetPage />}/>
         <Route path="monitoring" element={<MonitoringPage />}/> 
         <Route path="logbook" element={<LogBookPage />}/>   
-        <Route path="topology" element={<TopologyPage />}/>      
+        <Route path="topology" element={<TopologyPage />}/>
       </Route>
     </Route>
    

@@ -82,6 +82,8 @@ const UserTikSection = (props) => {
     role:false
   });
 
+  const [isCallingAPI, setIsCallingAPI] = useState(false); // cek apakah sedang query ke database utk mencegah double click add/edit button
+
   const handleChange = (event) => {  // setiap form tambah asset berubah
       setValue((prev) => ({
           ...prev,
@@ -116,6 +118,7 @@ const UserTikSection = (props) => {
 
   const handleAddUser = async () => {
     const isValid = await checkInput();
+    setIsCallingAPI(true);
     if(!isValid){return}
 
     try{
@@ -135,7 +138,8 @@ const UserTikSection = (props) => {
         text:response?.data?.msg?response.data.msg:response.data.errMsg
       });
       setOpen(false);
-      setValue({...DEFAULT_VALUE, app:value.app})
+      setValue({...DEFAULT_VALUE, app:value.app});
+      setIsCallingAPI(false);
     }catch(err){
       console.log(err);
       setSnackbar({
@@ -143,6 +147,7 @@ const UserTikSection = (props) => {
         color:"error",
         text:`Fail to insert Data (${err.response.data.errMsg?err.response.data.errMsg:err.response.data})`
       });
+      setIsCallingAPI(false);
     }
   };
 
@@ -273,7 +278,7 @@ const UserTikSection = (props) => {
                     </FormControl>
                     
                     <Stack direction='row' justifyContent="center" spacing={2}>
-                      <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />} onClick={handleAddUser}>
+                      <Button variant="contained" startIcon={<Iconify icon="eva:plus-fill" />} onClick={handleAddUser} disabled={isCallingAPI}>
                           Add
                       </Button>
                       <Button 

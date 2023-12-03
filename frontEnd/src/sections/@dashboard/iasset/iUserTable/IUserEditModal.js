@@ -64,6 +64,8 @@ function IUserEditModal (props){
       username:false,
       role:false
   });
+
+  const [isCallingAPI, setIsCallingAPI] = useState(false); // cek apakah sedang query ke database utk mencegah double click add/edit button
   
   const checkInput = async () => {
       let invalid = false;
@@ -106,6 +108,7 @@ function IUserEditModal (props){
 
   const handleEditAsset = async () => {
     const isValid = await checkInput();
+    setIsCallingAPI(true);
 
     if(!isValid){return};
 
@@ -127,6 +130,7 @@ function IUserEditModal (props){
       });
       props.modalClose();
       getIUser();
+      setIsCallingAPI(false);
     }catch(err){
       console.log(err);
       setSnackbar({
@@ -134,6 +138,7 @@ function IUserEditModal (props){
         color:"error",
         text:`Fail to insert Data ()`
       });
+      setIsCallingAPI(false);
     }
   }
 
@@ -163,12 +168,12 @@ function IUserEditModal (props){
           catatan: props.data.catatan,
       });
       setIsError({name:false, username:false, role:false});
-  }
+  };
 
   // ----------------------------------------------------------------------------------------
   return(
       <>
-      <Modal open={props.modalOpen} onClose={handleClose}>
+      <Modal open={props.modalOpen} onClose={props.modalClose}>
         <Box sx={style}>
           <Scrollbar>
           <Paper sx={{height:'500px', width:'auto', justifyContent:'center'}}>
@@ -245,7 +250,7 @@ function IUserEditModal (props){
                 </FormControl>
                 
                 <Stack direction='row' justifyContent="center" spacing={2}>
-                    <Button variant="contained" color="warning" startIcon={<Iconify icon="eva:edit-fill" />} onClick={handleEditAsset}>
+                    <Button variant="contained" color="warning" startIcon={<Iconify icon="eva:edit-fill" />} onClick={handleEditAsset} disabled={isCallingAPI}>
                         Update
                     </Button>
                     <Button 

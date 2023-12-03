@@ -87,7 +87,9 @@ const IAssetEditModal = (props) => {
         model:false,
         tahun:false
       });
-    
+
+    const [isCallingAPI, setIsCallingAPI] = useState(false); // cek apakah sedang query ke database utk mencegah double click add/edit button
+
     const checkInput = async () => {
         let invalid = false;
 
@@ -115,7 +117,7 @@ const IAssetEditModal = (props) => {
         };
 
         return !invalid
-    }
+    };
 
     const axiosJWT = useAxiosJWT();
 
@@ -142,6 +144,7 @@ const IAssetEditModal = (props) => {
 
     const handleEditAsset = async () => {
         const isValid = await checkInput();
+        setIsCallingAPI(true);
 
         if(!isValid){return};
   
@@ -170,6 +173,7 @@ const IAssetEditModal = (props) => {
             text:response?.data?.msg?response.data.msg:response.data.errMsg
           });
           props.modalClose();
+          setIsCallingAPI(false);
         }catch(err){
           console.log(err);
           setSnackbar({
@@ -177,6 +181,7 @@ const IAssetEditModal = (props) => {
             color:"error",
             text:`Fail to insert Data (${err.response.data.errMsg})`
           });
+          setIsCallingAPI(false);
         }
     }
 
@@ -345,7 +350,7 @@ const IAssetEditModal = (props) => {
                     </FormControl>
                     
                     <Stack direction='row' justifyContent="center" spacing={2}>
-                        <Button variant="contained" color="warning" startIcon={<Iconify icon="eva:edit-fill" />} onClick={handleEditAsset}>
+                        <Button variant="contained" color="warning" startIcon={<Iconify icon="eva:edit-fill" />} disabled={isCallingAPI} onClick={handleEditAsset}>
                             Update
                         </Button>
                         <Button 

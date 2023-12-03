@@ -63,13 +63,6 @@ export default function LoginPage() {
       </Helmet>
 
       <StyledRoot>
-        {/* <Logo
-          sx={{
-            position: 'fixed',
-            top: { xs: 16, sm: 24, md: 40 },
-            left: { xs: 16, sm: 24, md: 40 },
-          }}
-        /> */}
           <StyledSection>
             <Waterwave style={{position: 'absolute', top: 0, left:0 , width: '100%', height: '100%', objectFit: 'contain'}}>
               {({pause, play}) => (
