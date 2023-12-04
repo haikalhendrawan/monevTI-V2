@@ -2,8 +2,8 @@ import {useState} from "react";
 import axios from "axios";
 import { Typography, Grid, Card, CardHeader, CardContent, LinearProgress, Box, Tooltip} from '@mui/material';
 import {useTheme} from '@mui/material/styles';
-import Iconify from "../../../components/iconify";
-import Label from "../../../components/label";
+import Iconify from "../../../../components/iconify";
+import Label from "../../../../components/label";
 
 // --------------------------------------------------------
 const infoRows = [
