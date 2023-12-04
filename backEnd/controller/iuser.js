@@ -16,7 +16,7 @@ const addIUser = async (req, res) => {
         await pool.execute(q, [app, name, username, role, email, pelatihanFilter, catatan, kppn, periode]);
         return res.status(200).json({msg:"data inserted successfully"});
     }catch(err){
-        if(!kppn){
+        if(err.kppn){
             console.log('No jwt payload while trying to add iuser data'+ err);
             return res.status(403).json({errMsg:"Not authenticated"});
         };
@@ -33,7 +33,7 @@ const getIUser = async (req, res) => {
         const [rows] = await pool.execute(q, [kppn]);
         return res.status(200).json(rows);
     }catch(err){
-        if(!rows){
+        if(err.rows){
             console.log('no rows returned while trying to get iuser data' + err);
             return res.status(500).json({errorMsg:"Failed to insert data to database"});
         };
@@ -56,7 +56,7 @@ const editIUser = async (req, res) => {
         await pool.execute(q, [app, name, username, role, email, pelatihanFilter, catatan, periode, id, kppn]);
         return res.status(200).json({msg:"data inserted successfully"});
     }catch(err){
-        if(!kppn){
+        if(err.kppn){
             console.log('No jwt payload while trying to update iuser data'+ err);
             return res.status(403).json({errMsg:"Not authenticated"});
         };
@@ -76,7 +76,7 @@ const deleteIUser = async (req, res) => {
         await pool.query(q, [id, kppn]);
         return res.status(200).json({msg:"successfuly delete data"});
     }catch(err){
-        if(!kppn){
+        if(err.kppn){
             console.log('No jwt payload while trying to delete iuser data'+ err);
             return res.status(403).json({errMsg:"Not authenticated"});
         };

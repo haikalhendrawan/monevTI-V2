@@ -11,23 +11,23 @@ function worksheetCard(props) {
     return(
         <Grid item xs={12} sm={12} md={12}>
             <Card>
-                <CardHeader title={<Head name={props.name}/>}  subheader="317405080499902"/> 
+                <CardHeader title={props.header}/> 
             
                     <Grid container sx={{mt:5}} spacing={0}>  {/* Kepala Table */}
                         <Grid item xs={4} sx={{textAlign:'center'}}>
-                            <Typography variant="body"> Nama User</Typography>
+                            <Typography variant="body"> Objek Monitoring</Typography>
                         </Grid>
 
                         <Divider orientation='vertical' flexItem/>  
 
                         <Grid item xs={2} sx={{textAlign:'center'}}>
-                            <Typography variant="body">NIK</Typography>
+                            <Typography variant="body"> Dokumen Pendukung </Typography>
                         </Grid>
 
                         <Divider orientation='vertical' flexItem/>  
 
                         <Grid item xs={3} sx={{textAlign:'center'}}>
-                            <Typography variant="body">Username</Typography>
+                            <Typography variant="body">Catatan Kanwil</Typography>
                         </Grid>
 
                         <Divider orientation='vertical' flexItem/>  

@@ -15,7 +15,7 @@ const addUser = async (req, res) => {
             return res.json({errorMsg:"Failed to Add User, caused by either: 1. No username, 2. No password, 3. No role,  in form submission"})
         }
     } catch (error) {
-        if(!hashedPassword){
+        if(err.hashedPassword){
         return res.status(500).json({errorMsg:"failed to hash password with Bcrypt "+error});
         }else{
         return res.status(500).json({errorMsg:"failed to make database query "+error});

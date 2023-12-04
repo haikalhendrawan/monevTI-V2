@@ -52,10 +52,10 @@ export default function WorksheetPage() {
 
         <Stack direction="row" alignItems="center" justifyContent="center " mb={5}>
           <Tabs value={tabValue} onChange={handleTabChange}>
-            <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="Jaringan" value={0} />
-            <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="Perangkat" value={1}/>
-            <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Security" value={2}/>
-            <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="Kuesioner" value={3}/>
+            <Tab icon={<Iconify icon="solar:monitor-smartphone-bold-duotone" />} label="1. Jaringan" value={0} />
+            <Tab icon={<Iconify icon="solar:laptop-bold-duotone" />} label="2. Perangkat" value={1}/>
+            <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="3. Security" value={2}/>
+            <Tab icon={<Iconify icon="solar:printer-bold-duotone" />} label="4. Kuesioner" value={3}/>
           </Tabs>
         </Stack>
 
@@ -67,8 +67,8 @@ export default function WorksheetPage() {
 
         <Grid container spacing={2}>
           <Grid item container sm={8} spacing={2}>
-            {cardd.map(() => {
-            return (<WorksheetCard key={1} name={`ABC`} nik={`ABC`} username={`ABC`} user_id={`ABC`}/>) 
+            {cardd.map((item, index) => {
+            return (<WorksheetCard key={index} name={`ABC`} nik={`ABC`} username={`ABC`} user_id={`ABC`} header={index+1}/>) 
               })
             }
           </Grid>

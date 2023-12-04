@@ -15,9 +15,9 @@ const getNotif = async (req, res) => {
 }
 
 const addNotif = async (req, res) => {
-    const {notifTitle, notifMessage, notifType} = req.body;
-    const creatorID = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
     try{
+        const {notifTitle, notifMessage, notifType} = req.body;
+        const creatorID = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
         await pool.beginTransaction();
         const q = "INSERT INTO notifications(notif_title, notif_msg, notif_type) VALUES (?,?, ?)"; // masukkan data ke table notifications
         await pool.execute(q, [notifTitle, notifMessage, notifType]);

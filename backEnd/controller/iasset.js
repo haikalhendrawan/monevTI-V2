@@ -17,7 +17,7 @@ const addIAsset = async (req, res) => {
         await pool.execute(q, [perangkatFilter, hostname, nama_pegawai, model, tahun, kondisi, cpuFilter, ip, ram, storage, serial_number, catatan, kppn, periode]);
         return res.status(200).json({msg:"data inserted successfully"});
     }catch(err){
-        if(!kppn){
+        if(err.kppn){
             console.log(err);
             return res.status(403).json({errMsg:"Not authenticated"});
         };
@@ -35,7 +35,7 @@ const getIAsset = async (req, res) => {
         const [rows] = await pool.execute(q, [kppn]);
         return res.status(200).json(rows);
     }catch(err){
-        if(!rows){
+        if(err.rows){
             console.log(err);
             return res.status(500).json({errorMsg:"Failed to insert data to database"});
         };
@@ -59,7 +59,7 @@ const editIAsset = async (req, res) => {
         await pool.execute(q, [perangkatFilter, hostname, nama_pegawai, model, tahun, kondisi, cpuFilter, ip, ram, storage, serial_number, catatan, periode, id, kppn]);
         return res.status(200).json({msg:"data inserted successfully"});
     }catch(err){
-        if(!kppn){
+        if(err.kppn){
             console.log(err);
             return res.status(403).json({errMsg:"Not authenticated"});
         };
@@ -78,7 +78,7 @@ const deleteIAsset = async (req, res) => {
         await pool.query(q, [id, kppn]);
         return res.status(200).json({msg:"successfuly delete data"});
     }catch(err){
-        if(!kppn){
+        if(err.kppn){
             console.log(err);
             return res.status(403).json({errMsg:"Not authenticated"});
         };
