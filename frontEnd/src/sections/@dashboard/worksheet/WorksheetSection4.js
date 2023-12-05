@@ -1,5 +1,5 @@
 import React from 'react';
-import WorksheetQuestion from './section3/WorksheetQuestion';
+import WorksheetFinalize from './section4/WorksheetFinalize';
 // --------------------------
 
 
@@ -7,5 +7,8 @@ import WorksheetQuestion from './section3/WorksheetQuestion';
 
 export default function WorksheetSection4(){
 
+    return(
+        <WorksheetFinalize />
+    )
   
 }

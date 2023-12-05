@@ -40,7 +40,7 @@ function GenerateReport (props) {
     return(
         <>
         <Card sx={{height:'100%', width:'100%'}}>
-            <CardHeader title={'Generate Report'} subheader={'Summary'}sx={{textAlign:'center'}} />
+            <CardHeader title={'Report'} subheader={'Summary'}sx={{textAlign:'center'}} />
             <Typography sx={{textAlign:'center'}} color='textSecondary' variant='body2'>01/07/2023 - {currentDate}</Typography>
             <Divider sx={{mt:2, mb:1, width:'80%', mx:'auto'}}/>
             <Box sx={{ p: 3, pb: 1 }} dir="ltr">

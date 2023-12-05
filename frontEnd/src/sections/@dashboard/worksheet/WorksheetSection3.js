@@ -21,8 +21,8 @@ export default function WorksheetSection3(){
   return(
     <>
     <QuestionTitle />
-    <QuestionTableHeader />
-    <WorksheetQuestion name={`ABC`} nik={`ABC`} username={`ABC`} user_id={`ABC`} header={'ABC'}/>
+    {/* <QuestionTableHeader />
+    <WorksheetQuestion name={`ABC`} nik={`ABC`} username={`ABC`} user_id={`ABC`} header={'ABC'}/> */}
     <QuestionTableFooter />
 
     </>

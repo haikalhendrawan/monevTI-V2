@@ -26,19 +26,19 @@ function WorksheetQuestion(props) {
               {cardd.map((item) => {
                 return(
                   <Grid container sx={{mt:0,  textAlign:'center', justifyContent:'center'}} spacing={1}>  {/* Table Body */}
-                        <Grid item xs={1} p={1}> {/* Kolom Nama User */}
+                        <Grid item xs={1} p={1}> 
                           <Typography sx={{fontSize:12}}>1.</Typography>
                         </Grid>
 
-                        <Grid item xs={4}>  {/* Kolom NIK */}
+                        <Grid item xs={4}> 
                           <Typography sx={{fontSize:13}}>Apakah telah terdapat SK PIC TIK apakah seluruh pemeriksaan telah dilakukan dengan sesuai ketentuan?</Typography>
                         </Grid>
 
-                        <Grid item xs={1}>     {/* Kolom Username */}
+                        <Grid item xs={1}>  
                           <Typography sx={{fontSize:12}}>:</Typography>
                         </Grid>
 
-                        <Grid item xs={6}>  {/* Manage User */}
+                        <Grid item xs={6}> 
                             <FormControl>
                                 <TextField name="jawaban" size='small' onChange={handleChange} value={value.catKanwil} multiline minRows={4} maxRows={4} inputProps={{style: {fontSize: 12}}} sx={{width:'120%'}}/>
                             </FormControl>
@@ -47,7 +47,6 @@ function WorksheetQuestion(props) {
                 )
               })}
                     
-
             </Card>
         </Grid> 
         

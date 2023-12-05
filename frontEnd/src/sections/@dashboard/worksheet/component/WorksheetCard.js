@@ -16,6 +16,9 @@ function WorksheetCard(props) {
     const handleChange = (event) => {
         setValue(event.target.value);
     };
+    const handleBlur = () => {
+        console.log('unblur')
+    };
 
     return(
         <Grid item xs={12} sm={12} md={12}>
@@ -62,7 +65,7 @@ function WorksheetCard(props) {
 
                         <Grid item xs={3.5}>     {/* Kolom Username */}
                             <FormControl>
-                                <TextField name="catatankppn" size='small' onChange={handleChange} value={value.catKPPN} multiline minRows={4} maxRows={4} inputProps={{style: {fontSize: 12}}}/>
+                                <TextField name="catatankppn" size='small' onChange={handleChange} value={value.catKPPN} multiline minRows={4} maxRows={4} onBlur={handleBlur} inputProps={{style: {fontSize: 12}}}/>
                             </FormControl>
                         </Grid>
 

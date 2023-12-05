@@ -16,7 +16,7 @@ export default function QuestionTableHeader(){
       <Card sx={{backgroundColor:theme.palette.background.default, pl:1, pt:0}}>
         <Grid container sx={{mt:1, textAlign:'center', justifyContent:'center'}} spacing={0}>  {/* Kepala Table */}
           <Grid item xs={1}>
-              <Typography variant="body2" sx={{mr:1}}>No</Typography>
+              <Typography variant="body2" sx={{mr:3}}>No</Typography>
           </Grid>
 
           <Grid item xs={4}>
@@ -24,7 +24,6 @@ export default function QuestionTableHeader(){
           </Grid>
 
           <Grid item xs={1} />
-
 
           <Grid item xs={6}>
               <Typography variant="body2" sx={{ml:3}}>Jawaban</Typography>

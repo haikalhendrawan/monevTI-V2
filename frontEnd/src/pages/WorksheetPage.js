@@ -76,18 +76,29 @@ export default function WorksheetPage() {
         </Stack>
 
         <Grid container spacing={2}>
-          <Grid item container sm={8} spacing={2}>
-            {selectSection[tabValue]}
-          </Grid>
 
-          <Grid item sm={4}>
-            <WorksheetInfo />
-          </Grid>
+          {tabValue!==3
+          ?(<>
+            <Grid item container sm={8} spacing={2}>
+              {selectSection[tabValue]}
+            </Grid>
+
+            <Grid item sm={4}>
+              <WorksheetInfo />
+            </Grid>
+            </>)
+          :null
+          }
+
+          {tabValue===3
+          ?<Grid item sm={8} sx={{mx:'auto'}}>
+            <WorksheetSection4 />
+            </Grid>
+          :null
+          }
 
         </Grid>
 
-
-        
       </Container>
     </>
   );
