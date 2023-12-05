@@ -1,9 +1,10 @@
 import {useState} from "react";
 import axios from "axios";
-import { Typography, Grid, Card, CardHeader, CardContent, LinearProgress, Box, Tooltip} from '@mui/material';
+import { Typography, Grid, Card, CardHeader, CardContent, LinearProgress, Box, Tooltip, Stack, Button} from '@mui/material';
 import {useTheme} from '@mui/material/styles';
 import Iconify from "../../../../components/iconify";
 import Label from "../../../../components/label";
+import ConfirmModal from "../component/ConfirmModal";
 
 // --------------------------------------------------------
 const infoRows = [
@@ -31,14 +32,23 @@ function LinearProgressWithLabel(props) {
   );
 };
 
-
 // --------------------------------------------------------
 
 export default function WorksheetFinalize(){
+  const theme = useTheme();
+  const [open, setOpen] = useState(false);
+  const handleClick = () => {
+    setOpen(true)
+  };
+
+  const handleModalClose = () => {
+    setOpen(false)
+  };
 
   return(
+    <>
     <Card>
-      <CardHeader title={"Worksheet Finalize"}  subheader="Metadata kertas kerja" />
+      <CardHeader title={"Submit Worksheet"}  subheader="Selesai & cetak berkas" />
         <CardContent sx={{fontSize:14}}>
           <Grid container spacing={2}>
           {infoRows.map((row, index) => {
@@ -48,19 +58,33 @@ export default function WorksheetFinalize(){
                   {row.col1}
                 </Grid>
 
-                <Grid item sm={2}>
+                <Grid item sm={1}>
                   {row.col2}
                 </Grid>
 
-                <Grid item sm={6}>
+                <Grid item sm={7}>
                   {row.col3}
                 </Grid>
               </Grid>
               )
             })
-          }         
+          } 
+            <Grid container spacing={2} sx={{mt:7, justifyContent:'end'}}>
+              {/* <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff', mr:2}:{mr:2}} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2"/>}>
+                  Preview
+              </Button>
+              <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
+                  Generate
+              </Button> */}
+              <Button size="large" variant="contained" endIcon={ <Iconify icon="material-symbols:send" />} onClick={handleClick}>
+                  Send
+              </Button>
+            </Grid>      
           </Grid>
-          </CardContent>
+        </CardContent>
     </Card>
+
+    <ConfirmModal modalOpen={open} modalClose={handleModalClose} text={'Kirim berkas dan selesaikan?'} />
+    </>
   )
 };

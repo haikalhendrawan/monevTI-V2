@@ -40,7 +40,7 @@ function GenerateReport (props) {
     return(
         <>
         <Card sx={{height:'100%', width:'100%'}}>
-            <CardHeader title={'Report'} subheader={'Summary'}sx={{textAlign:'center'}} />
+            <CardHeader title={'IT Data Report'} subheader={'Summary'}sx={{textAlign:'center'}} />
             <Typography sx={{textAlign:'center'}} color='textSecondary' variant='body2'>01/07/2023 - {currentDate}</Typography>
             <Divider sx={{mt:2, mb:1, width:'80%', mx:'auto'}}/>
             <Box sx={{ p: 3, pb: 1 }} dir="ltr">
@@ -93,7 +93,7 @@ function GenerateReport (props) {
                     </Grid>
                 </Stack>
   
-                <Stack direction="row" sx={{alignItems:'center', justifyContent:'space-around', mt:10}} spacing={1}>
+                <Stack direction="row" sx={{alignItems:'center', justifyContent:'end', mt:10, mr:3}} spacing={1}>
                     <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2"/>} onClick={props.modalOpen}>
                         Preview
                     </Button>
