@@ -41,7 +41,7 @@ export default function ConfirmModal(props){
             <Stack direction='column'>
                 <Typography variant='h6'>{props.text}</Typography>
 
-                <Stack direction ='row' spacing={2} sx={{justifyContent:'center', mt:4}}>
+                <Stack direction ='row' spacing={2} sx={{justifyContent:'center', mt:3, mb:1}}>
                     <Button size="medium" variant="contained"  color='success' endIcon={ <Iconify icon="material-symbols:send" />}>
                     Send
                     </Button>

@@ -113,7 +113,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} component={NavLink} to={'/profile'}>
+            <MenuItem key={option.label} component={NavLink} to={'/profile'} onClick={handleClose}>
               <Iconify icon={option.icon} sx={{mr:1}} />
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>{option.label}</Typography>
             </MenuItem>

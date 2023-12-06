@@ -16,9 +16,9 @@ import GeneratePDFPage from '../../../../pages/GeneratePDFPage';
 const date = new Date();
 const currentDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
 const growthIcon =[
-    {type:"plus", icon:"mingcute:trending-up-fill", color:'rgb(0, 167, 111)'},
-    {type:"minus", icon:"mingcute:trending-down-fill", color:'#FF4842'},
-    {type:"edit", icon:"mingcute:arrow-right-fill", color:'#FFC107'},
+    {type:"plus", icon:"solar:round-alt-arrow-up-broken", color:'rgb(0, 167, 111)'},
+    {type:"minus", icon:"solar:round-alt-arrow-down-broken", color:'#FF4842'},
+    {type:"edit", icon:"solar:round-alt-arrow-right-broken", color:'#FFC107'},
 ];
 const assetData =[
     {number:10, text:'Penambahan PC SPAN, Laptop'},
