@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import {NavLink} from "react-router-dom"
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, Select, 
@@ -112,9 +113,9 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label}>
+            <MenuItem key={option.label} component={NavLink} to={'/profile'}>
               <Iconify icon={option.icon} sx={{mr:1}} />
-              <Typography variant='body2' sx={{ color: 'text.secondary' }} >{option.label}</Typography>
+              <Typography variant='body2' sx={{ color: 'text.secondary' }}>{option.label}</Typography>
             </MenuItem>
           ))}
 

@@ -8,10 +8,10 @@ import ConfirmModal from "../component/ConfirmModal";
 
 // --------------------------------------------------------
 const infoRows = [
-  {col1:<Label color="success">Open</Label>, col2: ':', col3:'12/10/2023'},
-  {col1:<Label color="error">Close</Label>, col2: ':', col3:'12/10/2023'},
   {col1:"Sisa Waktu", col2: ':', col3:'2 Day 5 Hour'},
-  {col1:"Section Progress", col2: ':', col3:<LinearProgressWithLabel value={60} tooltip='(5/10) input bagian ini diselesaikan'/>},
+  {col1:"Bagian 1", col2: ':', col3:<Label color="success">Sudah</Label>},
+  {col1:"Bagian 2", col2: ':', col3:<Label color="success">Sudah</Label>},
+  {col1:"Bagian 3", col2: ':', col3:<Label color="success">Sudah</Label>},
   {col1:"Overall Progress", col2: ':', col3:<LinearProgressWithLabel value={30} tooltip='(5/10) input seluruh bagian diselesaikan' />},
 ];
 
@@ -48,7 +48,7 @@ export default function WorksheetFinalize(){
   return(
     <>
     <Card>
-      <CardHeader title={"Submit Worksheet"}  subheader="Selesai & cetak berkas" />
+      <CardHeader title={"Submit Worksheet"}  subheader="Selesai & cetak berkas" sx={{textAlign:'center'}}/>
         <CardContent sx={{fontSize:14}}>
           <Grid container spacing={2}>
           {infoRows.map((row, index) => {
@@ -71,7 +71,7 @@ export default function WorksheetFinalize(){
           } 
             <Grid container spacing={2} sx={{mt:7, justifyContent:'end'}}>
               {/* <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff', mr:2}:{mr:2}} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2"/>}>
-                  Preview
+                  Preview 
               </Button>
               <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
                   Generate

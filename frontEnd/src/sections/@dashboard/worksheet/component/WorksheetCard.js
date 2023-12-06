@@ -51,16 +51,16 @@ function WorksheetCard(props) {
                         </Grid>
 
                         <Grid item xs={2}>  {/* Kolom NIK */}
-                            <Tooltip title="Upload file" placement='right'>
+                            {/* <Tooltip title="Upload file" placement='right'>
                                 <Button variant='contained' size='small' sx={{mb:1}}><Iconify icon='solar:cloud-upload-bold' /></Button>
                             </Tooltip>
                             <Tooltip title="Contoh bukti dukung">
                                 <Button variant='contained' size='small' color='warning'><Iconify icon='solar:lightbulb-bold' /></Button>
-                            </Tooltip>
+                            </Tooltip> */}
 
-                            {/* <Button variant='contained' size='small' color='success' sx={{mb:1}}><Iconify icon='solar:eye-bold-duotone' /> 1</Button>
+                            <Button variant='contained' size='small' color='success' sx={{mb:1}} onClick={props.onClick}><Iconify icon='solar:eye-bold-duotone' /> 1</Button>
                             <Button variant='contained' size='small' color='success' sx={{mb:1}}><Iconify icon='solar:eye-bold-duotone' /> 2</Button>
-                            <Button variant='contained' size='small' color='error'><Iconify icon='solar:trash-bin-trash-bold-duotone' /></Button> */}
+                            <Button variant='contained' size='small' color='error'><Iconify icon='solar:trash-bin-trash-bold-duotone' /></Button>
                         </Grid>
 
                         <Grid item xs={3.5}>     {/* Kolom Username */}
@@ -78,7 +78,6 @@ function WorksheetCard(props) {
 
             </Card>
         </Grid> 
-        
         ) 
 }
 
@@ -88,7 +87,7 @@ const Head = (props) => {  // bagian atas dari masing2 tabel gambar dan nama use
     <>
     <Stack direction="row" spacing={2} sx={{justifyContent:'space-between'}}>
         <Stack direction="row" spacing={1} sx={{alignItems:'center'}}>
-            <Typography variant="h6">{`${props.num} |`}</Typography>
+            <Typography variant="h6">{`${props.num} )`}</Typography>
             <Stack >
                 <Typography variant="body1" sx={{fontSize:15}}>Link 1 terhubung ke Port 6 Switch Dell Non SPAN</Typography>
             </Stack>

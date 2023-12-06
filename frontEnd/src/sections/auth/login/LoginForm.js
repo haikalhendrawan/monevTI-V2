@@ -50,7 +50,7 @@ export default function LoginForm() {
     try{
       const response = await axios.post("/login", {username:value.username, password:value.password});
       setAuth(response.data);  // { username: xxx, role:xxx, accessToken,msg:xxx}
-      localStorage.setItem('mode', 'dark');
+        if(localStorage.getItem('mode')===null){localStorage.setItem('mode', 'dark')};
       navigate("/app");
     }catch(err){
       console.log(err);

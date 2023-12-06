@@ -19,6 +19,7 @@ import WorksheetPage from './pages/WorksheetPage';
 import MonitoringPage from './pages/MonitoringPage';
 import LogBookPage from './pages/LogBookPage';
 import TopologyPage from './pages/TopologyPage';
+import ProfilePage from './pages/ProfilePage';
 import GeneratePDFPage from './pages/GeneratePDFPage';
 // ----------------------------------------------------------------------
 
@@ -52,6 +53,7 @@ export default function Router() {
         <Route path="monitoring" element={<MonitoringPage />}/> 
         <Route path="logbook" element={<LogBookPage />}/>   
         <Route path="topology" element={<TopologyPage />}/>
+        <Route path="profile" element={<ProfilePage />}/>
       </Route>
     </Route>
    

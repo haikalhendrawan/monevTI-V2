@@ -5,6 +5,9 @@ import useMode, {ModeContext} from "../../../hooks/display/useMode";
 import Iconify from '../../../components/iconify';
 
 // value dari useMode hook ada di ../theme/index.js
+const initialMode = localStorage.getItem('mode');
+
+// ---------------------------------------------------
 
 const ThemeSwitcher = () => {
     const {mode, setMode} = useMode();

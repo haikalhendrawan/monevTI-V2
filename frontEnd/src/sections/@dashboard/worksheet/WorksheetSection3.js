@@ -9,12 +9,16 @@ import WorksheetQuestion from './section3/WorksheetQuestion';
 import QuestionTitle from './section3/QuestionTitle';
 import QuestionTableHeader from './section3/QuestionTableHeader';
 import QuestionTableFooter from './section3/QuestionTableFooter';
+import PreviewFileModal from './component/PreviewFileModal';
 
+// ---------------------------------------------------
 
 const cardd = [...Array(4).map((item, index) => {
   return(index)
 })];
 
+
+// -------------------------------------------------
 
 export default function WorksheetSection3(){
   const theme = useTheme();
