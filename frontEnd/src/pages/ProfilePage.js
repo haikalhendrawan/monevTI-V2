@@ -37,10 +37,10 @@ export default function ProfilePage(){
     return(
         <>
          <Card sx={{width:'70%', mx:'auto', backgroundColor:alpha(theme.palette.primary.main, 0.24)}}>
-            <CardHeader title={"Profile Page"} sx={{textAlign:'center'}}/>
+            <CardHeader title={"Profile Page"} sx={{textAlign:'center'}} />
             <CardContent sx={{fontSize:14}}>
                 <Avatar alt="ABC" src="/assets/sd8.png" sx={{width:'20%', height:'20%', mx:'auto'}} />
-                <Stack direction="row" alignItems="center" justifyContent="center " mb={0}>
+                <Stack direction="row" alignItems="center" justifyContent="center" mb={0}>
                     <Tabs value={tabValue} onChange={handleTabChange}>
                         <Tab icon={<Iconify icon="icon-park-outline:network-tree" />} label="1. Data Akun" value={0} iconPosition="start"/>
                         <Tab icon={<Iconify icon="wpf:key-security" />} label="2. Change Password" value={1} iconPosition="start"/>

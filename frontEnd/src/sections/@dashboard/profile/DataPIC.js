@@ -4,7 +4,7 @@ import Label from "../../../components/label";
 import Iconify from "../../../components/iconify";
 // ---------------------------------------
 const infoRows = [
-  {col1:"Nama PIC TIK", col2: ':', col3:<TextField size="small" disabled />},
+  {col1:"Nama PIC TIK", col2: ':', col3:<TextField size="small"/>},
   {col1:"NIP", col2: ':', col3:<TextField size="small" />},
   {col1:"Email", col2: ':', col3:<TextField size="small" />},
 ];

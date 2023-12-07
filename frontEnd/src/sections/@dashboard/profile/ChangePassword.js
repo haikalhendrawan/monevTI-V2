@@ -23,7 +23,7 @@ export default function ChangePassword(){
   const infoRows = [
     {col1:"Old Password", col2: ':', 
     col3:
-    <TextField name="password" label="Password" type={showPassword ? 'text' : 'password'} onChange={handleChange} value={value.password} size="small"
+    <TextField name="password" type={showPassword ? 'text' : 'password'} onChange={handleChange} value={value.password} size="small"
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
@@ -34,7 +34,7 @@ export default function ChangePassword(){
           ),
         }}
       />},
-    {col1:"New Password", col2: ':', col3:<TextField name="newPassword" label="Password" type={showPassword ? 'text' : 'password'} onChange={handleChange} value={value.newPassword} size="small"
+    {col1:"New Password", col2: ':', col3:<TextField name="newPassword" type={showPassword ? 'text' : 'password'} onChange={handleChange} value={value.newPassword} size="small"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
@@ -45,7 +45,7 @@ export default function ChangePassword(){
             ),
           }}
         />},
-    {col1:"Confirm Password", col2: ':', col3:<TextField name="confirmPassword" label="Password" type={showPassword ? 'text' : 'password'} onChange={handleChange} value={value.confirmPassword} size="small"
+    {col1:"Confirm Password", col2: ':', col3:<TextField name="confirmPassword" type={showPassword ? 'text' : 'password'} onChange={handleChange} value={value.confirmPassword} size="small"
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
