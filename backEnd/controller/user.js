@@ -15,13 +15,13 @@ const addUser = async (req, res) => {
             return res.json({errorMsg:"Failed to Add User, caused by either: 1. No username, 2. No password, 3. No role,  in form submission"})
         }
     } catch (error) {
-        if(err.hashedPassword){
+        if(error.hashedPassword){
         return res.status(500).json({errorMsg:"failed to hash password with Bcrypt "+error});
         }else{
         return res.status(500).json({errorMsg:"failed to make database query "+error});
         }
     }
-}
+};
 
 
 // 2. fungsi mengambil User Data selain password, Respons dalam bentuk JSON, kalau ada errorMsg -> error
@@ -36,7 +36,43 @@ const getUser = async (req, res) => {
         console.log(err);
         return res.status(500).json({errorMsg:"failed to make database query"});
     }
+};
+
+// 3. fungsi edit Data name dan email milik user
+const editUserProfile = async (req, res) => {
+    try{
+        const userId = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
+        const {name, email} = req.body; 
+        const q = "UPDATE user SET name=?, email=? WHERE user_id=?";
+        await pool.execute(q, [name, email, userId]);
+        return res.status(200).json({msg: 'edit data success'});
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({errorMsg:"failed to make database query"+err});
+    }
+};
+
+// 4. fungsi edit profil PIC TIK
+const editPICProfile = async (req, res) => {
+    try{
+        const userId = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
+        const {nama_pic, nip_pic, email_pic} = req.body; 
+        const q = "UPDATE user SET nama_pic=?, nip_pic=?, email_pic=? WHERE user_id=?";
+        await pool.execute(q, [nama_pic, nip_pic, email_pic, userId]);
+        return res.status(200).json({msg: 'edit data success'});
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({errorMsg:"failed to make database query"+err});
+    }
+}
+
+// 5. fungsi edit password user
+const editPassword = async (req, res) => {
+
 }
 
 
-export {addUser, getUser};
+
+export {addUser, getUser, editUserProfile, editPICProfile, editPassword};

@@ -125,7 +125,7 @@ const IAssetEditModal = (props) => {
         open:false,
         color:null,
         text:'No value'
-      });
+    });
 
     const handleChange = (event) => {
         setValue((prev) => ({
@@ -140,7 +140,7 @@ const IAssetEditModal = (props) => {
           ...snackbar,
           open:false
         })
-    }
+    };
 
     const handleEditAsset = async () => {
         const isValid = await checkInput();
