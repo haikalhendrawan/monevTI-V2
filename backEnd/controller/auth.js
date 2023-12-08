@@ -61,8 +61,8 @@ const refresh = (req, res) => {
           
       jwt.verify(refreshToken, "secretRefreshKey",(err, payload)=>{
           if(err){console.log(err); res.status(401).json({errorMsg:"invalid token"})};
-          const accessToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn, periode:payload.periode, namaPIC:payload.nama_pic, nipPIC:payload.nip_pic, emailPIC:payload.email_pic},"secretKey", {expiresIn:60*60*12}); //generate token
-          const refreshToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn, periode:payload.periode, namaPIC:payload.nama_pic, nipPIC:payload.nip_pic, emailPIC:payload.email_pic},"secretRefreshKey",{expiresIn:60*60*24});//generate refreshToken
+          const accessToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn, periode:payload.periode, namaPIC:payload.namaPIC, nipPIC:payload.nipPIC, emailPIC:payload.emailPIC},"secretKey", {expiresIn:60*60*12}); //generate token
+          const refreshToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn, periode:payload.periode, namaPIC:payload.namaPIC, nipPIC:payload.nipPIC, emailPIC:payload.emailPIC},"secretRefreshKey",{expiresIn:60*60*24});//generate refreshToken
           res.cookie('refreshToken', refreshToken, {httpOnly:true});
           res.status(200).json({
               id:payload.id,

@@ -103,7 +103,7 @@ export default function DataAkun(){
                   })
               } 
               <Grid container spacing={2} sx={{mt:7, justifyContent:'center'}}>
-                <Button size="large" variant="contained" color="warning" endIcon={ <Iconify icon="eva:edit-fill" />} sx={{mr:2}} onClick={handleUpdate}>
+                <Button variant="contained" color="warning" endIcon={ <Iconify icon="eva:edit-fill" />} sx={{mr:2}} onClick={handleUpdate}>
                     Update
                 </Button>
                 <Button variant="contained" sx={{backgroundColor:theme.palette.common.white, color:theme.palette.common.black}} onClick={handleReset}>

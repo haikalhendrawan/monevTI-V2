@@ -1,6 +1,6 @@
 import {useState, useEffect} from "react";
 import {useTheme} from "@mui/material/styles";
-import { Avatar, Card, CardHeader, CardContent, Grid, Button, TextField, Snackbar, Alert} from "@mui/material";
+import { Avatar, Card, CardHeader, CardContent, Grid, Button, TextField, Snackbar, Alert, InputAdornment, IconButton} from "@mui/material";
 import Label from "../../../components/label";
 import Iconify from "../../../components/iconify";
 import {useAuth} from "../../../hooks/useAuth";
@@ -46,7 +46,7 @@ export default function DataPIC () {
 
   const handleUpdate = async (event) => {
    try{
-      const isValid = validateNIP(value.nip_pic); // harus true utk lanjut call API
+      const isValid = validateNIP(value.nip_pic);
 
       if(!isValid){setIsError({nip:true}); return};
 
@@ -110,12 +110,12 @@ export default function DataPIC () {
                 })
             } 
             <Grid container spacing={2} sx={{mt:7, justifyContent:'center'}}>
-              <Button size="large" variant="contained" color="warning" endIcon={ <Iconify icon="eva:edit-fill" />} onClick={handleUpdate} sx={{mr:2}}>
+              <Button variant="contained" color="warning" endIcon={ <Iconify icon="eva:edit-fill" />} onClick={handleUpdate} sx={{mr:2}}>
                   Update
               </Button>
               <Button variant="contained" sx={{backgroundColor:theme.palette.common.white, color:theme.palette.common.black}} onClick={handleReset}>
-                    Reset
-                </Button>
+                  Reset
+              </Button>
             </Grid>    
         </Grid>
     </CardContent>
@@ -139,8 +139,9 @@ export default function DataPIC () {
 // --------------- utility function
 
 function validateNIP (nip){
-  let invalid = false;
+  let valid = true;
   if(nip.length!==18){
-    invalid = true
+    valid = false
   }
+  return valid;
 }

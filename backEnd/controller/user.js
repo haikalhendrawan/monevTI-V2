@@ -70,7 +70,33 @@ const editPICProfile = async (req, res) => {
 
 // 5. fungsi edit password user
 const editPassword = async (req, res) => {
+    try{
+        const connection = await pool.getConnection(); 
+        await connection.beginTransaction();
+        const userId = req.payload.id;
+        const{password, confirmPassword}= req.body;
 
+        if(confirmPassword.length<1){return res.status(403).json({errMsg:`Password too short`})}
+        
+        const q = "SELECT password_hash FROM user WHERE user_id = ?"; 
+        const [rows] = await connection.execute(q, [userId]);
+        const hashedPassword = rows[0].password_hash;
+        const match = await bcrypt.compare(password, hashedPassword);
+
+        if(!match){return res.status(403).json({errMsg:`Incorrect password`})}
+
+        const q2 = "UPDATE user SET password_hash=? WHERE user_id = ?"
+        const saltRound = 10;
+        const confirmPassword_hashed = await bcrypt.hash(confirmPassword, saltRound)
+        await connection.execute(q2, [confirmPassword_hashed, userId]);
+        await connection.commit();
+        return res.status(200).json({msg:'Successfully update password'})
+        
+    }catch(err){
+        await connection.rollback();
+        console.log(err)
+        return res.status(500).json({errorMsg:"failed to make database query"+err});
+    }
 }
 
 
