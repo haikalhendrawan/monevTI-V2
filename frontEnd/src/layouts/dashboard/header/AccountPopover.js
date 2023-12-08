@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from "axios";
-import {NavLink} from "react-router-dom"
+import {NavLink, Link} from "react-router-dom"
 // @mui
 import { alpha } from '@mui/material/styles';
 import { Box, Divider, Typography, Stack, MenuItem, Avatar, Select, 
@@ -15,14 +15,18 @@ const MENU_OPTIONS = [
   {
     label: 'Profile',
     icon: 'eva:person-fill',
+    link : '/profile',
+    component:NavLink
   },
-  {
-    label: 'Settings',
-    icon: 'eva:settings-2-fill',
-  },
+  // {
+  //   label: 'Settings',
+  //   icon: 'eva:settings-2-fill',
+  // },
   {
     label: 'Smt 1 2023',
     icon: 'mdi:calendar',
+    link: '',
+    component:null
   },
 ];
 
@@ -113,7 +117,7 @@ export default function AccountPopover() {
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} component={NavLink} to={'/profile'} onClick={handleClose}>
+            <MenuItem key={option.label} component={option.component} to={option.link} onClick={handleClose}>
               <Iconify icon={option.icon} sx={{mr:1}} />
               <Typography variant='body2' sx={{ color: 'text.secondary' }}>{option.label}</Typography>
             </MenuItem>

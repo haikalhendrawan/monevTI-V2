@@ -74,7 +74,6 @@ export default function LoginPage() {
                     height: '100%',
                     background:'cover',
                     fill: '#FFFFFF',
-                    animation: 'float 6s ease-in-out infinite'
                   }}
                 />
 
