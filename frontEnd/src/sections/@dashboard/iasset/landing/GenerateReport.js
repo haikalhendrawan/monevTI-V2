@@ -4,6 +4,7 @@ import ReactPDF, { PDFDownloadLink } from '@react-pdf/renderer';
 import {Card, Box, CardHeader,  Stack, Paper, Button,  Grid, Container, Typography, Link,  Divider} from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { ThemeContext } from '@emotion/react';
+import Label from "../../../../components/label";
 // hooks
 import useAsset from '../useAsset';
 import useIUser from '../useIUser';
@@ -15,20 +16,15 @@ import GeneratePDFPage from '../../../../pages/GeneratePDFPage';
 
 const date = new Date();
 const currentDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
-const growthIcon =[
-    {type:"plus", icon:"solar:round-alt-arrow-up-broken", color:'rgb(0, 167, 111)'},
-    {type:"minus", icon:"solar:round-alt-arrow-down-broken", color:'#FF4842'},
-    {type:"edit", icon:"solar:round-alt-arrow-right-broken", color:'#FFC107'},
-];
 const assetData =[
-    {number:10, text:'Penambahan PC SPAN, Laptop'},
-    {number:20, text:'Penghapusan Access Point, Laptop, Genset'},
-    {number:12, text:'Edit data Laptop, Printer'},
+    {number:10, text:'Penambahan PC SPAN, Laptop', color:'success'},
+    {number:20, text:'Penghapusan Access Point, Laptop, Genset', color:'error'},
+    {number:12, text:'Edit data Laptop, Printer', color:'warning'},
 ];
 const userData=[
-    {number:2, text:'Penambahan User SPAN'},
-    {number:5, text:'Penambahan User SAKTI, User Sprint'},
-    {number:7, text:'Edit data User PIC TIK'},
+    {number:2, text:'Penambahan User SPAN', color:'success'},
+    {number:5, text:'Penambahan User SAKTI, User Sprint', color:'error'},
+    {number:7, text:'Edit data User PIC TIK', color:'warning'},
 ];
 
 // --------------------------------------------------------------------------
@@ -59,8 +55,7 @@ function GenerateReport (props) {
                                     </Grid>
                                     <Grid item xs={3}>
                                         <Stack direction='row' spacing={1}>
-                                            <Iconify icon={growthIcon[index].icon} color={growthIcon[index].color}/>
-                                            <Typography variant="body2">{item.number}</Typography>
+                                            <Label color={item.color} sx={{width:'100%'}}>{item.number}</Label>
                                         </Stack>
                                     </Grid>
                                 </Grid>  
@@ -69,7 +64,7 @@ function GenerateReport (props) {
                     </Grid>
                 </Stack>
 
-                <Stack spacing={1} sx={{mb:2}}>
+                <Stack spacing={1} sx={{mb:2,}}>
                     <Stack direction="row" sx={{alignItems:'center'}} spacing={1}>
                         <Iconify icon="solar:user-bold-duotone" color={theme.palette.primary.main}/>
                         <Typography variant="h6">User</Typography>
@@ -83,8 +78,7 @@ function GenerateReport (props) {
                                     </Grid>
                                     <Grid item xs={3}>
                                         <Stack direction='row'spacing={1}>
-                                            <Iconify icon={growthIcon[index].icon} color={growthIcon[index].color}/>
-                                            <Typography variant="body2">{item.number}</Typography>
+                                        <Label color={item.color} sx={{width:'100%'}}>{item.number}</Label>
                                         </Stack>
                                     </Grid>
                                 </Grid>  
@@ -93,7 +87,7 @@ function GenerateReport (props) {
                     </Grid>
                 </Stack>
   
-                <Stack direction="row" sx={{alignItems:'center', justifyContent:'end', mt:10, mr:3}} spacing={1}>
+                <Stack direction="row" sx={{alignItems:'center', justifyContent:'space-between', mt:10, mr:0, ml:3}} spacing={1}>
                     <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2"/>} onClick={props.modalOpen}>
                         Preview
                     </Button>

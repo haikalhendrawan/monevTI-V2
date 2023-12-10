@@ -58,7 +58,7 @@ const refresh = (req, res) => {
       const refreshToken = req.cookies.refreshToken;
       if(!refreshToken){
           return res.status(401).json("no token")};
-          
+        
       jwt.verify(refreshToken, "secretRefreshKey",(err, payload)=>{
           if(err){console.log(err); res.status(401).json({errorMsg:"invalid token"})};
           const accessToken = jwt.sign({id:payload.id, username:payload.username, name:payload.name, email:payload.email, image:payload.image, role:payload.role, kppn:payload.kppn, periode:payload.periode, namaPIC:payload.namaPIC, nipPIC:payload.nipPIC, emailPIC:payload.emailPIC},"secretKey", {expiresIn:60*60*12}); //generate token
@@ -88,7 +88,6 @@ const refresh = (req, res) => {
 }
 
 //3. Fungsi Logout
-// 
 const logout = (req, res) => {
     const refreshToken = req.cookies;
     res.clearCookie('refreshToken', {httpOnly:true });
@@ -96,4 +95,32 @@ const logout = (req, res) => {
     return res.status(200).json({msg:`User logged out, refresh Token Cookies has been cleared`});
 }
 
-export {login, refresh, logout}
+//4. Fungsi generate new access Token -> ketika ada update data user di DB
+const updateToken = async (req, res) => {
+    try{
+        if(!req.body){return res.status(400).json({errMsg:'error updating data'})}
+            const {id, username, name, email, image, role, kppn, periode, namaPIC, nipPIC, emailPIC} = req.body;
+            const accessToken = jwt.sign({id:id, username:username, name:name, email:email, image:image, role:role, kppn:kppn, periode:periode, namaPIC:namaPIC, nipPIC:nipPIC, emailPIC:emailPIC},"secretKey", {expiresIn:60*60*12}); //generate token
+            const refreshToken = jwt.sign({id:id, username:username, name:name, email:email, image:image, role:role, kppn:kppn, periode:periode, namaPIC:namaPIC, nipPIC:nipPIC, emailPIC:emailPIC},"secretRefreshKey",{expiresIn:60*60*24});//generate refreshToken
+            res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; HttpOnly`);
+            res.status(200).json({
+                id:id, 
+                username:username, 
+                name:name, 
+                email:email, 
+                image:image, 
+                role:role, 
+                kppn:kppn, 
+                periode:periode, 
+                namaPIC:namaPIC, 
+                nipPIC:nipPIC, 
+                emailPIC:emailPIC,
+                accessToken,
+                msg:"Token has been updated"
+            });
+    }catch(err){
+        console.log(err);
+    }
+}
+
+export {login, refresh, logout, updateToken}

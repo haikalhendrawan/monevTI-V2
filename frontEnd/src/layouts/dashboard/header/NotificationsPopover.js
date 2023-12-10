@@ -39,6 +39,8 @@ import useAxiosJWT from "../../../hooks/useAxiosJWT";
 
 
 export default function NotificationsPopover() {
+  const axiosJWT = useAxiosJWT();
+
   const [notifications, setNotifications] = useState(null);
 
   const totalUnRead = notifications?.filter((item) => item?.status===0).length;
@@ -62,17 +64,26 @@ export default function NotificationsPopover() {
     );
   };
 
-  const axiosJWT = useAxiosJWT();
+  const getNotif= async()=>{
+    try{
+    const response = await axiosJWT.get("/getNotif"); 
+    setNotifications(response.data);     
+    }catch(err){
+      console.log(err);
+    }
+  };
+
+  const handleHover = async(notifId) => {
+    try{
+      const response = await axiosJWT.post('/updateNotif', {notifJunctionId:notifId})
+      console.log(response.data);
+      getNotif();
+    }catch(err){
+      console.log(err)
+    }
+  }
 
   useEffect( () => {
-    const getNotif= async()=>{
-      try{
-      const response = await axiosJWT.get("/getNotif"); 
-      setNotifications(response.data);     
-      }catch(err){
-        console.log(err);
-      }
-    };
     getNotif(); 
   }, []);
 
@@ -124,7 +135,7 @@ export default function NotificationsPopover() {
             onClick={handleMarkAllAsRead}
           >
             {notifications?.slice(0, 5).map((notification) => (
-              <NotificationItem  key={notification.notif_id} notification={notification}/>
+              <NotificationItem  key={notification.notif_id} notification={notification} onMouseEnter={handleHover}/>
             ))}
           </List>
         </Scrollbar>
@@ -163,8 +174,9 @@ NotificationItem.propTypes = {
 // {assigned_at:xxx, completed_at:xxx, creator_fk_id:xx, notif_created_at:xxx, notif_fk_id:xxx, notif_id:xxx, 
 //   notif_junction_id:xxx, notif_msg:xxx, notif_title:xxx, receiver_fk_id:xxx, status:xxx }
 
-function NotificationItem({ notification }) {
+function NotificationItem({ key, notification, onMouseEnter }) {
   const { avatar, title } = renderContent(notification);
+  const {notif_junction_id:notifId, status} = notification;
 
   return (
     <ListItemButton
@@ -176,6 +188,7 @@ function NotificationItem({ notification }) {
           bgcolor: 'action.selected',
         }),
       }}
+      onMouseEnter={status===0?() => {onMouseEnter(notifId)}:null}
     >
       <ListItemAvatar>
         <Avatar sx={{ bgcolor: 'background.neutral' }}>{avatar}</Avatar>

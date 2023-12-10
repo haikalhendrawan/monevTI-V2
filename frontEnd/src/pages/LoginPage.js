@@ -86,25 +86,9 @@ export default function LoginPage() {
             <Typography variant="h4" gutterBottom>
               Sign In
             </Typography>
-            <Typography variant="body" gutterBottom>
+            <Typography variant="body" gutterBottom sx={{mb:5}}>
               Press icon below to show mock account!
             </Typography>
-
-            <Stack direction="row" spacing={1} justifyContent="center" alignItems="center">
-            <Button size="large" color="inherit" variant="outlined" sx={{mb:2}} onClick={handleClick}>
-                <Iconify icon="line-md:account" color="#2065D1" width={22} height={22} />
-            </Button>
-            {showAlert?(
-              <Alert 
-                variant="filled" 
-                severity="info"   
-                sx={{
-                  position: 'relative',
-                  bottom: '7px', 
-                }}
-              > Use <strong>"root/index"</strong>as username/password
-              </Alert>):null}
-            </Stack>
 
             <LoginForm />   {/* logika dihandle di komponen ini */}
           </StyledContent>

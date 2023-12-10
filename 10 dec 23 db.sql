@@ -149,7 +149,7 @@ CREATE TABLE `iassetjunction` (
   CONSTRAINT `fk_kondisi` FOREIGN KEY (`kondisi`) REFERENCES `iassetcondition` (`condition_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_kppn` FOREIGN KEY (`kppn`) REFERENCES `kppn` (`kppn_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_periode` FOREIGN KEY (`periode`) REFERENCES `periode` (`periode_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,7 +158,7 @@ CREATE TABLE `iassetjunction` (
 
 LOCK TABLES `iassetjunction` WRITE;
 /*!40000 ALTER TABLE `iassetjunction` DISABLE KEYS */;
-INSERT INTO `iassetjunction` VALUES (6,4,'erqwewe','213wqewq','wqw','1323',1,1,'553','16','229','wqeqwewet43','ewrr43',0,'2023-11-12 07:31:23','2023-11-15 07:01:39',1),(7,1,'KBN0300G007','Didi','jmtyj','5468',2,2,'44','8','360','UNV0399245BNS','nrynrj',4,'2023-11-12 07:31:23','2023-11-15 07:03:16',2),(35,2,'','','brother','2011',1,3,'','','','','',0,'2023-11-19 11:31:00',NULL,1),(36,3,'','','fujitsu','2011',2,3,'','','','','ojeneqwnlejqwn',0,'2023-11-19 11:34:04',NULL,1),(40,4,'','','UPS2','2019',0,3,'','','','','asa',0,'2023-11-20 15:26:29','2023-11-21 02:25:59',1),(41,1,'LKBN0202','','2019','2017',0,0,'','','','','',0,'2023-11-21 02:28:19',NULL,1),(43,0,'KBNL030076','sasad','HP','2017',0,3,'ewqwe','','qewqwe','saddas','ln wqem wqem ew wqkemwqkomwekm wqelkwqmlkwqem wqelkmwqelkew',0,'2023-11-21 03:38:58','2023-11-27 14:38:17',1),(50,0,'abc','qwewqe','wqewqeewq','1213',0,3,'','','','','',0,'2023-11-28 15:06:56',NULL,1);
+INSERT INTO `iassetjunction` VALUES (6,4,'erqwewe','213wqewq','wqw','1323',1,1,'553','16','229','wqeqwewet43','ewrr43',0,'2023-11-12 07:31:23','2023-11-15 07:01:39',1),(7,1,'KBN0300G007','Didi','jmtyj','5468',2,2,'44','8','360','UNV0399245BNS','nrynrj',4,'2023-11-12 07:31:23','2023-11-15 07:03:16',2),(35,2,'','','brother','2011',1,3,'','','','','',0,'2023-11-19 11:31:00',NULL,1),(36,3,'','','fujitsu','2011',2,3,'','','','','ojeneqwnlejqwn',0,'2023-11-19 11:34:04',NULL,1),(40,4,'','','UPS2','2019',0,3,'','','','','asa',0,'2023-11-20 15:26:29','2023-11-21 02:25:59',1),(41,1,'LKBN0202','','2019','2017',0,0,'','','','','',0,'2023-11-21 02:28:19',NULL,1),(43,0,'KBNL030076','sasad','HP','2017',0,3,'ewqwe','','qewqwe','saddas','ln wqem wqem ew wqkemwqkomwekm wqelkwqmlkwqem wqelkmwqelkew',0,'2023-11-21 03:38:58','2023-11-27 14:38:17',1),(50,0,'abc','qwewqe','wqewqeewq','1213',0,3,'','','','','',0,'2023-11-28 15:06:56',NULL,1),(52,0,'wqeqeqwe','','wqeewqwe','2023',0,3,'','','','','',0,'2023-12-02 09:08:57',NULL,1),(53,0,'sasda','','asddsads','2023',0,3,'','','','','',0,'2023-12-02 09:10:27',NULL,1),(57,0,'sadsadsa','','sadsasads','2023',0,3,'','','','','',0,'2023-12-02 09:12:00',NULL,1),(58,0,'sadsadsa','','sadsasads','2023',0,3,'','','','','',0,'2023-12-02 09:12:01',NULL,1),(59,0,'ewqewqew','','ewqwqweq','2023',0,3,'','','','','',0,'2023-12-02 09:23:53',NULL,1),(60,0,'12','','eweqweq','2023',0,3,'','','','','',0,'2023-12-02 09:24:07',NULL,1);
 /*!40000 ALTER TABLE `iassetjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -353,13 +353,13 @@ DROP TABLE IF EXISTS `notifications`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `notifications` (
   `notif_id` int NOT NULL AUTO_INCREMENT,
-  `notif_title` varchar(45) NOT NULL,
-  `notif_msg` tinytext NOT NULL,
-  `notif_created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `notif_title` varchar(45) DEFAULT NULL,
+  `notif_msg` tinytext,
+  `notif_created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `notif_type` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`notif_id`),
   UNIQUE KEY `notif_id_UNIQUE` (`notif_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -368,7 +368,7 @@ CREATE TABLE `notifications` (
 
 LOCK TABLES `notifications` WRITE;
 /*!40000 ALTER TABLE `notifications` DISABLE KEYS */;
-INSERT INTO `notifications` VALUES (1,'','Periode monev TIK telah dibuka mulai 01 Oktober 2023-30 November 2023','2023-10-10 11:17:20',NULL),(2,'root','index2','2023-09-15 10:02:49',NULL),(3,'title','message','2023-09-15 10:04:24',NULL),(4,'title2','message2','2023-09-15 10:19:53',NULL),(5,'title2','message2','2023-09-15 10:20:55',NULL),(21,'title','message','2023-09-15 14:23:50',NULL),(22,'qweq','wqewqweqewqe','2023-09-15 14:24:26',NULL),(23,'title','message','2023-09-15 14:26:37',NULL),(25,'title5','message5','2023-09-15 14:28:21',NULL),(27,'title5','message5','2023-09-15 14:33:08',NULL),(29,'title8','message8','2023-09-15 14:37:01',NULL),(30,'title8','message8','2023-09-15 14:44:04',NULL),(31,'title9','message9','2023-09-15 14:44:33',NULL),(32,'title9','message9','2023-09-15 14:45:00',NULL),(36,'title9','message9','2023-09-15 14:51:05',NULL),(37,'title9','message9','2023-09-15 14:51:54',NULL),(42,'title10','message10','2023-09-15 15:05:52',NULL),(46,'MonevTI v.0.2','Go to this link below to learn how the web app work ..... , or you could just play around to find out!','2023-09-16 14:00:01','admin');
+INSERT INTO `notifications` VALUES (47,'Monev TIK smt 2 2023','Yth. Bapak/Ibu PIC TIK, pastikan seluruh output telah diselesaikan sebelum 28 Desember 2023. Panduan dapat diakses pada menu panduan','2023-12-10 09:19:53','normal'),(48,'Monev TIK smt 2 2023','Pastikan seluruh output telah diselesaikan dan Nota Dinas dikirim sebelum 28 Desember 2023.','2023-12-10 09:22:20','normal');
 /*!40000 ALTER TABLE `notifications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -394,7 +394,7 @@ CREATE TABLE `notifjunction` (
   CONSTRAINT `creator_fk_id` FOREIGN KEY (`creator_fk_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `notif_fk_id` FOREIGN KEY (`notif_fk_id`) REFERENCES `notifications` (`notif_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `receiver_fk_id` FOREIGN KEY (`receiver_fk_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -403,7 +403,7 @@ CREATE TABLE `notifjunction` (
 
 LOCK TABLES `notifjunction` WRITE;
 /*!40000 ALTER TABLE `notifjunction` DISABLE KEYS */;
-INSERT INTO `notifjunction` VALUES (21,46,7,7,0,'2023-09-16 14:00:01',NULL),(22,46,7,9,0,'2023-09-16 14:00:01',NULL),(23,46,7,11,0,'2023-09-16 14:00:01',NULL),(24,46,7,12,0,'2023-09-16 14:00:01',NULL);
+INSERT INTO `notifjunction` VALUES (29,48,7,7,1,'2023-12-10 09:22:20',NULL),(30,48,7,9,0,'2023-12-10 09:22:20',NULL),(31,48,7,11,0,'2023-12-10 09:22:20',NULL),(32,48,7,12,0,'2023-12-10 09:22:20',NULL);
 /*!40000 ALTER TABLE `notifjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,6 +449,9 @@ CREATE TABLE `user` (
   `image` varchar(255) DEFAULT NULL,
   `kppn` int DEFAULT NULL,
   `periode` int DEFAULT NULL,
+  `nama_pic` varchar(45) DEFAULT NULL,
+  `nip_pic` varchar(45) DEFAULT NULL,
+  `email_pic` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `user_id_UNIQUE` (`user_id`),
   UNIQUE KEY `username_UNIQUE` (`username`),
@@ -466,7 +469,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (7,'root','$2b$10$ZTDQTuuOPA6wu338p7n6YOpjrmt/gf36TLsoAVLEUiCFzmRm.3K0S',2,'Admin',1,'root@kemenkeu.go.id','/assets/images/avatars/avatar_12.jpg',0,1),(9,'root2','$2b$10$RHXc6P3Tb5j2ioF9NMU0OuEoquNwFHaCj5CqUr1NKLcSb9plz6CZ2',1,'Admin2',NULL,NULL,NULL,2,2),(11,'root3','$2b$10$BjkU81OreSbHJ9WOcHIgkOdloNsW2Zux.cq2Ad8lP3i/zGKLH7sqq',1,'Admin3',NULL,NULL,NULL,2,1),(12,'root4','$2b$10$.pnm5ade59YJ6Cb2bhDZP.McBEBpTBOsWRdtTMxLpZPg8EHFOLG7m',1,'Admin4',NULL,NULL,NULL,2,2);
+INSERT INTO `user` VALUES (7,'root','$2b$10$9UpDYRMqX6fjJS3eQ0P3b.lNaUrH9BXem8HKq.sX9z2P46pxUP4Eu',2,'Admin DJPb Sumbar',1,'root@kemenkeu.go.id','7_png.png',0,1,'Muhammad Haikal Putra','199904082021011001','haikal.hendrawan@kemenkeu.go.id'),(9,'K010','$2a$10$ujm/5QtBDiQoihnhqBjZG.hsZHaLXcmOyvAnqoZMZhwDwz9SJJ/Je',1,'KPPN Padang',NULL,'kppnpadang@gmail.com',NULL,2,2,NULL,NULL,NULL),(11,'K011','$2a$10$7XmHzE3tWFqx.Nrc8p8xcuSd63BOHmtdIm57INh8CqO3uM8/gOn9u',1,'KPPN Bukittinggi',NULL,NULL,NULL,2,1,NULL,NULL,NULL),(12,'K090','$2a$10$ieES0sVH5g/q9k6F0om9X.DWDf7pb4ObwLhl0xxcozkJNCHRklqLq',1,'KPPN Solok',NULL,NULL,NULL,2,2,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -479,4 +482,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-28 23:41:34
+-- Dump completed on 2023-12-10 21:14:00

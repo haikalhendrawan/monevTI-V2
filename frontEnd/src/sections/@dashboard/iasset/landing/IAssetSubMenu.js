@@ -42,7 +42,7 @@ const IAssetSubMenu = (props) => {
 
                 <Grid item xs={6}>
                     <Box sx={{ overflow:'hidden', p: 1, pt: 2, display:'inline-block', height:'100%', background:'cover'}}>
-                        <img src={props.image} alt="tes"/>
+                        <img src={props.image} alt="tes" />
                         {/* <Skeleton variant='rounded' sx={{borderRadius:'12px'}} height={245} width={225}/> */}
                     </Box>
                 </Grid>

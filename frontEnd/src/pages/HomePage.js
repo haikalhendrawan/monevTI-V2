@@ -8,6 +8,8 @@ import Iconify from '../components/iconify';
 // sections
 import {AppOrderTimeline, AppWidgetSummary} from '../sections/@dashboard/app';
 import WelcomeCard from "../sections/@dashboard/home/WelcomeCard";
+import ImageCarousel from "../sections/@dashboard/home/ImageCarousel";
+import WorkflowTimeline from "../sections/@dashboard/home/WorkflowTimeline";
 
 import {useAuth} from "../hooks/useAuth";
 import useRefreshToken from "../hooks/useRefreshToken";
@@ -23,10 +25,6 @@ export default function HomePage() {
   const scrollToComponent = () => {
     scrollRef.current.scrollIntoView({behavior: 'smooth'})
   };
-
-  useEffect(()=>{
-    console.log(auth);
-  },[auth])
 
   return (
     <>
@@ -46,11 +44,11 @@ export default function HomePage() {
           </Grid>
 
           <Grid container xs={12} sm={6} md={4} sx={{pt:0, pl:3 }}>
-            <AppWidgetSummary title='carousel' sx={{width:'100%', borderRadius:'16px'}}/>
+            <ImageCarousel title='carousel' sx={{width:'100%', borderRadius:'16px'}}/>
           </Grid>
 
           <Grid item xs={12} md={6} lg={5} ref={scrollRef}>
-            <AppOrderTimeline
+            <WorkflowTimeline
                 title="Workflow Pengerjaan"
                 list={[...Array(5)].map((_, index) => ({
                   id: index+1,
@@ -62,11 +60,11 @@ export default function HomePage() {
                     '5. Kirimkan output laporan dan BA melalui Nota Dinas kepada Kanwil DJPb',
                   ][index],
                   text:[
-                    'Est. Waktu: 5 mnt -> menu profile',
-                    'Est. Waktu: 1 - 4 jam -> menu Data TIK',
-                    'Est. Waktu: 8 - 11 jam -> menu Worksheet',
-                    'Est. Waktu: 5 - 10 mnt -> menu Data TIK dan Worksheet',
-                    'Est. Waktu: 30 - 60 mnt -> Satu Kemenkeu',
+                    'Profile Icon -> menu profile (Est. Waktu: 5 mnt)',
+                    'Menu Data TIK (Est. Waktu: 1 - 4 jam) ',
+                    'Menu Worksheet (Est. Waktu: 8 - 11 jam  )',
+                    'Menu Data TIK dan Menu Worksheet (Est. Waktu: 5 - 10 mnt)',
+                    'Satu Kemenkeu (Est. Waktu: 30 - 60 mnt)',
                   ][index],
                   color:[
                     'primary',

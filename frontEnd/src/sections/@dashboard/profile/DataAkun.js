@@ -15,6 +15,10 @@ const infoRows = [
   {col1:"Periode", col2: ':', col3:<TextField size="small" disabled/>},
 ];
 
+const selectRole = [
+  'default', 'user', 'Admin'
+]
+
 // ----------------------------------------
 
 export default function DataAkun(){
@@ -49,6 +53,19 @@ export default function DataAkun(){
       name:value.name,
       email:value.email
     });
+    
+    await axiosJWT.post('/updateToken', {
+      ...auth,
+      name:value.name,
+      email:value.email
+    });
+
+    setAuth((prev) => ({
+      ...prev,
+      name:value.name,
+      email:value.email
+    }))
+
     setSnackbar({
       open:true,
       color:'success',
@@ -74,7 +91,7 @@ export default function DataAkun(){
     {col1:"Username", col2: ':', col3:<TextField size="small" value ={auth?.username} disabled />},
     {col1:"Name", col2: ':', col3:<TextField size="small" name='name' value ={value.name} onChange={handleChange}/> },
     {col1:"Email", col2: ':', col3:<TextField size="small" name='email' value ={value.email} onChange={handleChange}/>},
-    {col1:"Role", col2: ':', col3:<TextField size="small" disabled value ={auth?.role}/>},
+    {col1:"Role", col2: ':', col3:<TextField size="small" disabled value ={selectRole[auth?.role]}/>},
     {col1:"Periode", col2: ':', col3:<TextField size="small" disabled value ={'Smt 2 2023'}/>},
   ];
 

@@ -7,15 +7,16 @@ const icon = (name) => <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ 
 
 const navConfig = [
   {
-    title: 'Worksheet',
-    path: '/worksheet',
-    icon: icon('solar-document'),
-  },
-  {
     title: 'Data TIK',
     path: '/iasset',
     icon: icon('solar-database-bold'),
   },
+  {
+    title: 'Worksheet',
+    path: '/worksheet',
+    icon: icon('solar-document'),
+  },
+
 ];
 
 const navConfig2 = [

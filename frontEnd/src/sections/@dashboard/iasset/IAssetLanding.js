@@ -48,19 +48,18 @@ const IAssetLanding = (props) => {
                 <Grid item xs={12} sm={6} md={6}>
                     <Grid item xs={12}>
                         <Stack spacing={2}>
-
                             <IAssetSubMenu 
                                 changeSection={props.changeSection} 
                                 title={'Asset'} 
                                 subheader={`Data perangkat TIK pada ${selectKPPN[auth.kppn]}`}
-                                image={"assets/safe.svg"}
+                                image={"assets/Security_11zon.png"}
                                 open = {2}  // display {1:generate report, 2:Perangkat TIK, 3:User TIK}
                             />
                             <IAssetSubMenu 
                                 changeSection={props.changeSection} 
                                 title={'User'} 
                                 subheader={`Data pengguna aplikasi pada ${selectKPPN[auth.kppn]}`}
-                                image={"assets/ui.svg"}
+                                image={"assets/Payment_11zon.png"}
                                 open = {3}
                             />
 

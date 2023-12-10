@@ -37,6 +37,7 @@ export default function AccountPopover() {
   const {auth, setAuth } = useAuth();
   const [anchorEl, setAnchorEl] = useState(null); 
   const openPeriod = Boolean(anchorEl); 
+  const [avatarKey, setAvatarKey] = useState(0);
 
   const handleOpen = (event) => {
     setOpen(event.currentTarget);
@@ -46,10 +47,10 @@ export default function AccountPopover() {
     setOpen(null);
   };
 
-  const handleOpenPeriod = (event) => {
-    setAnchorEl(event.currentTarget);
-    console.log(openPeriod)
-  }
+  // const handleOpenPeriod = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  //   console.log(openPeriod)
+  // }
 
   const logout = async () => {
     setAuth(null);
@@ -60,6 +61,10 @@ export default function AccountPopover() {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    setAvatarKey(avatarKey+1)
+  },[auth]);
 
 
 // -----------------------------------------------------------------------------------------------
@@ -82,7 +87,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar src={auth?.image} alt="photoURL" />
+        <Avatar key={avatarKey} src={auth?.image?`http://localhost:8080/avatar/${auth.image}?${new Date().getTime()}`:`http://localhost:8080/avatar/default.png`} alt="photoURL" />
       </IconButton>
 
       <Popover

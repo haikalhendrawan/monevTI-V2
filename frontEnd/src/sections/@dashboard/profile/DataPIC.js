@@ -58,6 +58,20 @@ export default function DataPIC () {
         email_pic:value.email_pic
       });
 
+      const response2 = await axiosJWT.post('/updateToken', {
+        ...auth,
+        namaPIC:value.nama_pic,
+        nipPIC:value.nip_pic,
+        emailPIC:value.email_pic
+      });
+
+      setAuth((prev) => ({
+        ...prev,
+        namaPIC:value.nama_pic,
+        nipPIC:value.nip_pic,
+        emailPIC:value.email_pic
+      }))
+
       setSnackbar({
         open:true,
         color:'success',

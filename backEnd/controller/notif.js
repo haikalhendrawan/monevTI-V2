@@ -12,34 +12,51 @@ const getNotif = async (req, res) => {
         console.log(err);
         return res.status(500).json({msg:"failed to make database query"});
     }
-}
+};
 
 const addNotif = async (req, res) => {
     try{
+        const connection = await pool.getConnection();
         const {notifTitle, notifMessage, notifType} = req.body;
         const creatorID = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
-        await pool.beginTransaction();
+        await connection.beginTransaction();
         const q = "INSERT INTO notifications(notif_title, notif_msg, notif_type) VALUES (?,?, ?)"; // masukkan data ke table notifications
-        await pool.execute(q, [notifTitle, notifMessage, notifType]);
+        await connection.execute(q, [notifTitle, notifMessage, notifType]);
 
-        const q1 = "SELECT MAX(notif_id) FROM notifications";
-        const [rows1] =  await pool.query(q1);
+        const q1 = "SELECT MAX(notif_id) FROM notifications"; // dapetin id dari notification yg baru dibuat
+        const [rows1] =  await connection.query(q1);
         const notifID = rows1[0]['MAX(notif_id)'];  
 
-        const q2 = "SELECT user_id from user";
-        const [rows] = await pool.query(q2);
+        const q2 = "SELECT user_id from user"; 
+        const [rows] = await connection.query(q2);
         
-        rows.map((row) => {
+        rows.map((row) => { // sebarin notif ke seluruh user
             const q3 = "INSERT INTO notifjunction(notif_fk_id, creator_fk_id, receiver_fk_id) VALUES (?, ?, ?)";
-            pool.execute(q3, [notifID, creatorID, row.user_id]);
+            connection.execute(q3, [notifID, creatorID, row.user_id]);
         })
-        await pool.commit();
+        await connection.commit();
         return res.status(200).json({msg:"Data inserted successfully"});
     }catch (err){
         console.log(err);
-        await pool.rollback();
+        await connection.rollback();
         return res.status(500).json({ msg: "Internal Server Error" });
+    }
+};
+
+const updateNotif = async(req, res) => {
+    try{
+        const {notifJunctionId} = req.body;
+        const creatorID = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
+        const q = "UPDATE notifjunction SET status = ? WHERE notif_junction_id = ? AND creator_fk_id = ?"  // masukkan data ke table notifications
+        await pool.execute(q, [1, notifJunctionId, creatorID]);
+        return res.status(200).json({msg:"notif updated successfully"}); 
+
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({ msg: "Internal Server Error" + err});
     }
 }
 
-export {getNotif, addNotif};
+
+
+export {getNotif, addNotif, updateNotif};
