@@ -225,7 +225,7 @@ const UserTikSection = (props) => {
                         size='small'
                         >
                             {SELECTAPP.map((item, index) => {
-                            return(<MenuItem key={index} sx={{typography:'body2'}} value={item.value}>{item.jenis} <Iconify icon={item.icon} sx={{ml:1}}/></MenuItem>)
+                            return(<MenuItem key={index} sx={{typography:'body2'}} value={item.value}>{item.jenis}</MenuItem>)
                             })}
                         </Select>
                   </FormControl>

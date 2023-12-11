@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 // @mui
 import { styled } from '@mui/material/styles';
+import {Box} from '@mui/material';
 // components
 import Logo from '../../components/logo';
 
@@ -24,7 +25,9 @@ export default function SimpleLayout() {
   return (
     <>
       <StyledHeader>
-        <Logo />
+        <Box sx={{ px: 2.5, py: 3, display: 'inline-flex' }}>
+          <Logo />
+        </Box>
       </StyledHeader>
 
       <Outlet />

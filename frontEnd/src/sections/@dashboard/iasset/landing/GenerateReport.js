@@ -16,22 +16,32 @@ import GeneratePDFPage from '../../../../pages/GeneratePDFPage';
 
 const date = new Date();
 const currentDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
-const assetData =[
-    {number:10, text:'Penambahan PC SPAN, Laptop', color:'success'},
-    {number:20, text:'Penghapusan Access Point, Laptop, Genset', color:'error'},
-    {number:12, text:'Edit data Laptop, Printer', color:'warning'},
-];
-const userData=[
-    {number:2, text:'Penambahan User SPAN', color:'success'},
-    {number:5, text:'Penambahan User SAKTI, User Sprint', color:'error'},
-    {number:7, text:'Edit data User PIC TIK', color:'warning'},
-];
+
 
 // --------------------------------------------------------------------------
 function GenerateReport (props) {
     const theme = useTheme();
     const {ASSET, setASSET, getIAsset} = useAsset(); // hook mendapatkan data iasset
     const {IUSER, setIUSER, getIUser} = useIUser(); // hook mendapatkan data iuser
+
+    
+    const asetBaik = ASSET?.filter((item) => {return item.kondisi===0});
+    const asetRusakRingan = ASSET?.filter((item) => {return item.kondisi===1});
+    const asetRusakBerat = ASSET?.filter((item) => {return item.kondisi===2});
+    const userSAKTI = IUSER?.filter((item) => {return item.app===0});
+    const userSPAN = IUSER?.filter((item) => {return item.app===1});
+    const userLainnya = IUSER?.filter((item) => {return item.app===2});
+
+    const assetData =[
+        {number:asetBaik?.length, text:'Perangkat dengan kondisi baik', color:'success'},
+        {number:asetRusakRingan?.length, text:'Perangkat dengan kondisi rusak ringan', color:'error'},
+        {number:asetRusakBerat?.length, text:'Perangkat dengan kondisi rusak berat', color:'warning'},
+    ];
+    const userData=[
+        {number:userSAKTI?.length, text:'Jumlah user aplikasi SAKTI ', color:'success'},
+        {number:userSPAN?.length, text:'Jumlah user aplikasi SPAN', color:'error'},
+        {number:userLainnya?.length, text:'Jumlah user aplikasi Lainnya', color:'warning'},
+    ];
 
     return(
         <>

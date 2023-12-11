@@ -23,7 +23,6 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 export default function Page404() {
   const {auth, setAuth} = useAuth();
-  console.log(auth)
   return (
     <>
       <Helmet>

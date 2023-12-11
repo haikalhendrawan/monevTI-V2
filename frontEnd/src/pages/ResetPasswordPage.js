@@ -13,7 +13,7 @@ import useResponsive from '../hooks/useResponsive';
 import Logo from '../components/logo';
 import Iconify from '../components/iconify';
 // sections
-import { LoginForm } from '../sections/auth/login';
+import { ResetForm } from '../sections/auth/reset';
 
 
 // ----------------------------------------------------------------------
@@ -48,7 +48,7 @@ const StyledContent = styled('div')(({ theme }) => ({
 
 // ----------------------------------------------------------------------
 
-export default function LoginPage() {
+export default function ResetPasswordPage() {
   const mdUp = useResponsive('up', 'md');
   const [showAlert, setShowAlert] = useState(false);
 
@@ -84,13 +84,13 @@ export default function LoginPage() {
         <Container maxWidth="sm" >
           <StyledContent>
             <Typography variant="h4" gutterBottom>
-              Sign In
+              Reset Password
             </Typography>
             <Typography variant="body" gutterBottom sx={{mb:5}}>
-              masuk menggunakan username dan password masing2 kppn
+              input username dan email kemenkeu kppn / email PIC TIK
             </Typography>
 
-            <LoginForm />   {/* logika dihandle di komponen ini */}
+           <ResetForm />
             
             <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{position:'absolute', bottom:'3%', right:'13%'}}>
                 <Typography variant='body2'>Copyright © 2023 Kanwil DJPb Prov Sumbar</Typography>

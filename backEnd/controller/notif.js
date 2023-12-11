@@ -47,7 +47,7 @@ const updateNotif = async(req, res) => {
     try{
         const {notifJunctionId} = req.body;
         const creatorID = req.payload.id; // payload jwt yang udh di decode di middleware authenticate
-        const q = "UPDATE notifjunction SET status = ? WHERE notif_junction_id = ? AND creator_fk_id = ?"  // masukkan data ke table notifications
+        const q = "UPDATE notifjunction SET status = ? WHERE notif_junction_id = ? AND receiver_fk_id = ?"  // masukkan data ke table notifications
         await pool.execute(q, [1, notifJunctionId, creatorID]);
         return res.status(200).json({msg:"notif updated successfully"}); 
 

@@ -23,7 +23,7 @@ const MENU_OPTIONS = [
   //   icon: 'eva:settings-2-fill',
   // },
   {
-    label: 'Smt 1 2023',
+    label: 'Smt 2 2023',
     icon: 'mdi:calendar',
     link: '',
     component:null

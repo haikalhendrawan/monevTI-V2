@@ -8,12 +8,12 @@ import RequireAuthLayout from "./layouts/auth/RequireAuthLayout";
 import PersistLogin from "./layouts/auth/PersistLogin";
 
 // Pages
-import BlogPage from './pages/BlogPage';
+import BlogPage from './pages/legacy/BlogPage';
 import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
-import DashboardAppPage from './pages/DashboardAppPage';
+import ProductsPage from './pages/legacy/ProductsPage';
+import DashboardAppPage from './pages/legacy/DashboardAppPage';
 import IAssetPage from './pages/IAssetPage';
 import WorksheetPage from './pages/WorksheetPage';
 import MonitoringPage from './pages/MonitoringPage';
@@ -22,6 +22,7 @@ import TopologyPage from './pages/TopologyPage';
 import ProfilePage from './pages/ProfilePage';
 import GeneratePDFPage from './pages/GeneratePDFPage';
 import HomePage from "./pages/HomePage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -29,6 +30,8 @@ export default function Router() {
   <Routes>
   
     <Route path="/login" element={ <LoginPage />} />
+    <Route path="/resetpassword" element={ <ResetPasswordPage />} />
+
  
     <Route element={<PersistLogin />}> 
       <Route element={<RequireAuthLayout allowedRoles={[1,2]}/>}> { /* we want to protect this route */}
