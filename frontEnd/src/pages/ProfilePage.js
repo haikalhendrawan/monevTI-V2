@@ -1,5 +1,6 @@
 import {useState, useEffect, useRef} from "react";
-import { Avatar, Card, CardHeader, CardContent, Tooltip, TextField, Tabs, Tab, Stack} from "@mui/material";
+import { useNavigate} from "react-router-dom";
+import { Avatar, Card, CardHeader, CardContent, Tooltip, TextField, Tabs, Tab, Stack, IconButton} from "@mui/material";
 import {useTheme, alpha} from "@mui/material/styles";
 import {useAuth} from "../hooks/useAuth";
 import useAxiosJWT from "../hooks/useAxiosJWT";
@@ -31,6 +32,8 @@ export default function ProfilePage(){
 
     const fileInputRef = useRef(null);
 
+    const navigate = useNavigate();
+
     const {auth, setAuth} = useAuth();
 
     const axiosJWT = useAxiosJWT();
@@ -38,6 +41,10 @@ export default function ProfilePage(){
     const [avatarKey, setAvatarKey] = useState(0);
 
     const [tabValue, setTabValue] = useState(0); // ganti menu jenis perangkat yang ditampilkan
+
+    const handleBackClick = () => {
+      navigate(-1);
+    }
 
     const handleTabChange = (event, newValue) => { // setiap tab jenis asset berubah
       setTabValue(newValue);
@@ -79,6 +86,10 @@ export default function ProfilePage(){
     
     return(
         <>
+        <IconButton variant='contained' onClick={handleBackClick} >
+          <Iconify icon={"eva:arrow-ios-back-outline"} />
+        </IconButton>
+
          <Card sx={{width:'70%', mx:'auto', backgroundColor:alpha(theme.palette.primary.main, 0.24)}}>
             <CardHeader title={"Profile Page"} sx={{textAlign:'center'}} />
             <CardContent sx={{fontSize:14}}>

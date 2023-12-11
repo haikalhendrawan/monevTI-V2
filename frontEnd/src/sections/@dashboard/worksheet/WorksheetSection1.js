@@ -13,7 +13,7 @@ export default function WorksheetSection1(props){
   return(
     <>
     {cardd.map((item, index) => {
-      return (<WorksheetCard key={index} name={`ABC`} nik={`ABC`} username={`ABC`} user_id={`ABC`} header={index+1}/>) 
+      return (<WorksheetCard key={index} name={`ABC`} nik={`ABC`} username={`ABC`} user_id={`ABC`} header={index+1} />) 
         })
     }
     </>

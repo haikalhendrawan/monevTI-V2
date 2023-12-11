@@ -33,7 +33,7 @@ const upload = multer({storage:storage, limits:limit, fileFilter:fileFilter}).si
 const addProfilePicture = async (req, res) => {
   try {
       upload(req, res, async(err) => {
-        if(!req.file){return res.status(400).json({ errMsg: "Incorrect File Type" });}
+        if(!req.file){return res.status(400).json({ errMsg: "Incorrect File Type" + err});}
 
         const userId = req.payload.id;
         const fileExt = req.file.mimetype.split("/")[1];

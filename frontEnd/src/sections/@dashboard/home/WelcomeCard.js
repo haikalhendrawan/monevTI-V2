@@ -361,7 +361,7 @@ export default function WelcomeCard({ title, total, icon, color = 'primary', sx,
           <Typography variant='h4'>Welcome, </Typography>
           <Typography variant='h4'>{auth?.name}</Typography>
           <Typography variant='body2' sx={{mt:3}}>Selamat datang di modul MonevTI. Pastikan pengerjaan mengikuti workflow dibawah dan seluruh bagian telah diselesaikan ya👌</Typography>
-          <Button variant='contained' sx={{mt:3}} onClick={scrollToRef}>Start</Button>
+          <Button variant='contained' sx={{mt:'15%'}} onClick={scrollToRef}>Start</Button>
         </Grid>
         <Grid item xs={12} md={6} lg={5}>
           <Box sx={{borderRadius:'16px'}}>

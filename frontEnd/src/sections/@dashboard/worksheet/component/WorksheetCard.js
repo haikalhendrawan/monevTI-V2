@@ -22,7 +22,7 @@ function WorksheetCard(props) {
 
     return(
         <Grid item xs={12} sm={12} md={12}>
-            <Card sx={{height:'230px'}}>
+            <Card sx={{height:'250px'}}>
                 <CardHeader title={<Head num={props.header} />} sx={{backgroundColor:theme.palette.background.default, height:'25%', pl:1, pt:0}}/> 
             
                     <Grid container sx={{mt:1, textAlign:'center', justifyContent:'center'}} spacing={0}>  {/* Kepala Table */}
@@ -51,10 +51,10 @@ function WorksheetCard(props) {
                         </Grid>
 
                         <Grid item xs={2}>  {/* Kolom NIK */}
-                            {/* <Tooltip title="Upload file" placement='right'>
+                            <Tooltip title="Upload file" placement='right'>
                                 <Button variant='contained' size='small' sx={{mb:1}}><Iconify icon='solar:cloud-upload-bold' /></Button>
                             </Tooltip>
-                            <Tooltip title="Contoh bukti dukung">
+                            {/* <Tooltip title="Contoh bukti dukung">
                                 <Button variant='contained' size='small' color='warning'><Iconify icon='solar:lightbulb-bold' /></Button>
                             </Tooltip> */}
 
