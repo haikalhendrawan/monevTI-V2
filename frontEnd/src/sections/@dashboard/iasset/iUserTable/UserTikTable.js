@@ -134,7 +134,7 @@ export default function UserTikTable(props) {
 
   const [filterPelatihan, setFilterPelatihan] = useState(2);
 
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   const [rowToEdit, setRowToEdit] = useState({});
 

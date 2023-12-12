@@ -195,7 +195,7 @@ export default function AssetTikTable2(props) {
 
   const [filterKondisi, setFilterKondisi] = useState(3); // set filter kondisi di toolbar
 
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(20);
 
   const [rowToEdit, setRowToEdit] = useState({});
 

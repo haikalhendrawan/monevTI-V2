@@ -1,10 +1,17 @@
 import pool from "../config/db.js";
 
 
+// -------------------------------------------------------------------
+
 // 1. Endpoint mendapatkan data checklist By User, Batch, dan Period
 const addChecklist = async (req, res) => {
     try{
         const {title, description, instruksi, contoh_file, ws_section, peraturan} = req.body; 
+
+        // if (Object.values(req.body).some(value => value === null)) {
+        //     return res.status(400).json({ errMsg: "One or more properties in req.body are null" });
+        // }
+
         const q = `INSERT INTO 
                     checklist (title, description, instruksi, contoh_file, ws_section, peraturan) 
                     VALUES (?, ?, ?, ?, ?, ?)`;
@@ -25,7 +32,12 @@ const addChecklist = async (req, res) => {
 // 2. fungsi mengedit data masing2 checklist
 const editChecklist = async (req, res) => {
     try{
-        const {id, title, description, instruksi, contoh_file, ws_section, peraturan} = req.body; 
+        const {id, title, description, instruksi, contoh_file, ws_section, peraturan} = req.body;
+        
+        // if (Object.values(req.body).some(value => value === null)) {
+        //     return res.status(400).json({ errMsg: "One or more properties in req.body are null" });
+        // }
+
         const q = ` UPDATE checklist
                     SET title=?, description=?, instruksi=?, contoh_file=?, ws_section=?, peraturan=? 
                     WHERE checklist_id=?`;
@@ -47,18 +59,21 @@ const editChecklist = async (req, res) => {
 const getChecklistByUser = async (req, res) => {
     try{
         const userId = req.payload.id;
-        const {batch} = req.body; 
-        const q = ` SELECT * FROM checklistjunction WHERE user_id=? & batch_id =? `;
+        const batch = req.params.batchId; 
+        const q = ` SELECT checklistjunction.*, checklist.*
+                    FROM checklistjunction 
+                    LEFT JOIN checklist ON checklistjunction.checklist_id = checklist.checklist_id
+                    WHERE checklistjunction.user_id=? AND checklistjunction.batch_id =? `;
 
-        [rows] = await pool.execute(q, [userId, batch]);
+        const [rows] = await pool.execute(q, [userId, batch]);
         return res.status(200).json({rows:rows, msg:"data updated successfully"});
 
     }catch(err){
-        if(err.req.userId){
+        if(err.userId){
             console.log(err);
             return res.status(403).json({errMsg:"Authentication failed"});
         };
-        if(err.req.body){
+        if(err.batch){
             console.log(err);
             return res.status(403).json({errMsg:"Error in request body"});
         };
@@ -114,12 +129,13 @@ const editBatch = async (req, res) => {
     }  
 };
 
-// 7. 
+// 7. fungsi mendapatkan info batch
 const getBatch = async (req, res) => {
     try{ 
-        const q = ` SELECT * FROM batch `;
+        const period = 1;
+        const q = ` SELECT * FROM batch WHERE periode=?`;
 
-        const [rows]= await pool.execute(q);
+        const [rows]= await pool.execute(q, [period]);
         return res.status(200).json({rows:rows, msg:"data retreived successfully"})
     }catch(err){
         if(err.response){
@@ -136,31 +152,46 @@ const deleteBatch = async (req, res) => {
     console.log('deleteBatch');
 };
 
-// 9. 
+// 9.  Fungsi utama menginisiasi kertas kerja per batch. 
 const assignChecklist = async (req, res) => {
-    
     try{
         const connection = await pool.getConnection();
         const {batchId} = req.body;
         await connection.beginTransaction();
         
-        // get all available user
+            // get all available user
         const q = `SELECT user_id FROM USER`;
         const [userArray] = await connection.execute(q);
         
-        // get all checklist
+            // get all checklist
         const q2 = `SELECT checklist_id FROM checklist`
         const [checklistArray] = await connection.execute (q2);
 
-        // for each loop assign
-        checklistArray?.map(async (item) => {
+            // for each loop assign checklist
+        userArray?.map(async (item) => {
 
-            const checklistId = item.checklist_id
-            userArray?.map(async(item) => {
+            const userId = item.user_id;
+            checklistArray?.map(async(item) => {
                 
-                const userId = item.user_id;
+                const checklistId = item.checklist_id
                 const q3 = `INSERT INTO checklistjunction(checklist_id, user_id, batch_id) VALUE (?, ?, ?)`;
                 await connection.execute(q3, [checklistId, userId, batchId])
+            })
+        })
+
+            // get all batch
+        const q4 = `SELECT batch_id FROM batch`
+        const [batchArray] = await connection.execute (q4);
+
+            // for each loop assign batch
+        userArray?.map(async (item) => {
+
+            const userId = item.user_id;
+            batchArray?.map(async(item) => {
+                
+                const batchId = item.batch_id;
+                const q5 = `INSERT INTO batch_junction(batch_id, user_id) VALUE (?, ?)`;
+                await connection.execute(q5, [batchId, userId])
             })
         })
 
@@ -169,13 +200,38 @@ const assignChecklist = async (req, res) => {
     }catch(err){
         console.log(err);
         await connection.rollback();
-
     }
 };
 
-const editChecklistJunction = async (req, res) => {
 
+// 10. Fungsi ketika user mengisi kertas kerja
+const editChecklistJunction = async (req, res) => {
+    try{
+        const userId = req.payload.id;
+        const {csJunctionId, kppnResponse, kppnNote, kanwilNote, file1, file2} = req.body; 
+        const q = ` UPDATE checklistjunction
+                    SET kppn_response= ?, kppn_note=?, kanwil_note=?, file1=?, file2=? 
+                    WHERE csjunction_id=? AND user_id=? `;
+        console.log(userId);
+        console.log(req.body);
+
+        await pool.execute(q, [kppnResponse, kppnNote, kanwilNote, file1, file2,csJunctionId, userId]);
+        return res.status(200).json({msg:"data updated successfully"});
+
+    }catch(err){
+        if(err.userId){
+            console.log(err);
+            return res.status(403).json({errMsg:"Problem Authenticating"});
+        };
+        if(err.userId){
+            console.log(err);
+            return res.status(403).json({errMsg:"Error in request body"});
+        };
+        console.log(err);
+        return res.status(500).json({errMsg:'Internal Server Error"'});
+    }  
 }
 
 
-export {addChecklist, editChecklist, getChecklistByUser, deleteChecklist, addBatch, editBatch, getBatch, assignChecklist}
+export {addChecklist, editChecklist, getChecklistByUser, deleteChecklist, addBatch, 
+    editBatch, getBatch, assignChecklist, editChecklistJunction}

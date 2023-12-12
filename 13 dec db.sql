@@ -66,7 +66,7 @@ CREATE TABLE `batch` (
 
 LOCK TABLES `batch` WRITE;
 /*!40000 ALTER TABLE `batch` DISABLE KEYS */;
-INSERT INTO `batch` VALUES (1,'Monitoring TIK Semester 1 2023',1,'2023-12-18','2023-12-28','2023-12-11',NULL,0);
+INSERT INTO `batch` VALUES (1,'Monitoring TIK Semester 1 2023',0,'2023-12-18','2023-12-28','2023-12-11',NULL,0);
 /*!40000 ALTER TABLE `batch` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,11 +78,11 @@ DROP TABLE IF EXISTS `batch_junction`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `batch_junction` (
-  `junction_id` int NOT NULL,
+  `junction_id` int NOT NULL AUTO_INCREMENT,
   `batch_id` int DEFAULT NULL,
   `user_id` int DEFAULT NULL,
-  `time_created` timestamp NULL DEFAULT NULL,
-  `time_updated` timestamp NULL DEFAULT NULL,
+  `time_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `time_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `result` varchar(255) DEFAULT NULL,
   `isDone` int DEFAULT '0',
   `isStartSurvey` int DEFAULT '0',
@@ -91,7 +91,7 @@ CREATE TABLE `batch_junction` (
   KEY `userid_batchjunction_idx` (`user_id`),
   CONSTRAINT `batchId` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `userid_batchjunction` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,6 +100,7 @@ CREATE TABLE `batch_junction` (
 
 LOCK TABLES `batch_junction` WRITE;
 /*!40000 ALTER TABLE `batch_junction` DISABLE KEYS */;
+INSERT INTO `batch_junction` VALUES (1,1,7,'2023-12-12 14:44:16',NULL,NULL,0,0),(2,1,9,'2023-12-12 14:44:16',NULL,NULL,0,0),(3,1,11,'2023-12-12 14:44:16',NULL,NULL,0,0),(4,1,12,'2023-12-12 14:44:16',NULL,NULL,0,0);
 /*!40000 ALTER TABLE `batch_junction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,7 +122,7 @@ CREATE TABLE `checklist` (
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`checklist_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -130,7 +131,7 @@ CREATE TABLE `checklist` (
 
 LOCK TABLES `checklist` WRITE;
 /*!40000 ALTER TABLE `checklist` DISABLE KEYS */;
-INSERT INTO `checklist` VALUES (1,'Checklist2','checklist 2 desc','Lakukan updating','contoh2.pdf',4,'3','2023-12-12 02:57:35','2023-12-12 03:50:21'),(2,'Checklist2','checklist 2 desc','Lakukan updating 2','contoh.pdf',4,'3','2023-12-12 02:57:55','2023-12-12 03:51:22');
+INSERT INTO `checklist` VALUES (1,'Checklist2','checklist 2 desc','Lakukan updating','contoh2.pdf',4,'3','2023-12-12 02:57:35','2023-12-12 03:50:21'),(2,'Checklist2','checklist 2 desc','Lakukan updating 2','contoh.pdf',4,'3','2023-12-12 02:57:55','2023-12-12 03:51:22'),(3,'Checklist3','asdwqe','weqwqe','wewqewe',2,'ewqwe','2023-12-12 14:17:20',NULL);
 /*!40000 ALTER TABLE `checklist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -149,10 +150,10 @@ CREATE TABLE `checklistjunction` (
   `kppn_response` int DEFAULT NULL,
   `kppn_note` text,
   `kanwil_note` text,
-  `date_created` timestamp NULL DEFAULT NULL,
-  `date_updated` timestamp NULL DEFAULT NULL,
-  `file 1` varchar(255) DEFAULT NULL,
-  `file 2` varchar(255) DEFAULT NULL,
+  `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `file1` varchar(255) DEFAULT NULL,
+  `file2` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`csjunction_id`),
   KEY `checklistid_idx` (`checklist_id`),
   KEY `userid_checklistjunction_idx` (`user_id`),
@@ -160,7 +161,7 @@ CREATE TABLE `checklistjunction` (
   CONSTRAINT `batchid_checklistjunction` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `checklistid` FOREIGN KEY (`checklist_id`) REFERENCES `checklist` (`checklist_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `userid_checklistjunction` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -169,7 +170,7 @@ CREATE TABLE `checklistjunction` (
 
 LOCK TABLES `checklistjunction` WRITE;
 /*!40000 ALTER TABLE `checklistjunction` DISABLE KEYS */;
-INSERT INTO `checklistjunction` VALUES (1,1,7,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(2,1,9,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(3,1,11,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(4,1,12,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(5,2,7,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(6,2,9,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(7,2,11,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL),(8,2,12,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `checklistjunction` VALUES (17,1,7,1,1,'ok','ok','2023-12-12 14:17:31','2023-12-12 16:18:40','file','filee'),(18,2,7,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(19,3,7,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(20,1,9,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(21,2,9,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(22,3,9,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(23,1,11,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(24,2,11,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(25,3,11,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(26,1,12,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(27,2,12,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(28,3,12,1,NULL,NULL,NULL,'2023-12-12 14:17:31',NULL,NULL,NULL),(53,1,7,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(54,2,7,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(55,3,7,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(56,1,9,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(57,2,9,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(58,3,9,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(59,1,11,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(60,2,11,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(61,3,11,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(62,1,12,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(63,2,12,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL),(64,3,12,1,NULL,NULL,NULL,'2023-12-12 14:44:16',NULL,NULL,NULL);
 /*!40000 ALTER TABLE `checklistjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -619,4 +620,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-12 17:40:32
+-- Dump completed on 2023-12-13  0:06:11
