@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 
 const addIAsset = async (req, res) => {
-
     try{
         const periode = 1;  
         const kppn = req.payload.kppn; //payload jwt yang udh di decode di middleware authenticate

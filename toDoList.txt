@@ -1,5 +1,0 @@
-to do list database
-1. Update referensi periode start with 0
-2. update referensi app hapus app3 ganti app2 menjadi lainnya
-3. adjust data role user dan kode kppn user
-4. Edit table user add last login dan last IP Adress
