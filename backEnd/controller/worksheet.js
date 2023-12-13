@@ -66,7 +66,7 @@ const getChecklistByUser = async (req, res) => {
                     WHERE checklistjunction.user_id=? AND checklistjunction.batch_id =? `;
 
         const [rows] = await pool.execute(q, [userId, batch]);
-        return res.status(200).json({rows:rows, msg:"data updated successfully"});
+        return res.status(200).json({rows:rows, msg:"data retreived successfully"});
 
     }catch(err){
         if(err.userId){
@@ -130,12 +130,16 @@ const editBatch = async (req, res) => {
 };
 
 // 7. fungsi mendapatkan info batch
-const getBatch = async (req, res) => {
+const getBatchByUser = async (req, res) => {
     try{ 
-        const period = 1;
-        const q = ` SELECT * FROM batch WHERE periode=?`;
+        const userId = req.params.userId;
+        const batchId = req.params.batchId;
+        const q = ` SELECT batch_junction.*, batch.batch_info, batch.periode, batch.open_period, batch.close_period, batch.status 
+                    FROM batch_junction  
+                    INNER JOIN batch ON batch_junction.batch_id = batch.batch_id
+                    WHERE batch_junction.user_id=? AND batch_junction.batch_id=?`;
 
-        const [rows]= await pool.execute(q, [period]);
+        const [rows]= await pool.execute(q, [userId, batchId]);
         return res.status(200).json({rows:rows, msg:"data retreived successfully"})
     }catch(err){
         if(err.response){
@@ -234,4 +238,4 @@ const editChecklistJunction = async (req, res) => {
 
 
 export {addChecklist, editChecklist, getChecklistByUser, deleteChecklist, addBatch, 
-    editBatch, getBatch, assignChecklist, editChecklistJunction}
+    editBatch, getBatchByUser, assignChecklist, editChecklistJunction}

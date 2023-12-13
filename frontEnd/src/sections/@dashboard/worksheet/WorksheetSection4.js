@@ -11,7 +11,6 @@ export default function WorksheetSection4(){
     return(
         <>
             <WorksheetFinalize />
-            <ConfirmModal />
         </>
     )
   

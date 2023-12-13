@@ -6,13 +6,7 @@ import Iconify from "../../../../components/iconify";
 import Label from "../../../../components/label";
 
 // --------------------------------------------------------
-const infoRows = [
-  {col1:<Label color="success">Open</Label>, col2: ':', col3:'12/10/2023'},
-  {col1:<Label color="error">Close</Label>, col2: ':', col3:'12/10/2023'},
-  {col1:"Sisa Waktu", col2: ':', col3:'2 Day 5 Hour'},
-  {col1:"Section Progress", col2: ':', col3:<LinearProgressWithLabel value={60} tooltip='(5/10) input bagian ini diselesaikan'/>},
-  {col1:"Overall Progress", col2: ':', col3:<LinearProgressWithLabel value={30} tooltip='(5/10) input seluruh bagian diselesaikan' />},
-];
+
 
 function LinearProgressWithLabel(props) {
   return (
@@ -34,7 +28,21 @@ function LinearProgressWithLabel(props) {
 
 // --------------------------------------------------------
 
-export default function WorksheetInfo(){
+export default function WorksheetInfo(props){
+  const openPeriod = new Date(props?.batch?.rows[0]?.open_period);
+  const closePeriod = new Date(props?.batch?.rows[0]?.close_period);
+  const remainingMilisecond = closePeriod - openPeriod;
+  const days = Math.floor(remainingMilisecond / (24 * 60 * 60 * 1000));
+  const hours = Math.floor((remainingMilisecond % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+
+
+  const infoRows = [
+    {col1:<Label color="success">Open</Label>, col2: ':', col3:new Intl.DateTimeFormat("en-GB").format(openPeriod)},
+    {col1:<Label color="error">Close</Label>, col2: ':', col3:new Intl.DateTimeFormat("en-GB").format(closePeriod)},
+    {col1:"Sisa Waktu", col2: ':', col3:`${days} Days ${hours} Hours`},
+    {col1:"Section Progress", col2: ':', col3:<LinearProgressWithLabel value={60} tooltip='(5/10) input bagian ini diselesaikan'/>},
+    {col1:"Overall Progress", col2: ':', col3:<LinearProgressWithLabel value={30} tooltip='(5/10) input seluruh bagian diselesaikan' />},
+  ];
 
   return(
     <Card>

@@ -34,7 +34,7 @@ function LinearProgressWithLabel(props) {
 
 // --------------------------------------------------------
 
-export default function WorksheetFinalize(){
+export default function WorksheetFinalize(props){
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const handleClick = () => {
@@ -76,7 +76,7 @@ export default function WorksheetFinalize(){
               <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
                   Generate
               </Button> */}
-              <Button size="large" variant="contained" endIcon={ <Iconify icon="material-symbols:send" />} onClick={handleClick}>
+              <Button size="medium" variant="contained" endIcon={ <Iconify icon="material-symbols:send" />} onClick={handleClick}>
                   Send
               </Button>
             </Grid>      
