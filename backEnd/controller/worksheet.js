@@ -108,8 +108,9 @@ const addBatch = async (req, res) => {
     }  
 };
 
-// 6. 
+// 6. fungsi ketika user sudah submit batch junction.
 const editBatch = async (req, res) => {
+    // status 0 artinya batch open, status 1 artinya batch close
     try{
         const {id, batchInfo, period, openPeriod, closePeriod, status} = req.body; 
         const q = ` UPDATE batch

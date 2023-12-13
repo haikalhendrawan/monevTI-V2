@@ -6,11 +6,11 @@ import ConfirmModal from './component/ConfirmModal';
 
 
 
-export default function WorksheetSection4(){
+export default function WorksheetSection4(props){
 
     return(
         <>
-            <WorksheetFinalize />
+            <WorksheetFinalize batch={props.batch} checklist={props.checklist}/>
         </>
     )
   

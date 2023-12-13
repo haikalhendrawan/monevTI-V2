@@ -9,84 +9,23 @@ import WorksheetSection1 from '../sections/@dashboard/worksheet/WorksheetSection
 import WorksheetSection2 from '../sections/@dashboard/worksheet/WorksheetSection2';
 import WorksheetSection3 from '../sections/@dashboard/worksheet/WorksheetSection3';
 import WorksheetSection4 from '../sections/@dashboard/worksheet/WorksheetSection4';
-import WorksheetInfo from '../sections/@dashboard/worksheet/component/WorksheetInfo';
+import WorksheetLanding from '../sections/@dashboard/worksheet/WorksheetLanding';
 
 // hooks
 import { useAuth } from '../hooks/useAuth';
 import useAxiosJWT from '../hooks/useAxiosJWT';
+import {WorksheetProvider} from '../sections/@dashboard/worksheet/useWorksheet';
 
 // ----------------------------------------------------------------------
 
 
 export default function WorksheetPage() {
   const [tabValue, setTabValue] = useState(0); // ganti menu jenis perangkat yang ditampilkan
-  const [isLoading, setLoading] = useState(true);
-  const [selection, setSelection] = useState();
 
   const handleTabChange = (event, newValue) => { // setiap tab jenis asset berubah
     setTabValue(newValue);
   };
-
-  const axiosJWT = useAxiosJWT();
-  const {auth, setAuth} = useAuth();
-
-  const userId = auth?.id;
-
-  const[checklist, setChecklist] = useState({});
-  const[batch, setBatch] = useState({});
-
-
-  const getChecklist = async() => {
-      try{
-          const response = await axiosJWT.get("/getChecklistByUser/0");
-          setChecklist(response.data);
-          const notDone =response.data.rows.filter((row) => {
-            return row.kppn_response === null
-          }).length;
-
-
-          const count = Object.values(response.data.rows);
-          console.log(notDone)
-      }catch(err){
-          console.log(err);
-      }
-  };
-
-  const getBatch = async() => {
-      try{
-          const response = await axiosJWT.get(`/getBatchByUser/${userId}/0`)
-          setBatch(response.data);
-          console.log(response.data);
-      }catch(err){
-          console.log(err);
-      }
-  };
-
-  useEffect(async() => {
-    const getData = async() => {
-      try{
-        setLoading(true)
-        await getChecklist();
-        await getBatch();
-
-        setSelection({
-          0:<WorksheetSection1 batch={batch} checklist={checklist} />,
-          1:<WorksheetSection2 batch={batch} checklist={checklist} />,
-          2:<WorksheetSection3 batch={batch} checklist={checklist} />,
-          3:<WorksheetSection4 batch={batch} checklist={checklist} />,
-        });
-      }catch(err){
-        console.log(err)
-      }finally{
-        setLoading(false);
-      }
-    };
-    
-    getData();
-  },[]);
-
-
-
+   
   return (
     <>
       <Helmet>
@@ -107,35 +46,11 @@ export default function WorksheetPage() {
             </Tabs>
           </Stack>
 
-          <Stack direction="row" alignItems="center" justifyContent="center " mb={6}>
-            <Box sx={{ width: '50%' }}>
-              <LinearProgressWithLabel value={60} />
-            </Box>
-          </Stack>
-          {isLoading? "loading" :(
-          <Grid container spacing={2}>
-            {tabValue!==3
-            ?(<>
-              <Grid item container sm={8} spacing={2}>
-                {selection[tabValue]}
-              </Grid>
-
-              <Grid item sm={4}>
-                <WorksheetInfo  batch={batch} checklist={checklist} />
-              </Grid>
-              </>)
-            :null
-            }
-
-            {tabValue===3
-            ? <Grid item sm={8} sx={{mx:'auto'}}>
-                {selection[3]}
-              </Grid>
-            :null
-            }
-
-          </Grid>)
-          }
+          <WorksheetProvider>
+            <WorksheetLanding tabValue={tabValue} />
+          </WorksheetProvider>
+          
+          
       </Container>
     </>
   );
