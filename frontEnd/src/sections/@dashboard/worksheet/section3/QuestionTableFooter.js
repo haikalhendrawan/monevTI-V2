@@ -14,9 +14,12 @@ import WorksheetQuestion from './WorksheetQuestion';
 
 // ------------------------------------------------
 
-export default function QuestionTableFooter(){
+export default function QuestionTableFooter(props){
   const theme = useTheme();
 
+  const handleStartSurvey = () => {
+    props.startSurvey()
+  }
   return(
     <>
     <Grid item xs={12} sm={12} md={12}>
@@ -28,7 +31,7 @@ export default function QuestionTableFooter(){
               <Typography variant="body2" sx={{mr:1}}>Waktu akan terus berjalan, apabila terdapat close/pergantian tab maupun koneksi terputus;</Typography>
               <Typography variant="body2" sx={{mr:1}}>Disarankan bagi bapak/ibu untuk dapat menyelesaikan bagian 1 dan bagian 2 terlebih dahulu;</Typography>
               <Typography variant="body2" sx={{mr:1, mt:2}}>Klik tombol mulai dibawah, untuk memulai kuesioner.</Typography>
-              <Button variant='contained' sx={{mt:2, mb:2}}>Mulai</Button>
+              <Button variant='contained' sx={{mt:2, mb:2}} onClick={handleStartSurvey}>Mulai</Button>
               {/* <Button variant='contained'>Send</Button> */}
           </Grid>
         </Grid>

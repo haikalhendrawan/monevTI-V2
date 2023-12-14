@@ -86,6 +86,8 @@ CREATE TABLE `batch_junction` (
   `result` varchar(255) DEFAULT NULL,
   `isDone` int DEFAULT '0',
   `isStartSurvey` int DEFAULT '0',
+  `surveyStart` timestamp NULL DEFAULT NULL,
+  `surveyEnd` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`junction_id`),
   KEY `batchId_idx` (`batch_id`),
   KEY `userid_batchjunction_idx` (`user_id`),
@@ -100,7 +102,7 @@ CREATE TABLE `batch_junction` (
 
 LOCK TABLES `batch_junction` WRITE;
 /*!40000 ALTER TABLE `batch_junction` DISABLE KEYS */;
-INSERT INTO `batch_junction` VALUES (13,0,7,'2023-12-13 08:38:55',NULL,NULL,0,0),(14,0,9,'2023-12-13 08:38:55',NULL,NULL,0,0),(15,0,11,'2023-12-13 08:38:55',NULL,NULL,0,0),(16,0,12,'2023-12-13 08:38:55',NULL,NULL,0,0);
+INSERT INTO `batch_junction` VALUES (13,0,7,'2023-12-13 08:38:55','2023-12-14 14:21:04','1',0,1,NULL,NULL),(14,0,9,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL),(15,0,11,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL),(16,0,12,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL);
 /*!40000 ALTER TABLE `batch_junction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +124,7 @@ CREATE TABLE `checklist` (
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`checklist_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +133,7 @@ CREATE TABLE `checklist` (
 
 LOCK TABLES `checklist` WRITE;
 /*!40000 ALTER TABLE `checklist` DISABLE KEYS */;
-INSERT INTO `checklist` VALUES (1,'Checklist2','checklist 2 desc','Lakukan updating','contoh2.pdf',4,'3','2023-12-12 02:57:35','2023-12-12 03:50:21'),(2,'Checklist2','checklist 2 desc','Lakukan updating 2','contoh.pdf',4,'3','2023-12-12 02:57:55','2023-12-12 03:51:22'),(3,'Checklist3','asdwqe','weqwqe','wewqewe',2,'ewqwe','2023-12-12 14:17:20',NULL);
+INSERT INTO `checklist` VALUES (1,'Apakah anda mengetahui?','checklist 2 desc','Lakukan updating','contoh2.pdf',3,'3','2023-12-12 02:57:35','2023-12-14 15:33:16'),(2,'Checklist2','checklist 2 desc','Lakukan updating 2','contoh.pdf',1,'3','2023-12-12 02:57:55','2023-12-13 13:45:13'),(3,'Checklist3','asdwqe','weqwqe','wewqewe',2,'ewqwe','2023-12-12 14:17:20',NULL),(4,'Apakah kondisi sudah sesuai?','weqe','weqqwe','wqeqwe',3,'qewqw','2023-12-14 15:02:57','2023-12-14 15:33:16');
 /*!40000 ALTER TABLE `checklist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +163,7 @@ CREATE TABLE `checklistjunction` (
   CONSTRAINT `batchid_checklistjunction` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `checklistid` FOREIGN KEY (`checklist_id`) REFERENCES `checklist` (`checklist_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `userid_checklistjunction` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -170,7 +172,7 @@ CREATE TABLE `checklistjunction` (
 
 LOCK TABLES `checklistjunction` WRITE;
 /*!40000 ALTER TABLE `checklistjunction` DISABLE KEYS */;
-INSERT INTO `checklistjunction` VALUES (89,1,7,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(90,2,7,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(91,3,7,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(92,1,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(93,2,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(94,3,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(95,1,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(96,2,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(97,3,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(98,1,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(99,2,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(100,3,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL);
+INSERT INTO `checklistjunction` VALUES (89,1,7,0,0,'','1','2023-12-13 08:38:55','2023-12-14 18:16:28','1','1'),(90,2,7,0,0,NULL,NULL,'2023-12-13 08:38:55','2023-12-13 14:01:14',NULL,NULL),(91,3,7,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(92,1,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(93,2,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(94,3,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(95,1,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(96,2,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(97,3,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(98,1,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(99,2,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(100,3,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(101,4,7,0,0,'',NULL,'2023-12-14 15:03:22','2023-12-14 18:19:07',NULL,NULL);
 /*!40000 ALTER TABLE `checklistjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -607,7 +609,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (7,'root','$2b$10$9UpDYRMqX6fjJS3eQ0P3b.lNaUrH9BXem8HKq.sX9z2P46pxUP4Eu',2,'Admin',1,'root@kemenkeu.go.id','7_jpeg.jpeg',0,0,'Muhammad Haikal Putra','199904082021011001','haikal.hendrawan@kemenkeu.go.id',NULL,NULL),(9,'K010','$2a$10$ujm/5QtBDiQoihnhqBjZG.hsZHaLXcmOyvAnqoZMZhwDwz9SJJ/Je',1,'KPPN Padang',NULL,'kppnpadang@gmail.com',NULL,1,0,NULL,NULL,NULL,NULL,NULL),(11,'K011','$2a$10$7XmHzE3tWFqx.Nrc8p8xcuSd63BOHmtdIm57INh8CqO3uM8/gOn9u',1,'KPPN Bukittinggi',NULL,NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL),(12,'K090','$2a$10$ieES0sVH5g/q9k6F0om9X.DWDf7pb4ObwLhl0xxcozkJNCHRklqLq',1,'KPPN Solok',NULL,NULL,NULL,3,0,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `user` VALUES (7,'root','$2b$10$9UpDYRMqX6fjJS3eQ0P3b.lNaUrH9BXem8HKq.sX9z2P46pxUP4Eu',2,'Admin',1,'root@kemenkeu.go.id','7_png.png',0,0,'Muhammad Haikal Putra','199904082021011001','haikal.hendrawan@kemenkeu.go.id',NULL,NULL),(9,'K010','$2a$10$ujm/5QtBDiQoihnhqBjZG.hsZHaLXcmOyvAnqoZMZhwDwz9SJJ/Je',1,'KPPN Padang',NULL,'kppnpadang@gmail.com',NULL,1,0,NULL,NULL,NULL,NULL,NULL),(11,'K011','$2a$10$7XmHzE3tWFqx.Nrc8p8xcuSd63BOHmtdIm57INh8CqO3uM8/gOn9u',1,'KPPN Bukittinggi',NULL,NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL),(12,'K090','$2a$10$ieES0sVH5g/q9k6F0om9X.DWDf7pb4ObwLhl0xxcozkJNCHRklqLq',1,'KPPN Solok',NULL,NULL,NULL,3,0,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -620,4 +622,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-13 17:19:55
+-- Dump completed on 2023-12-15  1:43:58

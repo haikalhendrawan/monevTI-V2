@@ -92,7 +92,8 @@ export default function LoginPage() {
 
             <LoginForm />   {/* logika dihandle di komponen ini */}
             
-            <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{position:'absolute', bottom:'3%', right:'17%'}}>
+            <Stack direction="column" justifyContent="center" alignItems="center" spacing={0} sx={{bottom:10, position:'fixed', width:'38%'}}>
+                {/* <Typography variant='body2'>Modul Monev TIK</Typography> */}
                 <Typography variant='body2'>Copyright © 2023 Kanwil DJPb Prov Sumbar</Typography>
             </Stack>
           </StyledContent>

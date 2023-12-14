@@ -87,7 +87,7 @@ export default function ResetPasswordPage() {
               Reset Password
             </Typography>
             <Typography variant="body" gutterBottom sx={{mb:5}}>
-              input username dan email kemenkeu kppn / email PIC TIK
+              input username dan email 
             </Typography>
 
            <ResetForm />

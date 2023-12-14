@@ -226,10 +226,6 @@ const editChecklistJunction = async (req, res) => {
             console.log(err);
             return res.status(403).json({errMsg:"Problem Authenticating"});
         };
-        if(err.req.body){
-            console.log(err);
-            return res.status(403).json({errMsg:"Error in request body"});
-        };
         console.log(err);
         return res.status(500).json({errMsg:'Internal Server Error"'});
     }  

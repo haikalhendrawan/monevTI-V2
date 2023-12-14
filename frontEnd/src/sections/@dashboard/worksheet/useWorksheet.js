@@ -33,9 +33,9 @@ const WorksheetProvider = ({children}) => {
       }
   };
 
-  const editChecklist = async(id, kppnResponse, kppnNote, kanwilNote, file1, file2) => {
+  const editChecklist = async (id, kppnResponse, kppnNote, kanwilNote, file1, file2) => {
     try{
-        await axiosJWT.post(`/editChecklistJuncton`,{
+        const response = await axiosJWT.post(`/editChecklistJunction`,{
             csJunctionId:id, 
             kppnResponse, 
             kppnNote, 
@@ -43,11 +43,13 @@ const WorksheetProvider = ({children}) => {
             file1, 
             file2
         });
+        console.log(response)
         console.log("edit data success");
     }catch(err){
         console.log(err);
     }
   };
+
 
   const editBatch = async(id, result, isDone, isStartSurvey) => {
     try{
