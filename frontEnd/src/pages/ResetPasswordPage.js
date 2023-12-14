@@ -64,7 +64,7 @@ export default function ResetPasswordPage() {
 
       <StyledRoot>
           <StyledSection>
-            <Waterwave style={{position: 'absolute', top: 0, left:0 , width: '100%', height: '100%', objectFit: 'contain'}}>
+            <Waterwave style={{position: 'absolute', top: 0, left:0 , width: '100%', display:'none', height: '100%', objectFit: 'contain'}}>
               {({pause, play}) => (
                 <img
                   src={'assets/logomonevti1.svg'}
@@ -92,7 +92,7 @@ export default function ResetPasswordPage() {
 
            <ResetForm />
             
-            <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{position:'absolute', bottom:'3%', right:'13%'}}>
+            <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{position:'absolute', bottom:'3%', right:'17%'}}>
                 <Typography variant='body2'>Copyright © 2023 Kanwil DJPb Prov Sumbar</Typography>
             </Stack>
           </StyledContent>

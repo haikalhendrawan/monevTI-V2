@@ -217,8 +217,6 @@ const editChecklistJunction = async (req, res) => {
         const q = ` UPDATE checklistjunction
                     SET kppn_response= ?, kppn_note=?, kanwil_note=?, file1=?, file2=? 
                     WHERE csjunction_id=? AND user_id=? `;
-        console.log(userId);
-        console.log(req.body);
 
         await pool.execute(q, [kppnResponse, kppnNote, kanwilNote, file1, file2,csJunctionId, userId]);
         return res.status(200).json({msg:"data updated successfully"});
@@ -228,7 +226,7 @@ const editChecklistJunction = async (req, res) => {
             console.log(err);
             return res.status(403).json({errMsg:"Problem Authenticating"});
         };
-        if(err.userId){
+        if(err.req.body){
             console.log(err);
             return res.status(403).json({errMsg:"Error in request body"});
         };
@@ -237,6 +235,21 @@ const editChecklistJunction = async (req, res) => {
     }  
 }
 
+const editBatchJunction = async (req, res) => {
+    try{
+        const userId = req.payload.id;
+        const {id, result, isDone, isStartSurvey} = req.body;
+        const q = `UPDATE batch_junction 
+                    SET result=?, isDone=?, isStartSurvey=?
+                    WHERE junction_id=? AND user_id=?`
+
+        await pool.execute(q, [result, isDone, isStartSurvey, id, userId]);
+        return res.status(200).json({msg:"Data updated successfully"});
+    }catch(err){
+        console.log(err)
+    }
+}
+
 
 export {addChecklist, editChecklist, getChecklistByUser, deleteChecklist, addBatch, 
-    editBatch, getBatchByUser, assignChecklist, editChecklistJunction}
+    editBatch, getBatchByUser, assignChecklist, editChecklistJunction, editBatchJunction}

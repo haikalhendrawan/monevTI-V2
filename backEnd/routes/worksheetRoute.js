@@ -1,7 +1,7 @@
 import express from "express";
 import authenticate from "../middlewares/authenticate.js";
 import {addChecklist, editChecklist, getChecklistByUser, deleteChecklist, addBatch, 
-        getBatchByUser, editBatch, assignChecklist, editChecklistJunction} from "../controller/worksheet.js";
+        getBatchByUser, editBatch, assignChecklist, editChecklistJunction, editBatchJunction} from "../controller/worksheet.js";
 
 
 const router = express.Router();
@@ -15,6 +15,7 @@ router.get("/getBatchByUser/:userId/:batchId", authenticate, getBatchByUser);
 router.post("/editBatch", authenticate, editBatch);
 router.post("/assignChecklist", authenticate, assignChecklist);
 router.post("/editChecklistJunction", authenticate, editChecklistJunction);
+router.post("/editBatchJunction", authenticate, editBatchJunction);
 
 
 export default router;

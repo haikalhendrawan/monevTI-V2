@@ -33,14 +33,34 @@ const WorksheetProvider = ({children}) => {
       }
   };
 
-  const editChecklist = async() => {
-
-
+  const editChecklist = async(id, kppnResponse, kppnNote, kanwilNote, file1, file2) => {
+    try{
+        await axiosJWT.post(`/editChecklistJuncton`,{
+            csJunctionId:id, 
+            kppnResponse, 
+            kppnNote, 
+            kanwilNote, 
+            file1, 
+            file2
+        });
+        console.log("edit data success");
+    }catch(err){
+        console.log(err);
+    }
   };
 
-  const editBatch = async() => {
-
-
+  const editBatch = async(id, result, isDone, isStartSurvey) => {
+    try{
+        await axiosJWT.post(`/editBatchJunction`, {
+            id,
+            result,
+            isDone,
+            isStartSurvey,
+        });
+        console.log("edit data success");
+    }catch(err){
+        console.log(err);
+    }
   };
 
   useEffect(() => {

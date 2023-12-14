@@ -8,7 +8,7 @@ import { Container, Stack, Typography, Box, Button } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function MonitoringPage() {
+export default function AdminPage() {
 
   const StyledContent = styled('div')(({ theme }) => ({
     maxWidth: 480,
@@ -27,13 +27,14 @@ export default function MonitoringPage() {
       </Helmet>
 
       <Container>
-        <StyledContent sx={{ textAlign: 'center', alignItems: 'center', mt:0}}>
+
+        <StyledContent sx={{ textAlign: 'center', alignItems: 'center' }}>
           <Typography variant="h3" paragraph>
             Restricted access
           </Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
-            This module will be accessible in the future, stay tune!
+            Only Admin can access this content
           </Typography>
 
           <Box

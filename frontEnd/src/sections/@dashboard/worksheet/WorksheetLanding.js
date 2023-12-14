@@ -17,7 +17,8 @@ import useWorksheet from "./useWorksheet";
 
 export default function WorksheetLanding(props) {
   
-  const {checklist, batch, getChecklist, getBatch} = useWorksheet();
+  const {checklist, batch, getChecklist, getBatch, editBatch, editChecklist} = useWorksheet();
+
   const notDone = checklist?.rows? checklist.rows.filter((row) => {
     return row.kppn_response === null
   }).length:null;
@@ -29,8 +30,8 @@ export default function WorksheetLanding(props) {
   const selection = {
     0:<WorksheetSection1 />,
     1:<WorksheetSection2 />,
-    2:<WorksheetSection3 />,
-    3:<WorksheetSection4 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist}/>,
+    2:<WorksheetSection3 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist}/>,
+    3:<WorksheetSection4 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist}/>,
     };
 
   return (

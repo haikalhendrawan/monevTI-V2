@@ -92,7 +92,7 @@ export default function LoginPage() {
 
             <LoginForm />   {/* logika dihandle di komponen ini */}
             
-            <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{position:'absolute', bottom:'3%', right:'13%'}}>
+            <Stack direction="row" justifyContent="center" alignItems="center" spacing={2} sx={{position:'absolute', bottom:'3%', right:'17%'}}>
                 <Typography variant='body2'>Copyright © 2023 Kanwil DJPb Prov Sumbar</Typography>
             </Stack>
           </StyledContent>

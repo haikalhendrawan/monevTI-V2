@@ -40,7 +40,7 @@ const navConfig2 = [
 const navConfig5 = [
   {
     title: 'Reference',
-    path: '/dashboard/app',
+    path: '/admin',
     icon: icon('solar-user-check'),
   },
 ];

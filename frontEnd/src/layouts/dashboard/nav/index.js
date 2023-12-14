@@ -58,7 +58,7 @@ export default function Nav({ openNav, onCloseNav }) {
 
       <NavSection data={navConfig3}  />
       <NavSection data={navConfig}  header={"MONEV TIK KPPN"} />
-      {/* <NavSection data={navConfig2} header={"INFORMATION SECURITY"} /> */}
+      <NavSection data={navConfig2} header={"UTILITY"} />
       <NavSection data={navConfig5} header={"ADMIN"} />
       <NavSection data={navConfig4} header={"OTHER"} />
 

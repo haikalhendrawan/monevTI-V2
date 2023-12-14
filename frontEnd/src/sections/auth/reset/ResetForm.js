@@ -5,6 +5,7 @@ import emailjs from '@emailjs/browser';
 // @mui
 import { Link, Stack, IconButton, InputAdornment, TextField, Checkbox, FormControlLabel, Alert, AlertTitle, Snackbar, Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import {useTheme} from '@mui/material/styles'
 // components
 import Iconify from '../../../components/iconify';
 
@@ -20,6 +21,8 @@ export default function ResetForm() {
     username:"",
     email:"",
   }); 
+
+  const theme = useTheme();
 
   const templateParams = {
     message: `reset request from username: ${value.username} email:${value.email}`
@@ -55,6 +58,10 @@ export default function ResetForm() {
     setOpen(false);
   }
 
+  const handleBack = () => {
+    navigate('/login')
+  }
+
   
 // ----------------------------------------------------------------------
 
@@ -80,6 +87,9 @@ export default function ResetForm() {
       <LoadingButton fullWidth size="large" type="submit" variant="contained" loading={loading} sx={{mt:3}}>
         Request
       </LoadingButton>
+      <Button fullWidth size="large" variant="contained"sx ={{mt:3, backgroundColor:theme.palette.background.paper, color:theme.palette.text.primary}} onClick={handleBack}>
+        Back To Login
+      </Button>
       </form>
     </div>
     

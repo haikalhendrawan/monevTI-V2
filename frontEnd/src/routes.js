@@ -23,6 +23,7 @@ import ProfilePage from './pages/ProfilePage';
 import GeneratePDFPage from './pages/GeneratePDFPage';
 import HomePage from "./pages/HomePage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import AdminPage from "./pages/AdminPage";
 // ----------------------------------------------------------------------
 
 export default function Router() {
@@ -51,13 +52,14 @@ export default function Router() {
     <Route element={<PersistLogin />}> 
       <Route path="/" element={ <RequireAuthLayout allowedRoles={[1,2]}/>}>  { /* we want to protect this route */}
         <Route index element={<Navigate to="app" />} />
-        <Route path="app" element={<HomePage />}/>
-        <Route path="worksheet" element={<WorksheetPage />}/>
-        <Route path="iasset" element={<IAssetPage />}/>
-        <Route path="monitoring" element={<MonitoringPage />}/> 
-        <Route path="logbook" element={<LogBookPage />}/>   
-        <Route path="topology" element={<TopologyPage />}/>
-        <Route path="profile" element={<ProfilePage />}/>
+        <Route path="app" element={<HomePage />} />
+        <Route path="worksheet" element={<WorksheetPage />} />
+        <Route path="iasset" element={<IAssetPage />} />
+        <Route path="monitoring" element={<MonitoringPage />} /> 
+        <Route path="logbook" element={<LogBookPage />} />   
+        <Route path="topology" element={<TopologyPage />} />
+        <Route path="profile" element={<ProfilePage />} />
+        <Route path="admin" element={<AdminPage />} />
       </Route>
     </Route>
    
