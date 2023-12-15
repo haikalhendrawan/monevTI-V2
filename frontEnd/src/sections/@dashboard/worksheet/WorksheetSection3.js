@@ -35,11 +35,11 @@ export default function WorksheetSection3(props){
   })
 
   const startSurvey = async() => {
-    // editBatch = async(id, result, isDone, isStartSurvey, surveyStart, surveyEnd)
-    const startTime =new Date().getTime();
-    const endTime = startTime + (20*60*1000);
-    // await editBatch(value.junction_id, value.result, value.isDone, 1, startTime, endTime);
-    // await getBatch();
+    // editBatch = async(id, result, isDone, isStartSurvey, surveyStart, surveyEnd);
+    const start =new Date().getTime();
+    const end = start + (20*60*1000);
+    await editBatch(value.junction_id, value.result, value.isDone, 1, start, end);
+    await getBatch();
   }
 
   return(

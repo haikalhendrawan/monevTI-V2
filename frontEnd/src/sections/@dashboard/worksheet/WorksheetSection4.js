@@ -10,7 +10,7 @@ export default function WorksheetSection4(props){
 
     return(
         <>
-            <WorksheetFinalize batch={props.batch} checklist={props.checklist}/>
+            <WorksheetFinalize batch={props.batch} checklist={props.checklist} editBatch={props.editBatch} getBatch={props.getBatch} getChecklist={props.getChecklist}/>
         </>
     )
   

@@ -87,7 +87,7 @@ export default function AccountPopover() {
           }),
         }}
       >
-        <Avatar key={avatarKey} src={auth?.image?`${process.env.REACT_APP_API_BASE_URL}/avatar/${auth.image}?${new Date().getTime()}`:`http://localhost:8080/avatar/default.png`} alt="photoURL" />
+        <Avatar key={avatarKey} src={auth?.image?`${process.env.REACT_APP_API_BASE_URL}/avatar/${auth.image}?${new Date().getTime()}`:`${process.env.REACT_APP_API_BASE_URL}/avatar/default.png`} alt="photoURL" />
       </IconButton>
 
       <Popover

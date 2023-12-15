@@ -15,13 +15,12 @@ export default function QuestionTitle(props){
 
   const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
-  const [distance, setDistance] = useState(props.endTime-currentTime);
+  const [distance, setDistance] = useState(props.endTime ? props.endTime - currentTime : 0);
 
   const [timeText, setTimeText] = useState('');
 
+  console.log(props.endTime)
   let intervalId;
-
-  // const time = `${Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))}m : ${Math.floor((distance % (1000 * 60)) / 1000)}s`
 
   useEffect(() => {
     intervalId = setInterval(() => {
@@ -34,7 +33,10 @@ export default function QuestionTitle(props){
   }, []); 
   
   useEffect(() => {
+    if(Number.isNaN(Number(props.endTime))){setTimeText('20:00'); return }
+
     setDistance(props.endTime - currentTime);
+
     if (distance <= 0) {
       setTimeText('00:00');
       clearInterval(intervalId);

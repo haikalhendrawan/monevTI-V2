@@ -19,16 +19,16 @@ export default function WorksheetInfo(props){
   const hours = Math.floor((remainingMilisecond % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
 
   const notDone = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response !== 1 
+    return row.kppn_response === null 
   }).length:null;
   const done = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response === 1
+    return row.kppn_response !== null
   }).length:null;
   const notDoneSection = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response !== 1  && row.ws_section ===tabValue+1
+    return row.kppn_response === null  && row.ws_section ===tabValue+1
   }).length:null;
   const doneSection = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response === 1 && row.ws_section ===tabValue+1
+    return row.kppn_response !== null && row.ws_section ===tabValue+1
   }).length:null;
   const percentComplete = (done/(notDone+done)*100);
   const percentCompleteSection = (doneSection/(notDoneSection+doneSection)*100);

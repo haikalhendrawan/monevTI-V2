@@ -1,4 +1,5 @@
 import pool from "../config/db.js";
+import moment from "moment-timezone";
 
 
 // -------------------------------------------------------------------
@@ -239,7 +240,10 @@ const editBatchJunction = async (req, res) => {
                     SET result=?, isDone=?, isStartSurvey=?, surveyStart=?, surveyEnd=?
                     WHERE junction_id=? AND user_id=?`
 
-        await pool.execute(q, [result, isDone, isStartSurvey, id, userId, surveyStart, surveyEnd]);
+        const start = moment(parseInt(surveyStart)).format('YYYY-MM-DD HH:mm:ss');
+        const end = moment(parseInt(surveyEnd)).format('YYYY-MM-DD HH:mm:ss');
+        
+        await pool.execute(q, [result, isDone, isStartSurvey, start, end, id, userId]);
         return res.status(200).json({msg:"Data updated successfully"});
     }catch(err){
         console.log(err)

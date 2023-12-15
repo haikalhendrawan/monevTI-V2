@@ -11,19 +11,25 @@ import ConfirmModal from "../component/ConfirmModal";
 
 export default function WorksheetFinalize(props){
   const theme = useTheme();
-  const {checklist, batch} = props;
+  const {checklist, batch, editBatch, getBatch, getChecklist} = props;
 
   const [open, setOpen] = useState(false);
 
   const isDone = batch?.rows? batch.rows[0].isDone : false;
+  const id = batch?.rows? batch.rows[0].junction_id : null;
+  const result = batch?.rows? batch.rows[0].result : null;
+  const isStartSurvey = batch?.rows? batch.rows[0].isStartSurvey : false;
+  const surveyStart = batch?.rows? batch.rows[0].surveyStart : false;
+  const surveyEnd = batch?.rows? batch.rows[0].surveyEnd : false;
 
   const handleClick = () => {
-    setOpen(true)
+    setOpen(true);
   };
 
   const handleModalClose = () => {
-    setOpen(false)
+    setOpen(false);
   };
+
 
   const openPeriod = batch?.rows? new Date(batch.rows[0].open_period) : null;
   const closePeriod = batch?.rows? new Date(batch.rows[0].close_period) : null;
@@ -32,18 +38,18 @@ export default function WorksheetFinalize(props){
   const hours = Math.floor((remainingMilisecond % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
 
   const notDone = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response !== 1
+    return row.kppn_response === null
   }).length:null;
   const done = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response === 1
+    return row.kppn_response !== null
   }).length:null;
 
   const notDoneSection = (section) => {return checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response !== 1 && row.ws_section ===section
+    return row.kppn_response === null && row.ws_section ===section
   }).length:null;}
 
   const doneSection = (section) => {return checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response === 1 && row.ws_section ===section
+    return row.kppn_response !== null && row.ws_section ===section
   }).length:null;}
 
   const notDoneSection1 = notDoneSection(1);
@@ -66,6 +72,19 @@ export default function WorksheetFinalize(props){
     {col1:"Overall Progress", col2: ':', col3:<LinearProgressWithLabel value={percentComplete} tooltip={`(${done}/${done+notDone}) dari seluruh input diselesaikan`}/>},
   ];
   
+  const handleSubmit = async() => {
+    if(isDoneSection1===true && isDoneSection2===true && isDoneSection3===true){
+      // console.log(id, result, isDone, isStartSurvey, surveyStart, surveyEnd);
+      await editBatch(id, result, 1, isStartSurvey, surveyStart, surveyEnd);
+      getBatch();
+      setOpen(false);
+    }else{
+      console.log("Worksheet belum selesai");
+
+    }
+  };
+
+
 
   return(
     <>
@@ -95,10 +114,10 @@ export default function WorksheetFinalize(props){
               {isDone?
                 <>
                 <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff', mr:2}:{mr:2}} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2"/>}>
-                  Preview 
+                    Generate Report 
                 </Button>
-                <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
-                    Generate
+                <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2"/>}>
+                    Generate BA
                 </Button>
                 </>:
                 <Button size="medium" variant="contained" endIcon={ <Iconify icon="material-symbols:send" />} onClick={handleClick}>
@@ -111,7 +130,7 @@ export default function WorksheetFinalize(props){
         </CardContent>
     </Card>
 
-    <ConfirmModal modalOpen={open} modalClose={handleModalClose} text={'Kirim berkas dan selesaikan?'} />
+    <ConfirmModal modalOpen={open} modalClose={handleModalClose} onSubmit={handleSubmit} text={'Kirim berkas dan selesaikan?'} />
     </>
   )
 };
@@ -126,7 +145,7 @@ function LinearProgressWithLabel(props) {
         <Box sx={{ width: '100%', mr: 1 }}>
           <LinearProgress variant="determinate" {...props} />
         </Box>
-        <Box sx={{ minWidth: 35 }}>
+        <Box sx={{ minWidth: 40 }}>
           <Typography variant="body2" color="text.secondary" noWrap>
             {`${Math.round(props.value,)}%`}
           </Typography>
