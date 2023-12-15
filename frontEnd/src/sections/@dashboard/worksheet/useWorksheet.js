@@ -51,13 +51,15 @@ const WorksheetProvider = ({children}) => {
   };
 
 
-  const editBatch = async(id, result, isDone, isStartSurvey) => {
+  const editBatch = async(id, result, isDone, isStartSurvey, surveyStart, surveyEnd) => {
     try{
         await axiosJWT.post(`/editBatchJunction`, {
             id,
             result,
             isDone,
             isStartSurvey,
+            surveyStart,
+            surveyEnd
         });
         console.log("edit data success");
     }catch(err){

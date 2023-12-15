@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Container, Stack, Typography, Grid, Card, CardHeader, IconButton, Tooltip,
+import { Container, Stack, Typography, 
   FormControl, TextField, Button, Divider, Popper} from '@mui/material';
 import {useTheme} from '@mui/material/styles';
 import Iconify from "../../../components/iconify";
@@ -9,6 +9,7 @@ import WorksheetQuestion from './section3/WorksheetQuestion';
 import QuestionTitle from './section3/QuestionTitle';
 import QuestionTableHeader from './section3/QuestionTableHeader';
 import QuestionTableFooter from './section3/QuestionTableFooter';
+import QuestionTableTimeup from './section3/QuestionTableTimeup';
 import PreviewFileModal from './component/PreviewFileModal';
 
 // ---------------------------------------------------
@@ -22,26 +23,33 @@ const cardd = [...Array(4).map((item, index) => {
 
 export default function WorksheetSection3(props){
   const theme = useTheme();
+  const currentTime = new Date().getTime();
   const {batch, checklist, getBatch, getChecklist, editBatch, editChecklist} = props;
   const isStartSurvey = batch?.rows?batch.rows[0].isStartSurvey:null;
+  const endTime = batch?.rows?Date.parse(batch.rows[0].surveyEnd):null;
+  const isTimeUp = endTime===null?false:currentTime-endTime>0;
+  console.log(currentTime)
 
   const [value, setValue] = useState({
     ...batch.rows[0]
   })
 
-  console.log(value);
-
   const startSurvey = async() => {
-    //  const editBatch = async(id, result, isDone, isStartSurvey)
-    await editBatch(value.junction_id, value.result, value.isDone, 1);
-    await getBatch();
-
+    // editBatch = async(id, result, isDone, isStartSurvey, surveyStart, surveyEnd)
+    const startTime =new Date().getTime();
+    const endTime = startTime + (20*60*1000);
+    // await editBatch(value.junction_id, value.result, value.isDone, 1, startTime, endTime);
+    // await getBatch();
   }
 
   return(
     <>
-    <QuestionTitle />
-    {isStartSurvey?
+    <QuestionTitle endTime={endTime} getBatch={getBatch}/>
+    {isTimeUp?
+    <>
+    <QuestionTableTimeup />
+    </>
+    :isStartSurvey?
     <>
       <QuestionTableHeader />
       <WorksheetQuestion batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist}/>

@@ -97,7 +97,7 @@ export default function ProfilePage(){
                 <input type='file' style={{display:'none'}} ref={fileInputRef} onChange={handleFileChange} />
 
                 <Tooltip title='change profile picture' placement='right'>
-                    <Avatar key={avatarKey} alt="ABC" src={auth?.image?`http://localhost:8080/avatar/${auth.image}?${new Date().getTime()}`:`http://localhost:8080/avatar/default.png`} sx={{width:'20%', height:'20%', mx:'auto', cursor: 'pointer'}} onClick={handleAvatarClick} />
+                    <Avatar key={avatarKey} alt="ABC" src={auth?.image?`${process.env.REACT_APP_API_BASE_URL}/avatar/${auth.image}?${new Date().getTime()}`:`http://10.20.20.248:8080/avatar/default.png`} sx={{width:'20%', height:'20%', mx:'auto', cursor: 'pointer'}} onClick={handleAvatarClick} />
                 </Tooltip>
 
                 <Stack direction="row" alignItems="center" justifyContent="center" mb={0}>

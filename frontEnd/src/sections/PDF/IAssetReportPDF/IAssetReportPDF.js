@@ -1,7 +1,8 @@
 import {useState, useEffect} from "react";
+import axios from "axios";
 import { Document, Page, Text, View, Image, StyleSheet } from '@react-pdf/renderer';
-import axios from "axios"
 import styles from "./IAssetReportStyles";
+
 // hooks
 import {useAuth} from"../../../hooks/useAuth";
 import useAsset from "../../@dashboard/iasset/useAsset";

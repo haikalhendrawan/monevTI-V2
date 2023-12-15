@@ -32,18 +32,18 @@ export default function WorksheetFinalize(props){
   const hours = Math.floor((remainingMilisecond % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
 
   const notDone = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response === null
+    return row.kppn_response !== 1
   }).length:null;
   const done = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response !== null
+    return row.kppn_response === 1
   }).length:null;
 
   const notDoneSection = (section) => {return checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response === null && row.ws_section ===section
+    return row.kppn_response !== 1 && row.ws_section ===section
   }).length:null;}
 
   const doneSection = (section) => {return checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response !== null && row.ws_section ===section
+    return row.kppn_response === 1 && row.ws_section ===section
   }).length:null;}
 
   const notDoneSection1 = notDoneSection(1);

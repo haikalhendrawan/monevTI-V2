@@ -20,10 +20,10 @@ export default function WorksheetLanding(props) {
   const {checklist, batch, getChecklist, getBatch, editBatch, editChecklist} = useWorksheet();
 
   const notDone = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response === null
+    return row.kppn_response !== 1
   }).length:null;
   const done = checklist?.rows? checklist.rows.filter((row) => {
-    return row.kppn_response !== null
+    return row.kppn_response === 1
   }).length:null;
   const percentComplete = (done/(notDone+done)*100);
 

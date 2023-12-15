@@ -10,17 +10,21 @@ import WorksheetQuestion from './WorksheetQuestion';
 const timePlus20 = new Date().getTime() + (1*1000*60*20);
 
 
-export default function QuestionTitle(){
+export default function QuestionTitle(props){
   const theme = useTheme();
 
   const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
-  const [distance, setDistance] = useState(timePlus20-currentTime);
+  const [distance, setDistance] = useState(props.endTime-currentTime);
 
-  const time = `${Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))}m : ${Math.floor((distance % (1000 * 60)) / 1000)}s`
+  const [timeText, setTimeText] = useState('');
+
+  let intervalId;
+
+  // const time = `${Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))}m : ${Math.floor((distance % (1000 * 60)) / 1000)}s`
 
   useEffect(() => {
-    const intervalId = setInterval(() => {
+    intervalId = setInterval(() => {
       setCurrentTime(new Date().getTime());
     }, 1000);
   
@@ -30,8 +34,17 @@ export default function QuestionTitle(){
   }, []); 
   
   useEffect(() => {
-    setDistance(timePlus20 - currentTime);
-  }, [currentTime]);
+    setDistance(props.endTime - currentTime);
+    if (distance <= 0) {
+      setTimeText('00:00');
+      clearInterval(intervalId);
+      props.getBatch();
+    } else {
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      setTimeText(`${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`);
+    }
+  }, [currentTime, distance, props.endTime]);
     
 
   return(
@@ -40,7 +53,7 @@ export default function QuestionTitle(){
         <Card sx={{backgroundColor:theme.palette.background.default, pl:1, height:80, pt:0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Typography variant='h5' sx={{position:'absolute'}}>Kuesioner PIC TIK</Typography>
           <Button variant="outlined" color='primary' sx={{borderRadius:'12px', height:'50px', ml:40}}>
-            {time}
+            {timeText}
           </Button>
         </Card> 
       </Grid>

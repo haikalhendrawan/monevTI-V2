@@ -234,12 +234,12 @@ const editChecklistJunction = async (req, res) => {
 const editBatchJunction = async (req, res) => {
     try{
         const userId = req.payload.id;
-        const {id, result, isDone, isStartSurvey} = req.body;
+        const {id, result, isDone, isStartSurvey, surveyStart, surveyEnd} = req.body;
         const q = `UPDATE batch_junction 
-                    SET result=?, isDone=?, isStartSurvey=?
+                    SET result=?, isDone=?, isStartSurvey=?, surveyStart=?, surveyEnd=?
                     WHERE junction_id=? AND user_id=?`
 
-        await pool.execute(q, [result, isDone, isStartSurvey, id, userId]);
+        await pool.execute(q, [result, isDone, isStartSurvey, id, userId, surveyStart, surveyEnd]);
         return res.status(200).json({msg:"Data updated successfully"});
     }catch(err){
         console.log(err)
