@@ -68,8 +68,7 @@ function WorksheetQuestion(props) {
       const {csjunction_id:csjunctionId, kppn_response:kppnResponse, kppn_note:kppnNote , kanwil_note:kanwilNote, file1, file2} = currentRow;
       const isRespond = kppnNote.length>0?1:null;
       try{
-        const response = await editChecklist(csjunctionId, isRespond, kppnNote, kanwilNote, file1, file2);
-        console.log(response);
+        await editChecklist(csjunctionId, isRespond, kppnNote, kanwilNote, file1, file2);
         getChecklist();
       }catch(err){
         console.log(err)

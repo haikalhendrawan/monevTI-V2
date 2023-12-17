@@ -28,7 +28,7 @@ export default function WorksheetSection3(props){
   const isStartSurvey = batch?.rows?batch.rows[0].isStartSurvey:null;
   const endTime = batch?.rows?Date.parse(batch.rows[0].surveyEnd):null;
   const isTimeUp = endTime===null?false:currentTime-endTime>0;
-  console.log(currentTime)
+
 
   const [value, setValue] = useState({
     ...batch.rows[0]

@@ -19,7 +19,6 @@ export default function QuestionTitle(props){
 
   const [timeText, setTimeText] = useState('');
 
-  console.log(props.endTime)
   let intervalId;
 
   useEffect(() => {

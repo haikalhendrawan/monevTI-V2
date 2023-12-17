@@ -61,7 +61,9 @@ const getChecklistByUser = async (req, res) => {
     try{
         const userId = req.payload.id;
         const batch = req.params.batchId; 
-        const q = ` SELECT checklistjunction.*, checklist.*
+        const q = ` SELECT checklistjunction.*, 
+                    checklist.checklist_id, checklist.title, checklist.description, checklist.instruksi,
+                    checklist.contoh_file, checklist.ws_section, checklist.peraturan
                     FROM checklistjunction 
                     LEFT JOIN checklist ON checklistjunction.checklist_id = checklist.checklist_id
                     WHERE checklistjunction.user_id=? AND checklistjunction.batch_id =? `;
@@ -232,6 +234,7 @@ const editChecklistJunction = async (req, res) => {
     }  
 }
 
+// 11. Fungsi untuk edit data batch
 const editBatchJunction = async (req, res) => {
     try{
         const userId = req.payload.id;

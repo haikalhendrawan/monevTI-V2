@@ -43,8 +43,7 @@ const WorksheetProvider = ({children}) => {
             file1, 
             file2
         });
-        console.log(response)
-        console.log("edit data success");
+        console.log("edit data success")
     }catch(err){
         console.log(err);
     }
@@ -70,7 +69,8 @@ const WorksheetProvider = ({children}) => {
   useEffect(() => {
     getChecklist();
     getBatch();
-  }, [])
+  }, []);
+
 
 
     return (

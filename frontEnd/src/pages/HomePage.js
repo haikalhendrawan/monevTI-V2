@@ -6,10 +6,10 @@ import { Grid, Container, Typography, LinearProgress, Button, Box } from '@mui/m
 // components
 import Iconify from '../components/iconify';
 // sections
-import {AppOrderTimeline, AppWidgetSummary} from '../sections/@dashboard/app';
 import WelcomeCard from "../sections/@dashboard/home/WelcomeCard";
 import ImageCarousel from "../sections/@dashboard/home/ImageCarousel";
 import WorkflowTimeline from "../sections/@dashboard/home/WorkflowTimeline";
+import WebsiteVisit from "../sections/@dashboard/home/WebsiteVisit";
 
 import {useAuth} from "../hooks/useAuth";
 import useRefreshToken from "../hooks/useRefreshToken";
@@ -75,6 +75,35 @@ export default function HomePage() {
                   ][index]
                 }))}
               />
+          </Grid>
+          <Grid item xs={12} md={6} lg={7}>
+            <WebsiteVisit
+              title="Website Visits"
+              subheader="(+23%) last few days"
+              chartLabels={[
+                '12/09/2023',
+                '12/10/2023',
+                '12/11/2023',
+                '12/12/2023',
+                '12/13/2023',
+                '12/14/2023',
+                '12/15/2023',
+                '12/16/2023',
+                '12/17/2023',
+                '12/18/2023',
+                '12/19/2023',
+              ]}
+              chartData={[
+
+                {
+                  name: 'Web Visit',
+                  type: 'area',
+                  fill: 'gradient',
+                  data: [0, 0, 0, 0, 4, 20, 5, 12, 23, 12, 30],
+                },
+               
+              ]}
+            />
           </Grid>
         </Grid>
       </Container>

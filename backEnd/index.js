@@ -3,6 +3,7 @@ import cors from "cors";
 import path from "path"; 
 import cookieParser from "cookie-parser";
 import { fileURLToPath } from 'url';
+import "dotenv/config";
 
 import authRoute from "./routes/authRoute.js";
 import userRoute from "./routes/userRoute.js";
@@ -19,7 +20,9 @@ const __dirname = path.dirname(__filename); //  dapetin dirname which is C:/mone
 const app = express();
 
 // ----------------------MIDDLEWARE------------------------------------------
-app.use(cors());
+app.use(cors({
+    origin: "*"
+}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'uploads')));
@@ -36,7 +39,7 @@ app.use(worksheetRoute);
 //-------------------------------  ENDPOINT ---------------------------------
 app.get('/', (req, res) => {
     res.json({msg:"ok"})
-})
-app.listen('8080', ()=>{
-    console.log("app running on port 8080")
-})
+});
+app.listen(process.env.DEV_PORT, ()=>{
+    console.log(`app running on port ${process.env.DEV_PORT}`)
+});

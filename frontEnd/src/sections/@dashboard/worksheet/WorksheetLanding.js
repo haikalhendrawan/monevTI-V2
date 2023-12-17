@@ -28,8 +28,8 @@ export default function WorksheetLanding(props) {
   const percentComplete = (done/(notDone+done)*100);
 
   const selection = {
-    0:<WorksheetSection1 />,
-    1:<WorksheetSection2 />,
+    0:<WorksheetSection1 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist} />,
+    1:<WorksheetSection2 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist} />,
     2:<WorksheetSection3 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist}/>,
     3:<WorksheetSection4 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist}/>,
     };

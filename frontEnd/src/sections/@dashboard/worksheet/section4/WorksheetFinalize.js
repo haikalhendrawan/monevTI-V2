@@ -21,6 +21,9 @@ export default function WorksheetFinalize(props){
   const isStartSurvey = batch?.rows? batch.rows[0].isStartSurvey : false;
   const surveyStart = batch?.rows? batch.rows[0].surveyStart : false;
   const surveyEnd = batch?.rows? batch.rows[0].surveyEnd : false;
+  const startUnix = Date.parse(surveyStart);
+  const endUnix = Date.parse(surveyEnd);
+  
 
   const handleClick = () => {
     setOpen(true);
@@ -75,7 +78,8 @@ export default function WorksheetFinalize(props){
   const handleSubmit = async() => {
     if(isDoneSection1===true && isDoneSection2===true && isDoneSection3===true){
       // console.log(id, result, isDone, isStartSurvey, surveyStart, surveyEnd);
-      await editBatch(id, result, 1, isStartSurvey, surveyStart, surveyEnd);
+      console.log(id, result, 1, isStartSurvey, startUnix, endUnix);
+      await editBatch(id, result, 1, isStartSurvey, startUnix, endUnix);
       getBatch();
       setOpen(false);
     }else{
