@@ -102,7 +102,7 @@ CREATE TABLE `batch_junction` (
 
 LOCK TABLES `batch_junction` WRITE;
 /*!40000 ALTER TABLE `batch_junction` DISABLE KEYS */;
-INSERT INTO `batch_junction` VALUES (13,0,7,'2023-12-13 08:38:55','2023-12-14 14:21:04','1',0,1,NULL,NULL),(14,0,9,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL),(15,0,11,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL),(16,0,12,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL);
+INSERT INTO `batch_junction` VALUES (13,0,7,'2023-12-13 08:38:55','2023-12-17 09:58:55',NULL,1,1,'2023-12-17 09:58:46','2023-12-17 10:18:46'),(14,0,9,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL),(15,0,11,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL),(16,0,12,'2023-12-13 08:38:55',NULL,NULL,0,0,NULL,NULL);
 /*!40000 ALTER TABLE `batch_junction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +124,7 @@ CREATE TABLE `checklist` (
   `date_created` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `date_updated` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`checklist_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +133,7 @@ CREATE TABLE `checklist` (
 
 LOCK TABLES `checklist` WRITE;
 /*!40000 ALTER TABLE `checklist` DISABLE KEYS */;
-INSERT INTO `checklist` VALUES (1,'Apakah anda mengetahui?','checklist 2 desc','Lakukan updating','contoh2.pdf',3,'3','2023-12-12 02:57:35','2023-12-14 15:33:16'),(2,'Checklist2','checklist 2 desc','Lakukan updating 2','contoh.pdf',1,'3','2023-12-12 02:57:55','2023-12-13 13:45:13'),(3,'Checklist3','asdwqe','weqwqe','wewqewe',2,'ewqwe','2023-12-12 14:17:20',NULL),(4,'Apakah kondisi sudah sesuai?','weqe','weqqwe','wqeqwe',3,'qewqw','2023-12-14 15:02:57','2023-12-14 15:33:16');
+INSERT INTO `checklist` VALUES (1,'Apakah anda mengetahui?','checklist 2 desc','Lakukan updating','1.pdf',3,'3','2023-12-12 02:57:35','2023-12-17 11:18:41'),(2,'checklist bagian 1 nomor 1','checklist  desc','11','2.pdf',1,'3','2023-12-12 02:57:55','2023-12-17 11:21:11'),(3,'checklist bagian 2 nomor 1','asdwqe','21','3.jpg',2,'ewqwe','2023-12-12 14:17:20','2023-12-17 11:19:09'),(4,'Apakah kondisi sudah sesuai?','weqe','weqqwe','wqeqwe',3,'qewqw','2023-12-14 15:02:57','2023-12-14 15:33:16'),(5,'checklist bagian 1 nomor 2','checklist desc','12','5.pdf',1,NULL,'2023-12-16 05:25:29','2023-12-17 11:21:11'),(6,'checklist bagian 2 nomor 2','checklist desc22','22','qwee',2,NULL,'2023-12-16 05:25:29','2023-12-16 07:19:20');
 /*!40000 ALTER TABLE `checklist` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -163,7 +163,7 @@ CREATE TABLE `checklistjunction` (
   CONSTRAINT `batchid_checklistjunction` FOREIGN KEY (`batch_id`) REFERENCES `batch` (`batch_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `checklistid` FOREIGN KEY (`checklist_id`) REFERENCES `checklist` (`checklist_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `userid_checklistjunction` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `checklistjunction` (
 
 LOCK TABLES `checklistjunction` WRITE;
 /*!40000 ALTER TABLE `checklistjunction` DISABLE KEYS */;
-INSERT INTO `checklistjunction` VALUES (89,1,7,0,0,'','1','2023-12-13 08:38:55','2023-12-14 18:16:28','1','1'),(90,2,7,0,0,NULL,NULL,'2023-12-13 08:38:55','2023-12-13 14:01:14',NULL,NULL),(91,3,7,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(92,1,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(93,2,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(94,3,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(95,1,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(96,2,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(97,3,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(98,1,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(99,2,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(100,3,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(101,4,7,0,0,'',NULL,'2023-12-14 15:03:22','2023-12-14 18:19:07',NULL,NULL);
+INSERT INTO `checklistjunction` VALUES (89,1,7,0,NULL,'ewqwew',NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(90,2,7,0,2,'catatan bagian 1 nomor 1','catatan bagian 1 nomor 1','2023-12-13 08:38:55','2023-12-17 16:51:10','2_1_root_1_1702831870633.zip',NULL),(91,3,7,0,2,'catatan bagian 2 noeqwqewemor 1','catatan bagian 2 noeqwqewemor 1','2023-12-13 08:38:55','2023-12-17 16:50:29',NULL,NULL),(92,1,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(93,2,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(94,3,9,0,NULL,NULL,NULL,'2023-12-13 08:38:55','2023-12-17 15:15:11',NULL,NULL),(95,1,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(96,2,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(97,3,11,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(98,1,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(99,2,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(100,3,12,0,NULL,NULL,NULL,'2023-12-13 08:38:55',NULL,NULL,NULL),(101,4,7,0,1,'eqwe',NULL,'2023-12-14 15:03:22','2023-12-17 09:58:51',NULL,NULL),(102,5,7,0,1,'catatan bagian 2 nomor 2','catatan bagian 2 nomor 2','2023-12-16 07:20:50','2023-12-17 15:57:04',NULL,NULL),(103,6,7,0,1,'catatan bagian 2 nomor 2','catatan bagian 2 nomor 2','2023-12-16 07:20:50','2023-12-17 15:53:25',NULL,NULL);
 /*!40000 ALTER TABLE `checklistjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -285,7 +285,7 @@ CREATE TABLE `iassetjunction` (
   CONSTRAINT `fk_kondisi` FOREIGN KEY (`kondisi`) REFERENCES `iassetcondition` (`condition_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_kppn` FOREIGN KEY (`kppn`) REFERENCES `kppn` (`kppn_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `fk_periode` FOREIGN KEY (`periode`) REFERENCES `periode` (`periode_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +294,7 @@ CREATE TABLE `iassetjunction` (
 
 LOCK TABLES `iassetjunction` WRITE;
 /*!40000 ALTER TABLE `iassetjunction` DISABLE KEYS */;
-INSERT INTO `iassetjunction` VALUES (6,4,'erqwewe','213wqewq','wqw','1323',1,1,'553','16','229','wqeqwewet43','ewrr43',0,'2023-11-12 07:31:23','2023-11-15 07:01:39',0),(7,1,'KBN0300G007','Didi','jmtyj','5468',2,2,'44','8','360','UNV0399245BNS','nrynrj',4,'2023-11-12 07:31:23','2023-11-15 07:03:16',1),(35,2,'','','brother','2011',1,3,'','','','','',0,'2023-11-19 11:31:00',NULL,0),(36,3,'','','fujitsu','2011',2,3,'','','','','ojeneqwnlejqwn',0,'2023-11-19 11:34:04',NULL,0),(40,4,'','','UPS2','2019',0,3,'','','','','asa',0,'2023-11-20 15:26:29','2023-11-21 02:25:59',0),(41,1,'LKBN0202','','2019','2017',0,0,'','','','','',0,'2023-11-21 02:28:19',NULL,0),(43,0,'KBNL030076','sasad','HP','2017',0,3,'ewqwe','','qewqwe','saddas','ln wqem wqem ew wqkemwqkomwekm wqelkwqmlkwqem wqelkmwqelkew',0,'2023-11-21 03:38:58','2023-11-27 14:38:17',0),(50,0,'abc','qwewqe','wqewqeewq','1213',0,3,'','','','','',0,'2023-11-28 15:06:56',NULL,0),(52,0,'wqeqeqwe','','wqeewqwe','2023',0,3,'','','','','',0,'2023-12-02 09:08:57',NULL,0),(53,0,'sasda','','asddsads','2023',0,3,'','','','','',0,'2023-12-02 09:10:27',NULL,0),(57,0,'sadsadsa','','sadsasads','2023',0,3,'','','','','',0,'2023-12-02 09:12:00',NULL,0),(58,0,'sadsadsa','','sadsasads','2023',0,3,'','','','','',0,'2023-12-02 09:12:01',NULL,0),(59,0,'ewqewqew','','ewqwqweq','2023',0,3,'','','','','',0,'2023-12-02 09:23:53',NULL,0),(60,0,'12','','eweqweq','2023',0,3,'','','','','',0,'2023-12-02 09:24:07',NULL,0);
+INSERT INTO `iassetjunction` VALUES (6,4,'erqwewe','213wqewq','wqw','1323',1,1,'553','16','229','wqeqwewet43','ewrr43',0,'2023-11-12 07:31:23','2023-11-15 07:01:39',0),(7,1,'KBN0300G007','Didi','jmtyj','5468',2,2,'44','8','360','UNV0399245BNS','nrynrj',4,'2023-11-12 07:31:23','2023-11-15 07:03:16',1),(35,2,'','','brother','2011',1,3,'','','','','',0,'2023-11-19 11:31:00',NULL,0),(36,3,'','','fujitsu','2011',2,3,'','','','','ojeneqwnlejqwn',0,'2023-11-19 11:34:04',NULL,0),(41,1,'LKBN0202','','2019','2017',0,0,'','','','','',0,'2023-11-21 02:28:19',NULL,0),(43,0,'KBNL030076','sasad','HP','2017',0,3,'ewqwe','','qewqwe','saddas','ln wqem wqem ew wqkemwqkomwekm wqelkwqmlkwqem wqelkmwqelkew',0,'2023-11-21 03:38:58','2023-11-27 14:38:17',0),(50,0,'abc','qwewqe','wqewqeewq','1213',0,3,'','','','','',0,'2023-11-28 15:06:56',NULL,0),(52,0,'wqeqeqwe','','wqeewqwe','2023',0,3,'','','','','',0,'2023-12-02 09:08:57',NULL,0),(53,0,'sasda','','asddsads','2023',0,3,'','','','','',0,'2023-12-02 09:10:27',NULL,0),(57,0,'sadsadsa','','sadsasads','2023',0,3,'','','','','',0,'2023-12-02 09:12:00',NULL,0),(58,0,'sadsadsa','','sadsasads','2023',0,3,'','','','','',0,'2023-12-02 09:12:01',NULL,0),(59,0,'ewqewqew','','ewqwqweq','2023',0,3,'','','','','',0,'2023-12-02 09:23:53',NULL,0),(60,0,'12','','eweqweq','2023',0,3,'','','','','',0,'2023-12-02 09:24:07',NULL,0),(61,0,'KBN0300G102','Haikal H','acer m400','2022',0,3,'124','8','128','UNVACAWWEQWEW23','',0,'2023-12-17 13:17:40',NULL,1),(62,3,'','','fujitsu','2023',0,3,'','','','','',0,'2023-12-17 13:23:47',NULL,1),(63,4,'','','Brother','2019',0,3,'','','','','',0,'2023-12-17 13:24:06',NULL,1);
 /*!40000 ALTER TABLE `iassetjunction` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -609,7 +609,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (7,'root','$2b$10$9UpDYRMqX6fjJS3eQ0P3b.lNaUrH9BXem8HKq.sX9z2P46pxUP4Eu',2,'Admin',1,'root@kemenkeu.go.id','7_png.png',0,0,'Muhammad Haikal Putra','199904082021011001','haikal.hendrawan@kemenkeu.go.id',NULL,NULL),(9,'K010','$2a$10$ujm/5QtBDiQoihnhqBjZG.hsZHaLXcmOyvAnqoZMZhwDwz9SJJ/Je',1,'KPPN Padang',NULL,'kppnpadang@gmail.com',NULL,1,0,NULL,NULL,NULL,NULL,NULL),(11,'K011','$2a$10$7XmHzE3tWFqx.Nrc8p8xcuSd63BOHmtdIm57INh8CqO3uM8/gOn9u',1,'KPPN Bukittinggi',NULL,NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL),(12,'K090','$2a$10$ieES0sVH5g/q9k6F0om9X.DWDf7pb4ObwLhl0xxcozkJNCHRklqLq',1,'KPPN Solok',NULL,NULL,NULL,3,0,NULL,NULL,NULL,NULL,NULL);
+INSERT INTO `user` VALUES (7,'root','$2b$10$9UpDYRMqX6fjJS3eQ0P3b.lNaUrH9BXem8HKq.sX9z2P46pxUP4Eu',2,'Kanwil DJPb Sumbar',1,'root@kemenkeu.go.id','7_png.png',0,0,'Muhammad Haikal Putra','199904082021011001','haikal.hendrawan@kemenkeu.go.id',NULL,NULL),(9,'K010','$2a$10$ujm/5QtBDiQoihnhqBjZG.hsZHaLXcmOyvAnqoZMZhwDwz9SJJ/Je',1,'KPPN Padang',NULL,'kppnpadang@gmail.com',NULL,1,0,NULL,NULL,NULL,NULL,NULL),(11,'K011','$2a$10$7XmHzE3tWFqx.Nrc8p8xcuSd63BOHmtdIm57INh8CqO3uM8/gOn9u',1,'KPPN Bukittinggi',NULL,NULL,NULL,2,0,NULL,NULL,NULL,NULL,NULL),(12,'K090','$2a$10$ieES0sVH5g/q9k6F0om9X.DWDf7pb4ObwLhl0xxcozkJNCHRklqLq',1,'KPPN Solok',NULL,NULL,NULL,3,0,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -622,4 +622,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-12-15  1:43:58
+-- Dump completed on 2023-12-18  0:40:26
