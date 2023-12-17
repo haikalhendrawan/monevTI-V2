@@ -162,8 +162,8 @@ const deleteBatch = async (req, res) => {
 
 // 9.  Fungsi utama menginisiasi kertas kerja per batch. 
 const assignChecklist = async (req, res) => {
-    try{
-        const connection = await pool.getConnection();
+    const connection = await pool.getConnection();
+    try{  
         const {batchId} = req.body;
         await connection.beginTransaction();
         

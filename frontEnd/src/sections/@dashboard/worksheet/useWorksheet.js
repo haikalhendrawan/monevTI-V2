@@ -49,6 +49,22 @@ const WorksheetProvider = ({children}) => {
     }
   };
 
+  const deleteDataDukung = async (id, kppnResponse, kppnNote, kanwilNote, file1, file2) => {
+    try{
+        const response = await axiosJWT.post(`/deleteDataDukung`,{
+            csJunctionId:id, 
+            kppnResponse, 
+            kppnNote, 
+            kanwilNote, 
+            file1, 
+            file2
+        });
+        console.log("edit data success")
+    }catch(err){
+        console.log(err);
+    }
+  };
+
 
   const editBatch = async(id, result, isDone, isStartSurvey, surveyStart, surveyEnd) => {
     try{
@@ -74,7 +90,7 @@ const WorksheetProvider = ({children}) => {
 
 
     return (
-        <WorksheetContext.Provider value={{checklist, batch, getChecklist, getBatch, editChecklist, editBatch}}>
+        <WorksheetContext.Provider value={{checklist, batch, getChecklist, getBatch, editChecklist, editBatch, deleteDataDukung}}>
             {children}
         </WorksheetContext.Provider>
     )

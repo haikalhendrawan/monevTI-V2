@@ -9,7 +9,7 @@ import PreviewFileModal from './component/PreviewFileModal';
 export default function WorksheetSection1(props){
   const theme = useTheme();
   const [open, setOpen] = useState(false);
-  const {batch, checklist, getBatch, getChecklist, editBatch, editChecklist} = props;
+  const {batch, checklist, getBatch, getChecklist, editBatch, editChecklist, deleteDataDukung} = props;
   const [modalFile, setModalFile] = useState({
     file1:'default.png',
     file2:'default.png',
@@ -17,12 +17,18 @@ export default function WorksheetSection1(props){
     fileNum:null,
   });
 
-  const allChecklist = checklist?.rows?checklist.rows:[];
-  const checklistSec1 = checklist?.rows?allChecklist.filter((item) => {
-    return item.ws_section === 1
-  }):null;
+  useEffect(() => {
+    const allChecklist = checklist?.rows ? checklist.rows : [];
+    const checklistSec1 = checklist?.rows
+      ? allChecklist.filter((item) => {
+          return item.ws_section === 1;
+        })
+      : null;
 
-  const [value, setValue] = useState(checklistSec1);
+    setValue(checklistSec1);
+  }, [checklist]); 
+
+  const [value, setValue] = useState(null);
 
   // open file button
   const handleClick = (filename, fileNum) => {
@@ -40,7 +46,6 @@ export default function WorksheetSection1(props){
   // ganti kondisi kesesuaian
   const handleSelect = async(event, id) => {
     const currentRow = value?.find((item) => item.csjunction_id === id);
-    console.log(currentRow)
     const { csjunction_id: csjunctionId, kppn_response: kppnResponse, kppn_note: kppnNote, kanwil_note: kanwilNote, file1, file2 } = currentRow;
     const currentResponse = event.target.value;
     try{
@@ -64,7 +69,7 @@ export default function WorksheetSection1(props){
     const currentRow = value?.find((item) => item.csjunction_id === id);
     const { csjunction_id: csjunctionId, kppn_response: kppnResponse, kppn_note: kppnNote, kanwil_note: kanwilNote, file1, file2 } = currentRow;
     try{
-      await editChecklist(csjunctionId, kppnResponse, kppnNote, kanwilNote, null, null);
+      await deleteDataDukung(csjunctionId, kppnResponse, kppnNote, kanwilNote, null, null);
       await getChecklist();
       setValue((prev)=> {
         return prev.map((row) => {
@@ -99,7 +104,7 @@ export default function WorksheetSection1(props){
 
   return(
     <>
-    {checklistSec1?.map((item, index) => {
+    {value?.map((item, index) => {
       return (<WorksheetCard key={index} 
               num={index+1}
               csId={item.csjunction_id}
@@ -109,7 +114,7 @@ export default function WorksheetSection1(props){
               handleDelete={handleDeleteFile} 
               handleEdit={handleEditNote}
               handleBlur={handleBlur}
-              kppnNote={value?.find((row)=> row.csjunction_id===item.csjunction_id).kppn_note}
+              kppnNote={item.kppn_note}
               kppnResponse={item.kppn_response}
               title={item.title}
               instruksi={item.instruksi}

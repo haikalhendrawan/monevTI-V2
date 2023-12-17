@@ -20,6 +20,16 @@ const selectKPPN = {
   6:'Painan'
 };
 
+const selectTTEMargin = {
+  0:88,
+  1:65,
+  2:88,
+  3:65,
+  4:88,
+  5:65,
+  6:88,
+};
+
 const kepalaKantor = {
   0:'Syukriah HG',
   1:'Joko Supriyanto',
@@ -352,7 +362,7 @@ export default function IAssetReportPDF(props) {
       {/*  -------- 4. TTE ------ */}
       <View style={styles.tte}>
           <Text style={{fontSize: 10, color:'#59606b'}}>Ditandatangani secara elektronik</Text>
-          <Text style={{fontSize: 10, marginRight:88}}>{kepalaKantor[KPPN]}</Text>
+          <Text style={{fontSize: 10, marginRight:selectTTEMargin[KPPN]}}>{kepalaKantor[KPPN]}</Text>
       </View>
 
       <View style={styles.footer} fixed>
@@ -566,7 +576,7 @@ export default function IAssetReportPDF(props) {
       {/*  -------- 4. TTE ------ */}
       <View style={styles.tte}>
         <Text style={{fontSize: 10, color:'#59606b'}}>Ditandatangani secara elektronik</Text>
-        <Text style={{fontSize: 10, marginRight:88}}>{kepalaKantor[KPPN]}</Text>
+        <Text style={{fontSize: 10, marginRight:selectTTEMargin[KPPN]}}>{kepalaKantor[KPPN]}</Text>
       </View>
       
       <View style={styles.footer} fixed>

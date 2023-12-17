@@ -34,6 +34,8 @@ const IAssetLanding = (props) => {
     const handleClose = () => {
       setOpen(false);
     };
+    const latestAsset = findLatestUpdatedDate(ASSET);
+    const latestUser = findLatestUpdatedDate(IUSER);
   
     return(
         <>
@@ -54,6 +56,7 @@ const IAssetLanding = (props) => {
                                 subheader={`Data perangkat TIK pada ${selectKPPN[auth.kppn]}`}
                                 image={"assets/Security_11zon.png"}
                                 open = {2}  // display {1:generate report, 2:Perangkat TIK, 3:User TIK}
+                                lastUpdate={latestAsset}
                             />
                             <IAssetSubMenu 
                                 changeSection={props.changeSection} 
@@ -61,6 +64,7 @@ const IAssetLanding = (props) => {
                                 subheader={`Data pengguna aplikasi pada ${selectKPPN[auth.kppn]}`}
                                 image={"assets/Payment_11zon.png"}
                                 open = {3}
+                                lastUpdate={latestUser}
                             />
 
                         </Stack>
@@ -68,7 +72,7 @@ const IAssetLanding = (props) => {
                 </Grid>
 
                 <Grid item xs={12} sm={6} md={6}>    
-                    <GenerateReport modalOpen={handlePreviewPDF} />
+                    <GenerateReport auth={auth} asset={ASSET} user={IUSER} modalOpen={handlePreviewPDF}/>
                 </Grid>
 
             </Grid>
@@ -81,3 +85,23 @@ const IAssetLanding = (props) => {
 
 
 export default IAssetLanding;
+
+// --------------------------------------------
+function findLatestUpdatedDate(array) {
+    if (!Array.isArray(array) || array.length === 0) {
+      return null; 
+    }
+  
+    const latestObject = array.reduce((latestObject, currentObject) => {
+      const latestDate = new Date(latestObject.date_created);
+      const currentDate = new Date(currentObject.date_created);
+  
+      
+      return currentDate > latestDate ? currentObject : latestObject;
+    });
+  
+    const latestDate = new Date(latestObject.date_created);
+    const formattedDate = `${latestDate.getDate()}/${latestDate.getMonth() + 1}/${latestDate.getFullYear()}`;
+  
+    return formattedDate;
+  }

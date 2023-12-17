@@ -5,7 +5,7 @@ import IAssetReportPDF from "../sections/PDF/IAssetReportPDF/IAssetReportPDF";
 function GeneratePDFPage(props) {
 
   return(
-    <IAssetReportPDF word={props.word} />
+    <IAssetReportPDF auth={props.auth} asset={props.asset} user={props.user} />
   )
   
 };

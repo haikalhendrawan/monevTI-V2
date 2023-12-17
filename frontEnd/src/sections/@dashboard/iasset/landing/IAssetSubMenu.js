@@ -33,8 +33,10 @@ const IAssetSubMenu = (props) => {
                             >{/* props.open={1:generate report, 2:Perangkat TIK, 3:User TIK} */}
                                 Edit
                             </Button> 
-                            <Tooltip title="Last update: 12/06/2023">
+                            <Tooltip title={props.lastUpdate}>
+                                {props?.lastUpdate?
                                 <IconButton disableRipple><Iconify icon={"icons8:checked"} sx={{color:'rgb(0, 167, 111)', borderRadius:'50%',}} /></IconButton>
+                                :<IconButton disableRipple sx={{display:'none'}}><Iconify icon={"icons8:checked"} sx={{color:'rgb(0, 167, 111)', borderRadius:'50%',}} /></IconButton>}
                             </Tooltip> 
                         </Grid>                      
                     </Box>

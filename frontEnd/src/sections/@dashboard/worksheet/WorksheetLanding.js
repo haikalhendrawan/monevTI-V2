@@ -17,7 +17,7 @@ import useWorksheet from "./useWorksheet";
 
 export default function WorksheetLanding(props) {
   
-  const {checklist, batch, getChecklist, getBatch, editBatch, editChecklist} = useWorksheet();
+  const {checklist, batch, getChecklist, getBatch, editBatch, editChecklist , deleteDataDukung} = useWorksheet();
 
   const notDone = checklist?.rows? checklist.rows.filter((row) => {
     return row.kppn_response === null
@@ -28,10 +28,10 @@ export default function WorksheetLanding(props) {
   const percentComplete = (done/(notDone+done)*100);
 
   const selection = {
-    0:<WorksheetSection1 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist} />,
-    1:<WorksheetSection2 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist} />,
-    2:<WorksheetSection3 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist}/>,
-    3:<WorksheetSection4 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist}/>,
+    0:<WorksheetSection1 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist}  deleteDataDukung={deleteDataDukung} />,
+    1:<WorksheetSection2 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist} deleteDataDukung={deleteDataDukung} />,
+    2:<WorksheetSection3 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist} deleteDataDukung={deleteDataDukung} />,
+    3:<WorksheetSection4 batch={batch} checklist={checklist} getBatch={getBatch} getChecklist={getChecklist} editBatch={editBatch} editChecklist={editChecklist} deleteDataDukung={deleteDataDukung} />,
     };
 
   return (

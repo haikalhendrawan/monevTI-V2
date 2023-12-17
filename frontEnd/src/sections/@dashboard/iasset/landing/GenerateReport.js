@@ -102,7 +102,7 @@ function GenerateReport (props) {
                         Preview
                     </Button>
 
-                    <PDFDownloadLink document={<GeneratePDFPage word='ABC'/>} fileName={`dataTIK_${currentDate}.pdf`}>
+                    <PDFDownloadLink document={<GeneratePDFPage auth={props.auth} asset={props.asset} user={props.user} />} fileName={`dataTIK_${currentDate}.pdf`}>
                         <Button size="large" variant="outlined"  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
                             Generate
                         </Button>

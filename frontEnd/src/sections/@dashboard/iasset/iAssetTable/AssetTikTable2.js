@@ -39,9 +39,9 @@ const TABLE_HEAD2 = [
   { id: 'ip', label: 'IP Adress', alignRight: false },
   { id: 'ram', label: 'RAM', alignRight: false },
   { id: 'storage', label: 'Storage', alignRight: false },
+  {id:''},
   { id: 'serial_number', label: 'Serial Number', alignRight: false },
   { id: 'catatan', label: 'Catatan', alignRight: false },
-  {id:''}
 ];
 
 const assetRef = {
@@ -351,16 +351,25 @@ export default function AssetTikTable2(props) {
                         {props.isComputer?(<TableCell align="left">{row.ram}</TableCell>):null}
 
                         {props.isComputer?(<TableCell align="left">{row.storage}</TableCell>):null}
+                        {props.isComputer?
+                        ( <TableCell align="right">
+                          <IconButton size="large" color="inherit" onClick={(event) => {handleOpenMenu(row.id, event)}}>
+                            <Iconify icon={'eva:more-vertical-fill'} />
+                          </IconButton>
+                        </TableCell>)
+                        :null}
 
                         <TableCell align="left">{row.serial_number}</TableCell>
 
                         <TableCell align="left">{row.catatan}</TableCell>
 
-                        <TableCell align="right">
+                        {!props.isComputer?
+                        ( <TableCell align="right">
                           <IconButton size="large" color="inherit" onClick={(event) => {handleOpenMenu(row.id, event)}}>
                             <Iconify icon={'eva:more-vertical-fill'} />
                           </IconButton>
-                        </TableCell>
+                        </TableCell>)
+                        :null}
                       </TableRow>
                     );
                   })}

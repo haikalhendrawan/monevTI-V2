@@ -1,10 +1,14 @@
 import {useState} from "react";
 import axios from "axios";
+import ReactPDF, { PDFDownloadLink } from '@react-pdf/renderer';
 import { Typography, Grid, Card, CardHeader, CardContent, LinearProgress, Box, Tooltip, Stack, Button} from '@mui/material';
 import {useTheme} from '@mui/material/styles';
+import {useAuth} from "../../../../hooks/useAuth";
 import Iconify from "../../../../components/iconify";
 import Label from "../../../../components/label";
 import ConfirmModal from "../component/ConfirmModal";
+import WorksheetReportPDF from "../../../PDF/WorksheetReportPDF/WorksheetReportPDF";
+import WorksheetBAPDF from "../../../PDF/WorksheetReportPDF/WorksheetBAPDF";
 
 // --------------------------------------------------------
 
@@ -12,6 +16,7 @@ import ConfirmModal from "../component/ConfirmModal";
 export default function WorksheetFinalize(props){
   const theme = useTheme();
   const {checklist, batch, editBatch, getBatch, getChecklist} = props;
+  const {auth, setAuth} = useAuth();
 
   const [open, setOpen] = useState(false);
 
@@ -23,6 +28,10 @@ export default function WorksheetFinalize(props){
   const surveyEnd = batch?.rows? batch.rows[0].surveyEnd : false;
   const startUnix = Date.parse(surveyStart);
   const endUnix = Date.parse(surveyEnd);
+
+  
+  const date = new Date();
+  const currentDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
   
 
   const handleClick = () => {
@@ -117,12 +126,16 @@ export default function WorksheetFinalize(props){
             <Grid container spacing={2} sx={{mt:7, justifyContent:'end'}}>
               {isDone?
                 <>
-                <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff', mr:2}:{mr:2}} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2"/>}>
-                    Generate Report 
-                </Button>
-                <Button size="large" variant="outlined" sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="vscode-icons:file-type-pdf2"/>}>
-                    Generate BA
-                </Button>
+                <PDFDownloadLink document={<WorksheetReportPDF auth={auth} />} fileName={`worksheet_${currentDate}.pdf`}>
+                    <Button size="large" variant="outlined"  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
+                        Generate Report
+                    </Button>
+                </PDFDownloadLink>
+                <PDFDownloadLink document={<WorksheetBAPDF auth={auth}/>} fileName={`BA_${currentDate}.pdf`}>
+                    <Button size="large" variant="outlined"  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
+                        Generate BA
+                    </Button>
+                </PDFDownloadLink>
                 </>:
                 <Button size="medium" variant="contained" endIcon={ <Iconify icon="material-symbols:send" />} onClick={handleClick}>
                     Send

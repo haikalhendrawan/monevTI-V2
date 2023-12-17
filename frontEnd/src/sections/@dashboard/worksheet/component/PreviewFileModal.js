@@ -52,6 +52,11 @@ export default function PreviewFileModal(props) {
   const fileExt = currentFile.split('.').pop().toLowerCase();
   const [render, setRender] = useState('No files');
 
+  const handleDownload = () => {
+    console.log('download');
+    window.location.href=`${currentFileURL}/${currentFile}`;
+  }
+
 
   useEffect(() => {
     if(fileExt==='jpg' || fileExt==='jpeg' || fileExt==='png'){
@@ -64,6 +69,12 @@ export default function PreviewFileModal(props) {
         <PDFViewer fileName={`${currentFileURL}/${currentFile}`}/>
       )
       console.log('pdf')
+    }else if(fileExt==='zip' || fileExt==='rar' ){
+      setRender(
+        <Button variant="contained" target='blank' onClick={handleDownload} sx={{position:'absolute', left:'45%', top:'50%'}}>
+          Download File
+        </Button>
+      )
     }else{
       setRender('Unknown file type')
     }
