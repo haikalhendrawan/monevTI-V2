@@ -98,15 +98,6 @@ function WorksheetCard(props) {
                   </Grid>
 
                   <Grid item xs={2}> 
-                    {file1?.length>0 && file2?.length>0?null
-                    :   <Tooltip title="Max. 50Mb" placement='right'>
-                          <Button component="label" variant='contained' size='small' sx={{mb:1}}>
-                            <Iconify icon='solar:cloud-upload-bold' />
-                            <VisuallyHiddenInput type='file' onChange={handleUploadFile} />
-                          </Button>
-                        </Tooltip>
-                    }
-
                     {file1?.length>0?
                     <Tooltip title="Lihat file 1" placement='right'>
                         <Button variant='contained' size='small' color='success' sx={{mb:1}} onClick={() => {onClick(file1,1)}}><Iconify icon='solar:eye-bold-duotone' /> 1</Button>
@@ -119,13 +110,21 @@ function WorksheetCard(props) {
                     </Tooltip>
                     :null
                     }
+                    {file1?.length>0 && file2?.length>0?null
+                    :   <Tooltip title="Max. 50Mb, dan 2 file max" placement='right'>
+                          <Button component="label" variant='contained' size='small' sx={{mb:1}}>
+                            <Iconify icon='solar:cloud-upload-bold' />
+                            <VisuallyHiddenInput type='file' onChange={handleUploadFile} />
+                          </Button>
+                        </Tooltip>
+                    }
                     {file1?.length>0 || file2?.length>0?
                     <Tooltip title="Hapus file" placement='right'>
                         <Button variant='contained' onClick={()=>{handleDelete(csId)}} size='small' color='error' sx={{mb:1}}><Iconify icon='solar:trash-bin-trash-bold-duotone' /></Button>
                     </Tooltip>
                     :null  
                     }
-                    <Tooltip title="Contoh dokumen dukung">
+                    <Tooltip title="Contoh dokumen">
                           <Button variant='contained' onClick={()=>{onClick(contohFile,3)}} size='small' color='warning'><Iconify icon='solar:lightbulb-bold' /></Button>
                     </Tooltip>
 
@@ -134,9 +133,7 @@ function WorksheetCard(props) {
 
                   <Grid item xs={3.5}>     
                       <FormControl>
-                        <Typography sx={{fontSize:12, textAlign:'start'}}>
-                          {instruksi}
-                        </Typography>
+                        <Typography sx={{fontSize:12, textAlign:'start'}}dangerouslySetInnerHTML={{ __html: instruksi }} />
                       </FormControl>
                   </Grid>
 
@@ -160,7 +157,7 @@ const Head = (props) => {  // bagian atas dari masing2 tabel gambar dan nama use
   <>
   <Stack direction="row" spacing={2} sx={{justifyContent:'space-between'}}>
       <Stack direction="row" spacing={1} sx={{alignItems:'center'}}>
-          <Typography variant="h6">{`${props.num} )`}</Typography>
+          <Typography variant="h6">{`${props.num}`}</Typography>
           <Stack >
               <Typography variant="body1" sx={{fontSize:15}}>{props.title}</Typography>
           </Stack>

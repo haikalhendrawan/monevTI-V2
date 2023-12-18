@@ -38,8 +38,8 @@ function GenerateReport (props) {
         {number:asetRusakBerat?.length, text:'Perangkat dengan kondisi rusak berat', color:'warning'},
     ];
     const userData=[
-        {number:userSAKTI?.length, text:'Jumlah user aplikasi SAKTI ', color:'success'},
-        {number:userSPAN?.length, text:'Jumlah user aplikasi SPAN', color:'error'},
+        {number:userSAKTI?.length, text:'Jumlah user aplikasi SPAN ', color:'success'},
+        {number:userSPAN?.length, text:'Jumlah user aplikasi SAKTI', color:'error'},
         {number:userLainnya?.length, text:'Jumlah user aplikasi Lainnya', color:'warning'},
     ];
 

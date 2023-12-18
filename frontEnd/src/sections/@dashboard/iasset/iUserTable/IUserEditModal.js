@@ -30,8 +30,7 @@ const style = {
 const SELECTAPP = [
     {jenis:'SPAN', value:0, icon:"solar:monitor-smartphone-bold-duotone" },
     {jenis:'SAKTI', value:1, icon:"solar:laptop-bold-duotone"},
-    {jenis:'Gaji', value:2, icon:"solar:printer-bold-duotone"}, 
-    {jenis:'Lainnya', value:3, icon:"solar:electric-refueling-bold-duotone"},
+    {jenis:'Lainnya', value:2, icon:"solar:printer-bold-duotone"}, 
     ];
   
 const SELECTPELATIHAN = [

@@ -32,7 +32,7 @@ export default function QuestionTitle(props){
   }, []); 
   
   useEffect(() => {
-    if(Number.isNaN(Number(props.endTime))){setTimeText('20:00'); return }
+    if(Number.isNaN(Number(props.endTime))){setTimeText('30:00'); return }
 
     setDistance(props.endTime - currentTime);
 

@@ -87,7 +87,7 @@ export default function LoginPage() {
               Sign In
             </Typography>
             <Typography variant="body" gutterBottom sx={{mb:5}}>
-              masuk menggunakan username dan password masing2 kppn
+              gunakan username dan password masing2 kppn
             </Typography>
 
             <LoginForm />   {/* logika dihandle di komponen ini */}

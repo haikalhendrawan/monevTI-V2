@@ -31,12 +31,11 @@ const style = {
     borderRadius:'12px',
   };
 
-const SELECTAPP = [
-  {jenis:'SPAN', value:0, icon:"../assets/images/iuser/span.png"},
-  {jenis:'SAKTI', value:1, icon:"../assets/images/iuser/sakti_original.svg"},
-  {jenis:'Gaji', value:2, icon:"solar:database-bold"}, 
-  {jenis:'Lainnya', value:3, icon:"solar:electric-refueling-bold-duotone"},
-  ];
+  const SELECTAPP = [
+    {jenis:'SPAN', value:0, icon:"solar:monitor-smartphone-bold-duotone" },
+    {jenis:'SAKTI', value:1, icon:"solar:laptop-bold-duotone"},
+    {jenis:'Lainnya', value:2, icon:"solar:printer-bold-duotone"}, 
+    ];
 
 const SELECTPELATIHAN = [
     {jenis:'Pernah', value:0, color:'success'},

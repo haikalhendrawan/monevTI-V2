@@ -86,7 +86,7 @@ function WorksheetQuestion(props) {
                           <Typography sx={{fontSize:12}}>{index+1}</Typography>
                         </Grid>
 
-                        <Grid item xs={4}> 
+                        <Grid item xs={3}> 
                           <Typography sx={{fontSize:13}}>{item.title}</Typography>
                         </Grid>
 
@@ -94,9 +94,9 @@ function WorksheetQuestion(props) {
                           <Typography sx={{fontSize:12}}>:</Typography>
                         </Grid>
 
-                        <Grid item xs={6}> 
+                        <Grid item xs={7}> 
                             <FormControl>
-                                <TextField name={String(item.csjunction_id)} size='small' onChange={handleChange} onBlur={() => {handleBlur(item.csjunction_id)}} value={value.find((row) => row.csjunction_id === item.csjunction_id).kppn_note} multiline minRows={4} maxRows={4} inputProps={{style: {fontSize: 12}}}  sx={{width:'120%'}}/>
+                                <TextField name={String(item.csjunction_id)} size='small' onChange={handleChange} onBlur={() => {handleBlur(item.csjunction_id)}} value={value.find((row) => row.csjunction_id === item.csjunction_id).kppn_note} multiline minRows={5} m inputProps={{style: {fontSize: 12}}}  sx={{width:'120%'}}/>
                             </FormControl>
                         </Grid>
                     </Grid>

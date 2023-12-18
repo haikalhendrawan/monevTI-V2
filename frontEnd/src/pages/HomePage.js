@@ -99,7 +99,7 @@ export default function HomePage() {
                   name: 'Web Visit',
                   type: 'area',
                   fill: 'gradient',
-                  data: [0, 0, 0, 0, 4, 20, 5, 12, 23, 12, 30],
+                  data: [0, 0, 0, 0, 4, 20, 5, 12, 23, 12, 22],
                 },
                
               ]}
