@@ -36,7 +36,7 @@ export default function ImageCarousel({ title, total, icon, color = 'primary', s
       }}
       {...other}
     >
-        <Link to="/" component={RouterLink} sx={{ display: 'contents' }}>
+        <Link to="https://drive.google.com/file/d/1Z_ozqch3MV2IKWNFPDfCeafP0MPexJtO/view?usp=sharing" target='blank' component={RouterLink} sx={{ display: 'contents' }}>
           <Box
             sx={{
               position: 'relative',

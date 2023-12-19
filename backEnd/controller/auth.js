@@ -7,14 +7,21 @@ import jwt from "jsonwebtoken";
 //   kalo oke lanjut buat token pakai jwt.sign({payload}, secretKey, {expiresIn}). Kirim refreshToken pakai res.Header('Set-Cookie', 'name=value;HttpOnly')
 //   handle accessTokennya di frontEnd pakai variable/browser memory
 const login = async (req, res) => {
+    const connection = await pool.getConnection();
     try{
+        await connection.beginTransaction();
         const{username, password}=req.body;
         const q = "SELECT * FROM user WHERE username = ?";
         
-        const [rows] = await pool.execute(q, [username]);
+        const [rows] = await connection.execute(q, [username]);
         const hashedPassword = rows[0].password_hash;
         const match = await bcrypt.compare(password, hashedPassword);
+        
         if(match){
+            const q2 = "INSERT INTO login(var) VALUES (?)";
+            const log = 0;
+            await connection.execute(q2, [log]);
+            await connection.commit();
             const accessToken = jwt.sign({id:rows[0].user_id, username:rows[0].username, name:rows[0].name, email:rows[0].email, image:rows[0].image, role:rows[0].role, kppn:rows[0].kppn, periode:rows[0].periode, namaPIC:rows[0].nama_pic, nipPIC:rows[0].nip_pic, emailPIC:rows[0].email_pic},"secretKey", {expiresIn:60*60*12}); //generate token
             const refreshToken = jwt.sign({id:rows[0].user_id, username:rows[0].username, name:rows[0].name, email:rows[0].email, image:rows[0].image, role:rows[0].role, kppn:rows[0].kppn, periode:rows[0].periode, namaPIC:rows[0].nama_pic, nipPIC:rows[0].nip_pic, emailPIC:rows[0].email_pic},"secretRefreshKey",{expiresIn:60*60*24});//generate refreshToken
             res.setHeader('Set-Cookie', `refreshToken=${refreshToken}; HttpOnly`);
@@ -34,9 +41,11 @@ const login = async (req, res) => {
                 msg:"Login Sucess"
             });
         }else{
+            await connection.commit();
             return res.status(401).json({errorMsg:"Invalid Password"});
         }
     }catch(error){
+        await connection.rollback();
         console.log(error);
         if(error.rows){
             return res.status(500).json({errorMsg:"Failed to database query"});
@@ -47,6 +56,8 @@ const login = async (req, res) => {
         }else{
         return res.status(401).json({errorMsg:"Invalid Username"});
         }
+    }finally{
+        connection.release()
     }
 }
 

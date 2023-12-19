@@ -46,6 +46,7 @@ function NavItem({ item }) {
     <StyledNavItem
       component={RouterLink}
       to={path}
+      target={info}
       sx={
         localStorage.getItem('mode')==='dark'?
         {
@@ -68,7 +69,6 @@ function NavItem({ item }) {
 
       <ListItemText disableTypography primary={title} />
 
-      {info && info}
     </StyledNavItem>
   );
 }

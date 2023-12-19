@@ -62,7 +62,7 @@ export default function HomePage() {
                   text:[
                     'Profile Icon -> menu profile (Est. Waktu: 5 mnt)',
                     'Menu Data TIK (Est. Waktu: 1 - 4 jam) ',
-                    'Menu Worksheet (Est. Waktu: 8 - 11 jam  )',
+                    'Menu Worksheet (Est. Waktu: 4 - 6 jam  )',
                     'Menu Data TIK dan Menu Worksheet (Est. Waktu: 5 - 10 mnt)',
                     'Satu Kemenkeu (Est. Waktu: 30 - 60 mnt)',
                   ][index],

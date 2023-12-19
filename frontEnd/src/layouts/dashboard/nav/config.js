@@ -48,8 +48,9 @@ const navConfig5 = [
 const navConfig4 = [
   {
     title: 'Panduan',
-    path: '/dashboard/user',
+    path: 'https://drive.google.com/file/d/1Z_ozqch3MV2IKWNFPDfCeafP0MPexJtO/view?usp=sharing',
     icon: icon('help-outline'),
+    info: 'blank'
   },
 ];
 
