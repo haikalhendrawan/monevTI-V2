@@ -1,3 +1,17 @@
 <h1>MonevTI</h1>
 
-Modul dengan 2 fungsi utama yaitu Keamanan Informasi dan Monev TIK
+<h6>Modul penunjang fungsi IT yang mencakup beberapa fitur sebagai berikut:</h6>
+
+<ul>
+  <li>Integrasi database Aset Informasi Kanwil dan KPPN</li>
+  <li>Capturing kondisi pengelolaan TIK KPPN melalui fitur kertas kerja</li>
+  <li>Penyediaan Log Book masalah TIK</li>
+  <li>Scanning open port pada local network (on development) </li>
+</ul>
+
+<h6>Current stack used:</h6>
+<ul>
+  <li>FrontEnd: react, material UI/minimal UI</li>
+  <li>Backend: nodejs </li>
+  <li>Db: mysql</li>
+</ul>

@@ -59,7 +59,7 @@ export default function WorksheetReportPDF(props) {
     </View>
         {/*  -------- Title ---------- */}
     <View style={styles.title} wrap={false}>
-      <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Dapat digenerate mulai tanggal 20/12/2023</Text>
+      <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Dapat digenerate mulai tanggal 21/12/2023</Text>
       <Text style={{fontSize:8}}> Mohon dicross check kembali bahwa data yang di input telah sesuai dan disertai dokumen-dokumen terkait</Text>
     </View>
   
