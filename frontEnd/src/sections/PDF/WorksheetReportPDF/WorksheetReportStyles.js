@@ -8,13 +8,7 @@ const styles = StyleSheet.create({
     },
     table: { 
       display: "table", 
-      width: "auto", 
-      borderStyle: "solid", 
-      borderTopWidth: 0, 
-      borderRightWidth: 0, 
-      borderBottomWidth: 0,
-      borderLeftWidth:1,
-      marginBottom:30
+      width: "80%", 
     }, 
     tableRow: { 
       margin: 0, 
@@ -22,10 +16,6 @@ const styles = StyleSheet.create({
     }, 
     tableCol: { 
       width: "25%", 
-      borderStyle: "solid", 
-      borderWidth: 1, 
-      borderLeftWidth: 0, 
-      borderTopWidth: 0 ,
     }, 
     tableHead: { 
       width: "25%", 
@@ -48,7 +38,7 @@ const styles = StyleSheet.create({
     tableCell: { 
       margin: "auto", 
       marginTop: 5, 
-      fontSize: 10 
+      fontSize: 9
     },
     header:{
       marginBottom:10,

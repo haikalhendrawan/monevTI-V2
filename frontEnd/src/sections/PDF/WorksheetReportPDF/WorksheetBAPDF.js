@@ -30,12 +30,31 @@ const kepalaKantor = {
   6:'Refenalria Azwar',
 };
 
+const tteMargin = {
+  0:'25%',
+  1:'18%',
+  2:'25%',
+  3:'18%',
+  4:'25%',
+  5:'18%',
+  6:'18%',
+}
+
 
 const colorKondisi = {
   0:'#54D62C',
   1:'#FFC107',
   2:'#FF4842'
 };
+
+const currentDate = new Date();
+const date = currentDate.getDate();
+const month = currentDate.getMonth()+1;
+const year = currentDate.getFullYear();
+const hour = currentDate.getHours();
+const minute = currentDate.getMinutes();
+let second = currentDate.getSeconds();
+second = (second).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
 
 // -------------------------------------------------------------
 
@@ -44,6 +63,7 @@ export default function WorksheetBAPDF(props) {
   
   const KPPN = props?.auth?.kppn;
   const namaPIC = props?.auth?.namaPIC;
+  const nipPIC = props?.auth?.nipPIC;
   
   return(
   <Document>
@@ -66,14 +86,121 @@ export default function WorksheetBAPDF(props) {
     </View>
 
     <View style={styles.paragraph} wrap={false}>
-      <Text style={{fontSize:9}}> Pada hari ini tanggal 20 Bulan Desember Tahun 2023, telah dilakukan penyelesaian Input data TIK KPPN Padang dengan rincian sebagai berikut: </Text>
-      <View style={styles.list}>
-        <Text style={{fontSize:9}}> 1. Input data Aset TIK dan User TIK dengan progress penyelesaian: 100% (56 input)</Text>
-        <Text style={{fontSize:9}}> 2. Input checklist kertas kerja dengan progress penyelesaian: 100% (51 input)</Text>
+      <Text style={{fontSize:9, marginTop:10}}> Pada hari ini tanggal {date} Bulan Desember Tahun 2023, saya yang bertandatangan dibawah ini: </Text>
+      <View style={{...styles.table, marginLeft:10}}> 
+          <View style={styles.tableRow} fixed> 
+            <View style={{...styles.tableCol, width:'2%'}}> 
+              <Text style={styles.tableCell}>1.</Text> 
+            </View> 
+            <View style={{...styles.tableCol, width:'10%'}}> 
+              <Text style={styles.tableCell}>Nama</Text> 
+            </View>
+            <View style={{...styles.tableCol, width:'2%'}}> 
+              <Text style={styles.tableCell}>:</Text> 
+            </View> 
+            <View style={{ ...styles.tableCol, width: 'auto' }}>
+              <Text style={{ ...styles.tableCell, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+              {namaPIC}
+              </Text>
+            </View>
+          </View>
       </View>
+      <View style={{...styles.table, marginLeft:10}}> 
+          <View style={styles.tableRow} fixed> 
+            <View style={{...styles.tableCol, width:'2%'}}> 
+              <Text style={styles.tableCell}>2.</Text> 
+            </View> 
+            <View style={{...styles.tableCol, width:'10%'}}> 
+              <Text style={styles.tableCell}>NIP</Text> 
+            </View>
+            <View style={{...styles.tableCol, width:'2%'}}> 
+              <Text style={styles.tableCell}>:</Text> 
+            </View> 
+            <View style={{ ...styles.tableCol, width: 'auto' }}>
+              <Text style={{ ...styles.tableCell, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                {nipPIC}
+              </Text>
+            </View>
+          </View>
+      </View>
+      <Text style={{fontSize:9, marginTop:10}}> Telah melakukan penyelesaian input data dengan sebenar-benarnya dan dapat dipertanggungjawabkan, yang dapat dirinci sebagai berikut: </Text>
+      <View style={{...styles.table, marginLeft:10}}> 
+          <View style={styles.tableRow} fixed> 
+            <View style={{...styles.tableCol, width:'2%'}}> 
+              <Text style={styles.tableCell}>1.</Text> 
+            </View> 
+            <View style={{...styles.tableCol, width:'auto', marginLeft:8}}> 
+              <Text style={styles.tableCell}>Input data Aset TIK dan User TIK dengan progress penyelesaian</Text> 
+            </View>
+            <View style={{...styles.tableCol, width:'2%'}}> 
+              <Text style={styles.tableCell}>:</Text> 
+            </View> 
+            <View style={{ ...styles.tableCol, width: 'auto' }}>
+              <Text style={{ ...styles.tableCell, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                100% 
+              </Text>
+            </View>
+          </View>
+      </View>
+      <View style={{...styles.table, marginLeft:10}}> 
+          <View style={styles.tableRow} fixed> 
+            <View style={{...styles.tableCol, width:'2%'}}> 
+              <Text style={styles.tableCell}>2.</Text> 
+            </View> 
+            <View style={{...styles.tableCol, width:'auto', marginLeft:8}}> 
+              <Text style={styles.tableCell}>Input checklist kertas kerja dengan progress penyelesaian</Text> 
+            </View>
+            <View style={{...styles.tableCol, width:'2%', marginLeft:25.5}}> 
+              <Text style={styles.tableCell}>:</Text> 
+            </View> 
+            <View style={{ ...styles.tableCol, width: 'auto' }}>
+              <Text style={{ ...styles.tableCell, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+              100%
+              </Text>
+            </View>
+          </View>
+      </View>
+      <Text style={{fontSize:9, marginTop:14}}> Demikian Berita Acara ini dibuat dalam rangka keperluan Monev TIK Kanwil DJPb Provinsi Sumatera Barat dan untuk dipergunakan sebagaimana mestinya. </Text>
+      <View style={{ ...styles.table, marginLeft: 10, marginTop: 20, flexDirection: 'row' }}>
+      {/* First Signature Table */}
+      <View style={{ ...styles.tableRow, flexDirection: 'column', width: '50%' }} fixed>
+        <View style={{ ...styles.tableCol, width: '100%' }}>
+          <Text style={styles.tableCell}>Pemeriksa, PIC TIK {selectKPPN[KPPN]}</Text>
+        </View>
+        <View style={{ ...styles.tableCol, width: '100%', marginTop: 50 }}>
+          <Text style={styles.tableCell}>ttd</Text>
+        </View>
+        <View style={{ ...styles.tableCol, width: '100%', marginTop: 20}}>
+          <Text style={styles.tableCell}>{namaPIC}</Text>
+        </View>
+      </View>
+
+      {/* Second Signature Table */}
+      <View style={{ ...styles.tableRow, flexDirection: 'column', width: '50%', marginLeft: 80}} fixed>
+        <View style={{ ...styles.tableCol, width: '100%' }}>
+          <Text style={styles.tableCell}>Mengetahui, Kepala {selectKPPN[KPPN]}</Text>
+        </View>
+        <View style={{ ...styles.tableCol, width: '100%', marginTop: 60 }}>
+          <Text style={styles.tableCell} />
+        </View>
+        <View style={{ ...styles.tableCol, width: '100%', position:'absolute', right:'1%', top:'75%' }}>
+          <Text style={{...styles.tableCell, color:'#59606b', marginBottom:0}}>Ditandatangani secara elektronik</Text>
+        </View>
+        <View style={{ ...styles.tableCol, width: '100%', marginTop: 0, position:'absolute', right:'18%', top:'86%'}}>
+          <Text style={{...styles.tableCell, marginTop:0}}>{kepalaKantor[KPPN]}</Text>
+        </View>
+      </View>
+     
+    </View>
     </View>
     
-    
+    <View style={styles.footer} fixed>
+        <Text style={{ textAlign: 'center', marginRight:100}} render={({ pageNumber, totalPages }) => (
+          `Hal: ${pageNumber} dari ${totalPages} halaman`
+        )} />
+        <Text style={{fontSize:8}}>Di generate pada: {currentDate && `${date}-${month}-${year} ${hour}:${minute}:${second}`} </Text>
+        <Image style={{height:15, width:25}} src={"/assets/monevtipng.png"}/>
+      </View>
     </Page>
 
   </Document>
