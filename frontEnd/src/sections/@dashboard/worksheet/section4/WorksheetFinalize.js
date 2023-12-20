@@ -6,6 +6,7 @@ import {useTheme} from '@mui/material/styles';
 import {useAuth} from "../../../../hooks/useAuth";
 import Iconify from "../../../../components/iconify";
 import Label from "../../../../components/label";
+import PreviewPDFModalWS from "../component/PreviewPDFModalWS";
 import ConfirmModal from "../component/ConfirmModal";
 import WorksheetReportPDF from "../../../PDF/WorksheetReportPDF/WorksheetReportPDF";
 import WorksheetBAPDF from "../../../PDF/WorksheetReportPDF/WorksheetBAPDF";
@@ -19,6 +20,8 @@ export default function WorksheetFinalize(props){
   const {auth, setAuth} = useAuth();
 
   const [open, setOpen] = useState(false);
+  const [fileOpen, setFileOpen] = useState(false);
+  const [isBA, setIsBA] = useState(true);
 
   const isDone = batch?.rows? batch.rows[0].isDone : false;
   const id = batch?.rows? batch.rows[0].junction_id : null;
@@ -37,9 +40,18 @@ export default function WorksheetFinalize(props){
   const handleClick = () => {
     setOpen(true);
   };
+  const handleGenerateClick = (param) => {
+    setFileOpen(true);
+    setIsBA(param);
+
+  };
 
   const handleModalClose = () => {
     setOpen(false);
+  };
+
+  const handleGenerateClose = () => {
+    setFileOpen(false);
   };
 
 
@@ -126,16 +138,13 @@ export default function WorksheetFinalize(props){
             <Grid container spacing={2} sx={{mt:7, justifyContent:'end'}}>
               {isDone?
                 <>
-                <PDFDownloadLink document={<WorksheetReportPDF auth={auth} />} fileName={`worksheet_${currentDate}.pdf`}>
-                    <Button size="large" variant="outlined"  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
-                        Generate Report
-                    </Button>
-                </PDFDownloadLink>
-                <PDFDownloadLink document={<WorksheetBAPDF auth={auth}/>} fileName={`BA_${currentDate}.pdf`}>
-                    <Button size="large" variant="outlined"  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
-                        Generate BA
-                    </Button>
-                </PDFDownloadLink>
+                  <Button size="large" variant="outlined"  onClick={()=>{handleGenerateClick(false)}} sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
+                      Generate Report
+                  </Button>
+
+                    <Button size="large" variant="outlined" onClick={()=>{handleGenerateClick(true)}}  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
+                      Generate BA
+                  </Button>
                 </>:
                 <Button size="medium" variant="contained" endIcon={ <Iconify icon="material-symbols:send" />} onClick={handleClick}>
                     Send
@@ -148,6 +157,7 @@ export default function WorksheetFinalize(props){
     </Card>
 
     <ConfirmModal modalOpen={open} modalClose={handleModalClose} onSubmit={handleSubmit} text={'Kirim berkas dan selesaikan?'} />
+    <PreviewPDFModalWS modalOpen={fileOpen} modalClose={handleGenerateClose} isBA={isBA}/>
     </>
   )
 };

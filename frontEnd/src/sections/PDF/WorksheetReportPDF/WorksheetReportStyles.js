@@ -81,6 +81,26 @@ const styles = StyleSheet.create({
       fontWeight:'bold',
       flexDirection:'column'
     },
+    paragraph:{
+      height:'auto',
+      marginTop:10,
+      justifyContent:'space-between',
+      alignItems:'start',
+      alignContent:'start',
+      flexDirection:'column',
+      lineHeight:2,
+      margin:12
+    },
+    list:{
+      height:'auto',
+      marginTop:3,
+      justifyContent:'space-between',
+      alignItems:'start',
+      alignContent:'start',
+      flexDirection:'column',
+      lineHeight:2,
+      marginLeft:24
+    },
     logo:{
       height:70,
       width:70

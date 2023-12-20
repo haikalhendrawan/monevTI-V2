@@ -35,7 +35,7 @@ const colorKondisi = {
   0:'#54D62C',
   1:'#FFC107',
   2:'#FF4842'
-}
+};
 
 // -------------------------------------------------------------
 
@@ -43,12 +43,13 @@ const colorKondisi = {
 export default function WorksheetBAPDF(props) {
   
   const KPPN = props?.auth?.kppn;
+  const namaPIC = props?.auth?.namaPIC;
   
   return(
   <Document>
 
     {/*  -------------------------- Report Checklist----------------------------------------- */}
-    <Page size="A4" style={styles.page} orientation="landscape">
+    <Page size="A4" style={styles.page} orientation="portrait">
         {/*  -------- KOP Surat ---------- */}
     <View style={styles.header} fixed>
       <Image style={styles.logo} src={"/assets/images/kemenkeu/kemenkeu_logo.png"}/>
@@ -57,13 +58,22 @@ export default function WorksheetBAPDF(props) {
         <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14}}> {KPPN<1?null:'Kantor Pelayanan Perbendaharaan Negara'} {selectKPPN[KPPN]} </Text>
       </View>
     </View>
+
         {/*  -------- Title ---------- */}
     <View style={styles.title} wrap={false}>
-      <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Dapat digenerate mulai tanggal 21/12/2023</Text>
-      <Text style={{fontSize:8}}> Mohon dicross check kembali bahwa data yang di input telah sesuai dan disertai dokumen-dokumen terkait</Text>
+      <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Berita Acara</Text>
+      <Text style={{fontSize:12}}> Penyelesaian Input Data Pada Modul MonevTI</Text>
     </View>
-  
 
+    <View style={styles.paragraph} wrap={false}>
+      <Text style={{fontSize:9}}> Pada hari ini tanggal 20 Bulan Desember Tahun 2023, telah dilakukan penyelesaian Input data TIK KPPN Padang dengan rincian sebagai berikut: </Text>
+      <View style={styles.list}>
+        <Text style={{fontSize:9}}> 1. Input data Aset TIK dan User TIK dengan progress penyelesaian: 100% (56 input)</Text>
+        <Text style={{fontSize:9}}> 2. Input checklist kertas kerja dengan progress penyelesaian: 100% (51 input)</Text>
+      </View>
+    </View>
+    
+    
     </Page>
 
   </Document>
