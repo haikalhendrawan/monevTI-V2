@@ -40,16 +40,16 @@ export default function PreviewPDFModalWS(props) {
 
   return(
   <Modal open={props.modalOpen} onClose={props.modalClose}>
-  <Box sx={style}>
-    {isBA?
-    <PDFViewer width={'100%'} height={'100%'}>
-      <WorksheetBAPDF auth={props.auth} asset={props.asset} user={props.user} />
-    </PDFViewer>
-    :
-    <PDFViewer width={'100%'} height={'100%'}>
-        <WorksheetBAPDF auth={props.auth} asset={props.asset} user={props.user} />
-     </PDFViewer>}
-  </Box>
-</Modal>
+    <Box sx={style}>
+      {isBA?
+      <PDFViewer width={'100%'} height={'100%'}>
+        <WorksheetBAPDF auth={props.auth} />
+      </PDFViewer>
+      :
+      <PDFViewer width={'100%'} height={'100%'}>
+          <WorksheetReportPDF auth={props.auth} checklist={props.checklist} />
+      </PDFViewer>}
+    </Box>
+  </Modal>
   )
 }

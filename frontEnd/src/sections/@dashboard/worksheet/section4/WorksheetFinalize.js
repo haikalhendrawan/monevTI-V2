@@ -157,7 +157,7 @@ export default function WorksheetFinalize(props){
     </Card>
 
     <ConfirmModal modalOpen={open} modalClose={handleModalClose} onSubmit={handleSubmit} text={'Kirim berkas dan selesaikan?'} />
-    <PreviewPDFModalWS modalOpen={fileOpen} modalClose={handleGenerateClose} isBA={isBA} auth={auth}/>
+    <PreviewPDFModalWS modalOpen={fileOpen} modalClose={handleGenerateClose} isBA={isBA} auth={auth} checklist={checklist}/>
     </>
   )
 };

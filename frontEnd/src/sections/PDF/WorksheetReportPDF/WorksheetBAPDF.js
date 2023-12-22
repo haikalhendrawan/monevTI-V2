@@ -195,12 +195,9 @@ export default function WorksheetBAPDF(props) {
     </View>
     
     <View style={styles.footer} fixed>
-        <Text style={{ textAlign: 'center', marginRight:100}} render={({ pageNumber, totalPages }) => (
-          `Hal: ${pageNumber} dari ${totalPages} halaman`
-        )} />
         <Text style={{fontSize:8}}>Di generate pada: {currentDate && `${date}-${month}-${year} ${hour}:${minute}:${second}`} </Text>
         <Image style={{height:15, width:25}} src={"/assets/monevtipng.png"}/>
-      </View>
+    </View>
     </Page>
 
   </Document>

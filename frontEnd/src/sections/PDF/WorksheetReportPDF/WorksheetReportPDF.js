@@ -30,12 +30,37 @@ const kepalaKantor = {
   6:'Refenalria Azwar',
 };
 
-
 const colorKondisi = {
-  0:'#54D62C',
-  1:'#FFC107',
-  2:'#FF4842'
-}
+  0:'#FFC107',
+  1:'#FF4842',
+  2:'#54D62C',
+};
+
+const SELECTKONDISI = [
+  {jenis:'Tidak Tahu', value:0, color:'warning'},
+  {jenis:'Tidak Sesuai', value:1, color:'error'},
+  {jenis:'Sesuai', value:2, color:'success'}, 
+  ];
+
+const selectTTEMargin = {
+  0:88,
+  1:65,
+  2:88,
+  3:65,
+  4:88,
+  5:65,
+  6:88,
+};
+
+const currentDate = new Date();
+const date = currentDate.getDate();
+const month = currentDate.getMonth()+1;
+const year = currentDate.getFullYear();
+const hour = currentDate.getHours();
+const minute = currentDate.getMinutes();
+let second = currentDate.getSeconds();
+second = (second).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+
 
 // -------------------------------------------------------------
 
@@ -43,6 +68,9 @@ const colorKondisi = {
 export default function WorksheetReportPDF(props) {
 
   const KPPN = props?.auth?.kppn;
+  const worksheet = props?.checklist?.rows;
+  const checklist = worksheet?.filter((item) => item.ws_section!==3);
+  
 
   return(
   <Document>
@@ -59,9 +87,70 @@ export default function WorksheetReportPDF(props) {
     </View>
         {/*  -------- Title ---------- */}
     <View style={styles.title} wrap={false}>
-      <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Dapat digenerate mulai tanggal 21/12/2023</Text>
-      <Text style={{fontSize:8}}> Mohon dicross check kembali bahwa data yang di input telah sesuai dan disertai dokumen-dokumen terkait</Text>
+      <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Data Checklist Kertas Kerja</Text>
+      <Text style={{fontSize:8}}> 100% sesuai</Text>
     </View>
+
+      {/*  -------- Tabel Checklist ---------- */}
+      <View style={{...styles.table, width:'100%'}} > 
+        <View style={{...styles.tableRow}} fixed> 
+          <View style={{...styles.tableHead, width:'6%'}}> 
+            <Text style={styles.tableHeadCell}>No</Text> 
+          </View> 
+          <View style={{...styles.tableHead, width:'40%'}} wrap> 
+            <Text style={styles.tableHeadCell} wrap>Checklist</Text> 
+          </View>
+          <View style={{...styles.tableHead, width:'20%'}}> 
+            <Text style={styles.tableHeadCell}>Kondisi</Text> 
+          </View> 
+          <View style={{...styles.tableHead, width:'6%'}}> 
+            <Text style={styles.tableHeadCell}>File 2</Text> 
+          </View> 
+          <View style={styles.tableHead}> 
+            <Text style={styles.tableHeadCell}>Peraturan Terkait</Text> 
+          </View>
+          <View style={{...styles.tableHead, width:'35%'}}> 
+            <Text style={styles.tableHeadCell}>Catatan</Text> 
+          </View> 
+        </View>
+        {checklist && checklist.map((row, index)=> {
+          return (
+            <View style={{...styles.tableRow, borderWidth:0.5}} key={index}> 
+              <View style={{...styles.tableCol, width:'6%', borderWidth:0.5}}> 
+                <Text style={{...styles.tableCell}}>{index+1}</Text> 
+              </View> 
+              <View style={{...styles.tableCol, width:'40%', borderWidth:0.5}}> 
+                <Text style={styles.tableCell}>{row.title}</Text> 
+              </View> 
+              <View style={{...styles.tableCol, width:'20%', borderWidth:0.5}}> 
+              <Text style={{...styles.tableCell, color:colorKondisi[row.kppn_response]}}>{SELECTKONDISI[row.kppn_response].jenis}</Text> 
+              </View>
+              <View style={{...styles.tableCol, borderWidth:0.5, width:'6%'}}> 
+                <Text style={styles.tableCell}>{row.file1}</Text> 
+              </View>
+              <View style={{...styles.tableCol, borderWidth:0.5}}> 
+                <Text style={styles.tableCell}>{row.peraturan}</Text> 
+              </View> 
+              <View style={{...styles.tableCol, width:'35%', borderWidth:0.5}}> 
+                <Text style={styles.tableCell}>{row.kppn_note}</Text> 
+              </View>  
+            </View> 
+              )
+            })}
+      </View>
+
+      {/*  -------- 4. TTE ------ */}
+      <View style={styles.tte}>
+          <Text style={{fontSize: 10, color:'#59606b'}}>Ditandatangani secara elektronik</Text>
+          <Text style={{fontSize: 10, marginRight:selectTTEMargin[KPPN]}}>{kepalaKantor[KPPN]}</Text>
+      </View>
+
+      <View style={styles.footer} fixed>
+        <Text style={{ textAlign: 'center', marginRight:200 }} render={({ pageNumber, totalPages }) => (
+          `Hal: ${pageNumber} dari ${totalPages} halaman`
+        )} />
+        <Text style={{fontSize:8}}>Di generate pada: {currentDate && `${date}-${month}-${year} ${hour}:${minute}:${second}`} </Text>
+      </View>
   
 
     </Page>
