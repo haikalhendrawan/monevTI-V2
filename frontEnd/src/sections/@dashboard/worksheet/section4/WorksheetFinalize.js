@@ -32,7 +32,7 @@ export default function WorksheetFinalize(props){
   const startUnix = Date.parse(surveyStart);
   const endUnix = Date.parse(surveyEnd);
 
-  
+ 
   const date = new Date();
   const currentDate = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`;
   
@@ -109,8 +109,6 @@ export default function WorksheetFinalize(props){
     }
   };
 
-
-
   return(
     <>
     <Card>
@@ -142,7 +140,7 @@ export default function WorksheetFinalize(props){
                       Generate Report
                   </Button>
 
-                    <Button size="large" variant="outlined" onClick={()=>{handleGenerateClick(true)}}  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
+                  <Button size="large" variant="outlined" onClick={()=>{handleGenerateClick(true)}}  sx={localStorage.getItem('mode')==='dark'?{color:'#fff'}:null} endIcon={ <Iconify icon="solar:download-square-bold" sx={{color:localStorage.getItem('mode')==='light'?theme.palette.primary.main:theme.palette.primary.light}} />}>
                       Generate BA
                   </Button>
                 </>:
@@ -150,7 +148,6 @@ export default function WorksheetFinalize(props){
                     Send
                 </Button>
               }
-
             </Grid>      
           </Grid>
         </CardContent>

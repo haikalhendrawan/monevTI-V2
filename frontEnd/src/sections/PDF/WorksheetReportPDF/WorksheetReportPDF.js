@@ -70,6 +70,9 @@ export default function WorksheetReportPDF(props) {
   const KPPN = props?.auth?.kppn;
   const worksheet = props?.checklist?.rows;
   const checklist = worksheet?.filter((item) => item.ws_section!==3);
+  const kuesioner = worksheet?.filter((item) => item.ws_section===3);
+  const persenSesuai= ((checklist?.filter((item) => item.kppn_response===2).length)/(checklist.length)*100).toFixed(0);
+  const persenDiisi= ((kuesioner?.filter((item) => item.kppn_note.length>1).length)/(kuesioner.length)*100).toFixed(0);
   
 
   return(
@@ -88,7 +91,7 @@ export default function WorksheetReportPDF(props) {
         {/*  -------- Title ---------- */}
     <View style={styles.title} wrap={false}>
       <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Data Checklist Kertas Kerja</Text>
-      <Text style={{fontSize:8}}> 100% sesuai</Text>
+      <Text style={{fontSize:8}}> {persenSesuai}% sesuai </Text>
     </View>
 
       {/*  -------- Tabel Checklist ---------- */}
@@ -103,14 +106,14 @@ export default function WorksheetReportPDF(props) {
           <View style={{...styles.tableHead, width:'20%'}}> 
             <Text style={styles.tableHeadCell}>Kondisi</Text> 
           </View> 
-          <View style={{...styles.tableHead, width:'6%'}}> 
-            <Text style={styles.tableHeadCell}>File 2</Text> 
+          <View style={{...styles.tableHead, width:'10%'}}> 
+            <Text style={styles.tableHeadCell}>Dokumen</Text> 
           </View> 
           <View style={styles.tableHead}> 
             <Text style={styles.tableHeadCell}>Peraturan Terkait</Text> 
           </View>
           <View style={{...styles.tableHead, width:'35%'}}> 
-            <Text style={styles.tableHeadCell}>Catatan</Text> 
+            <Text style={styles.tableHeadCell}>Catatan KPPN</Text> 
           </View> 
         </View>
         {checklist && checklist.map((row, index)=> {
@@ -120,13 +123,13 @@ export default function WorksheetReportPDF(props) {
                 <Text style={{...styles.tableCell}}>{index+1}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'40%', borderWidth:0.5}}> 
-                <Text style={styles.tableCell}>{row.title}</Text> 
+                <Text style={{...styles.tableCell, marginLeft:0}}>{row.title}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'20%', borderWidth:0.5}}> 
               <Text style={{...styles.tableCell, color:colorKondisi[row.kppn_response]}}>{SELECTKONDISI[row.kppn_response].jenis}</Text> 
               </View>
-              <View style={{...styles.tableCol, borderWidth:0.5, width:'6%'}}> 
-                <Text style={styles.tableCell}>{row.file1}</Text> 
+              <View style={{...styles.tableCol, borderWidth:0.5, width:'10%'}}> 
+                <Text style={styles.tableCell}>{row.file1?'V':'-'}</Text> 
               </View>
               <View style={{...styles.tableCol, borderWidth:0.5}}> 
                 <Text style={styles.tableCell}>{row.peraturan}</Text> 
@@ -140,7 +143,8 @@ export default function WorksheetReportPDF(props) {
       </View>
 
       {/*  -------- 4. TTE ------ */}
-      <View style={styles.tte}>
+      <View style={{...styles.tte, marginTop:0}} wrap={false}>
+          <Text style={{height:80}} />
           <Text style={{fontSize: 10, color:'#59606b'}}>Ditandatangani secara elektronik</Text>
           <Text style={{fontSize: 10, marginRight:selectTTEMargin[KPPN]}}>{kepalaKantor[KPPN]}</Text>
       </View>
@@ -152,7 +156,68 @@ export default function WorksheetReportPDF(props) {
         <Text style={{fontSize:8}}>Di generate pada: {currentDate && `${date}-${month}-${year} ${hour}:${minute}:${second}`} </Text>
       </View>
   
+    </Page>
 
+    {/*  -------------------------- Report kuesioner----------------------------------------- */}
+    <Page size="A4" style={styles.page} orientation="landscape">
+        {/*  -------- KOP Surat ---------- */}
+    <View style={styles.header} fixed>
+      <Image style={styles.logo} src={"/assets/images/kemenkeu/kemenkeu_logo.png"}/>
+      <View style={{flexDirection:'column', justifyContent:'space-between', paddingTop:15, paddingBottom:15}}>
+        <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14}}>Kementerian Keuangan Republik Indonesia</Text>
+        <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14}}>{KPPN<1?null:'Kantor Pelayanan Perbendaharaan Negara'} {selectKPPN[KPPN]}</Text>
+      </View>
+    </View>
+        {/*  -------- Title ---------- */}
+    <View style={styles.title} wrap={false}>
+      <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}>Data Kuesioner</Text>
+      <Text style={{fontSize:8}}>{persenDiisi}% diisi</Text>
+    </View>
+
+      {/*  -------- Tabel Checklist ---------- */}
+      <View style={{...styles.table, width:'100%'}} > 
+        <View style={{...styles.tableRow}} fixed> 
+          <View style={{...styles.tableHead, width:'6%'}}> 
+            <Text style={styles.tableHeadCell}>No</Text> 
+          </View> 
+          <View style={{...styles.tableHead, width:'40%'}} wrap> 
+            <Text style={styles.tableHeadCell} wrap>Pertanyaan</Text> 
+          </View>
+          <View style={{...styles.tableHead, width:'54%'}}> 
+            <Text style={styles.tableHeadCell}>Tanggapan</Text> 
+          </View> 
+        </View>
+        {kuesioner && kuesioner.map((row, index)=> {
+          return (
+            <View style={{...styles.tableRow, borderWidth:0.5}} key={index}> 
+              <View style={{...styles.tableCol, width:'6%', borderWidth:0.5}}> 
+                <Text style={{...styles.tableCell}}>{index+1}</Text> 
+              </View> 
+              <View style={{...styles.tableCol, width:'40%', borderWidth:0.5}}> 
+                <Text style={{...styles.tableCell, marginLeft:0}}>{row.title}</Text> 
+              </View> 
+              <View style={{...styles.tableCol, borderWidth:0.5, width:'54%'}}> 
+                <Text style={styles.tableCell}>{row.kppn_note}</Text> 
+              </View>  
+            </View> 
+              )
+            })}
+      </View>
+
+      {/*  -------- 4. TTE ------ */}
+      <View style={{...styles.tte, marginTop:0}} wrap={false}>
+          <Text style={{height:80}} />
+          <Text style={{fontSize: 10, color:'#59606b'}}>Ditandatangani secara elektronik</Text>
+          <Text style={{fontSize: 10, marginRight:selectTTEMargin[KPPN]}}>{kepalaKantor[KPPN]}</Text>
+      </View>
+
+      <View style={styles.footer} fixed>
+        <Text style={{ textAlign: 'center', marginRight:200 }} render={({ pageNumber, totalPages }) => (
+          `Hal: ${pageNumber} dari ${totalPages} halaman`
+        )} />
+        <Text style={{fontSize:8}}>Di generate pada: {currentDate && `${date}-${month}-${year} ${hour}:${minute}:${second}`} </Text>
+      </View>
+  
     </Page>
 
   </Document>

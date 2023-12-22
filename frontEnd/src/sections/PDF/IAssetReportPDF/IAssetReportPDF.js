@@ -360,7 +360,8 @@ export default function IAssetReportPDF(props) {
       </View>
 
       {/*  -------- 4. TTE ------ */}
-      <View style={styles.tte}>
+      <View style={{...styles.tte, marginTop:0}} wrap={false}>
+          <Text style={{height:100}} />
           <Text style={{fontSize: 10, color:'#59606b'}}>Ditandatangani secara elektronik</Text>
           <Text style={{fontSize: 10, marginRight:selectTTEMargin[KPPN]}}>{kepalaKantor[KPPN]}</Text>
       </View>
@@ -574,9 +575,10 @@ export default function IAssetReportPDF(props) {
       </View>
 
       {/*  -------- 4. TTE ------ */}
-      <View style={styles.tte}>
-        <Text style={{fontSize: 10, color:'#59606b'}}>Ditandatangani secara elektronik</Text>
-        <Text style={{fontSize: 10, marginRight:selectTTEMargin[KPPN]}}>{kepalaKantor[KPPN]}</Text>
+      <View style={{...styles.tte, marginTop:0}} wrap={false}>
+          <Text style={{height:100}} />
+          <Text style={{fontSize: 10, color:'#59606b'}}>Ditandatangani secara elektronik</Text>
+          <Text style={{fontSize: 10, marginRight:selectTTEMargin[KPPN]}}>{kepalaKantor[KPPN]}</Text>
       </View>
       
       <View style={styles.footer} fixed>
