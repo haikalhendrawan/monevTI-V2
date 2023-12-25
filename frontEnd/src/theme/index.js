@@ -3,6 +3,7 @@ import { useMemo, useState, createContext, useEffect } from 'react';
 // @mui
 import { CssBaseline } from '@mui/material';
 import { ThemeProvider as MUIThemeProvider, createTheme, StyledEngineProvider } from '@mui/material/styles';
+import { idID } from '@mui/material/locale';
 //
 import palette, {paletteDark, GREY, PRIMARY, SECONDARY, INFO, SUCCESS, WARNING, ERROR} from './palette';
 import shadows from './shadows';
@@ -19,7 +20,6 @@ ThemeProvider.propTypes = {
   children: PropTypes.node,
 };
 
-
 export default function ThemeProvider({ children }) {
   const [mode, setMode] = useState('dark');
   const [primaryColor, setPrimaryColor] = useState('primary'); 
@@ -31,7 +31,7 @@ export default function ThemeProvider({ children }) {
       shape: { borderRadius: 6 },
       typography,
       shadows: shadows(),
-      customShadows: customShadows(),
+      customShadows: customShadows()
     }),[mode, primaryColor]
   );
 

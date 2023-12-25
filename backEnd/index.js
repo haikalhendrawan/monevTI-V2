@@ -12,6 +12,7 @@ import iAssetRoute from "./routes/iAssetRoute.js";
 import iUserRoute from "./routes/iUserRoute.js";
 import uploadRoute from "./routes/uploadRoute.js";
 import worksheetRoute from "./routes/worksheetRoute.js";
+import logbookRoute from "./routes/logbookRoute.js";
 
 // -----------------------setting static file -------------------------------------
 
@@ -33,6 +34,7 @@ app.use(iAssetRoute);
 app.use(iUserRoute);
 app.use(uploadRoute);
 app.use(worksheetRoute);
+app.use(logbookRoute);
 
 // -------------------------------Db----------------------------------------
 

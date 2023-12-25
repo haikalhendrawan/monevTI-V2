@@ -21,14 +21,14 @@ const navConfig = [
 
 const navConfig2 = [
   {
-    title: 'Monitoring',
-    path: '/monitoring',
-    icon: icon('solar-telescope'), 
-  },
-  {
     title: 'Log Book TIK',
     path: '/logbook',
     icon: icon('solar-notebook'),
+  },
+  {
+    title: 'Monitoring',
+    path: '/monitoring',
+    icon: icon('solar-telescope'), 
   },
   {
     title: 'Topology',

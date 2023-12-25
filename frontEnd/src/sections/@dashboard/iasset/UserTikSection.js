@@ -118,7 +118,7 @@ const UserTikSection = (props) => {
   const handleAddUser = async () => {
     const isValid = await checkInput();
     setIsCallingAPI(true);
-    if(!isValid){return}
+    if(!isValid){setIsCallingAPI(false); return}
 
     try{
       const response = await axiosJWT.post('/addIUser', {

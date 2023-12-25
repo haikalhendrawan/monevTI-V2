@@ -41,7 +41,7 @@ export default function Router() {
     </Route>
 
     <Route element={<PersistLogin />}> 
-      <Route path="/dashboard" element={ <RequireAuthLayout allowedRoles={[1,2]}/>}>  { /* we want to protect this route */}
+      <Route path="/dashboard" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  { /* we want to protect this route */}
         <Route index element={<Navigate to="app" />} /> 
         <Route path="user" element={<UserPage /> }/>
         <Route path="products" element={<ProductsPage />}/>
@@ -55,11 +55,17 @@ export default function Router() {
         <Route path="app" element={<HomePage />} />
         <Route path="worksheet" element={<WorksheetPage />} />
         <Route path="iasset" element={<IAssetPage />} />
-        <Route path="monitoring" element={<MonitoringPage />} /> 
-        <Route path="logbook" element={<LogBookPage />} />   
+        <Route path="monitoring" element={<MonitoringPage />} />  
         <Route path="topology" element={<TopologyPage />} />
         <Route path="profile" element={<ProfilePage />} />
         <Route path="admin" element={<AdminPage />} />
+      </Route>
+    </Route>
+
+    <Route element={<PersistLogin />}> 
+      <Route path="/" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  { /* we want to protect this route */}
+        <Route index element={<Navigate to="app" />} />
+        <Route path="logbook" element={<LogBookPage />} />  
       </Route>
     </Route>
    

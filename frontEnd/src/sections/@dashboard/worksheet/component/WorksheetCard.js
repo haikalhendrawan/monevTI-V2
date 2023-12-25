@@ -133,7 +133,7 @@ function WorksheetCard(props) {
 
                   <Grid item xs={3.5}>     
                       <FormControl>
-                        <Typography sx={{fontSize:12, textAlign:'start'}}dangerouslySetInnerHTML={{ __html: instruksi }} />
+                        <Typography sx={{fontSize:12, textAlign:'start'}} dangerouslySetInnerHTML={{ __html: instruksi }} />
                       </FormControl>
                   </Grid>
 
