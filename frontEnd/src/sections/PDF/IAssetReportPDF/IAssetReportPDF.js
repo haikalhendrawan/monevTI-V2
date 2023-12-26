@@ -181,7 +181,7 @@ export default function IAssetReportPDF(props) {
                 <Text style={styles.tableCell}>{row.hostname}</Text> 
               </View>
               <View style={styles.tableCol}> 
-                <Text style={styles.tableCell}>{row.model}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.model}</Text> 
               </View>
               <View style={{...styles.tableCol, width:'15%'}}> 
                 <Text style={styles.tableCell}>{row.tahun}</Text> 
@@ -190,7 +190,7 @@ export default function IAssetReportPDF(props) {
                 <Text style={{...styles.tableCell, color:colorKondisi[row.kondisi]}}>{SELECTKONDISI[row.kondisi].jenis}</Text> 
               </View> 
               <View style={styles.tableCol}> 
-                <Text style={styles.tableCell}>{row.serial_number}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.serial_number}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'20%'}}> 
                 <Text style={styles.tableCell}>{SELECTCPU[row.cpu].jenis}</Text> 
@@ -202,7 +202,7 @@ export default function IAssetReportPDF(props) {
                 <Text style={styles.tableCell}>{row.storage}</Text> 
               </View>
               <View style={{...styles.tableCol, width:'30%'}}> 
-                <Text style={styles.tableCell}>{row.catatan}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.catatan}</Text> 
               </View>  
             </View>           
 
@@ -266,7 +266,7 @@ export default function IAssetReportPDF(props) {
                   <Text style={styles.tableCell}>{row.hostname}</Text> 
                 </View>
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableCell}>{row.model}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.model}</Text> 
                 </View>
                 <View style={{...styles.tableCol, width:'15%'}}> 
                   <Text style={styles.tableCell}>{row.tahun}</Text> 
@@ -274,8 +274,8 @@ export default function IAssetReportPDF(props) {
                 <View style={styles.tableCol}> 
                   <Text style={{...styles.tableCell, color:colorKondisi[row.kondisi]}}>{SELECTKONDISI[row.kondisi].jenis}</Text> 
                 </View> 
-                <View style={styles.tableCol}> 
-                  <Text style={styles.tableCell}>{row.serial_number}</Text> 
+                <View style={{...styles.tableCol}} wrap> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}} wrap>{row.serial_number}</Text> 
                 </View> 
                 <View style={{...styles.tableCol, width:'20%'}}> 
                   <Text style={styles.tableCell}>{SELECTCPU[row.cpu].jenis}</Text> 
@@ -287,7 +287,7 @@ export default function IAssetReportPDF(props) {
                   <Text style={styles.tableCell}>{row.storage}</Text> 
                 </View>
                 <View style={{...styles.tableCol, width:'30%'}}> 
-                  <Text style={styles.tableCell}>{row.catatan}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.catatan}</Text> 
                 </View>  
               </View>           
             )
@@ -340,7 +340,7 @@ export default function IAssetReportPDF(props) {
               <Text style={styles.tableCell}>{assetRef[row.jenis_perangkat]}</Text> 
             </View> 
             <View style={{...styles.tableCol, width:'20%'}}> 
-              <Text style={styles.tableCell}>{row.model}</Text> 
+              <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.model}</Text> 
             </View>
             <View style={{...styles.tableCol, width:'10%'}}> 
               <Text style={styles.tableCell}>{row.tahun}</Text> 
@@ -348,11 +348,11 @@ export default function IAssetReportPDF(props) {
             <View style={styles.tableCol}> 
               <Text style={{...styles.tableCell, color:colorKondisi[row.kondisi]}}>{SELECTKONDISI[row.kondisi].jenis}</Text> 
             </View>
-            <View style={styles.tableCol}> 
-              <Text style={styles.tableCell}>{row.serial_number}</Text> 
+            <View style={{...styles.tableCol}}> 
+              <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.serial_number}</Text> 
             </View> 
             <View style={{...styles.tableCol, width:'25%'}}> 
-              <Text style={styles.tableCell}>{row.catatan}</Text> 
+              <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.catatan}</Text> 
             </View>  
           </View> 
             )
@@ -424,19 +424,19 @@ export default function IAssetReportPDF(props) {
                   <Text style={styles.tableCell}>{index+1}</Text> 
                 </View> 
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableCell}>{row.name}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.name}</Text> 
                 </View> 
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{row.username}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.username}</Text> 
                 </View>
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableCell}>{row.role}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.role}</Text> 
                 </View>
                 <View style={{...styles.tableCol}}> 
                   <Text style={styles.tableCell}>{row.email}</Text> 
                 </View> 
                 <View style={{...styles.tableCol, width:'25%'}}> 
-                  <Text style={styles.tableCell}>{row.catatan}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.catatan}</Text> 
                 </View>  
               </View> 
             
@@ -487,19 +487,19 @@ export default function IAssetReportPDF(props) {
                   <Text style={styles.tableCell}>{index+1}</Text> 
                 </View> 
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableCell}>{row.name}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.name}</Text> 
                 </View> 
                 <View style={styles.tableCol}>
-                  <Text style={styles.tableCell}>{row.username}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.username}</Text> 
                 </View>
                 <View style={styles.tableCol}> 
-                  <Text style={styles.tableCell}>{row.role}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.role}</Text> 
                 </View>
                 <View style={{...styles.tableCol}}> 
                   <Text style={styles.tableCell}>{row.email}</Text> 
                 </View> 
                 <View style={{...styles.tableCol, width:'25%'}}> 
-                  <Text style={styles.tableCell}>{row.catatan}</Text> 
+                  <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.catatan}</Text> 
                 </View>  
               </View> 
             
@@ -553,19 +553,19 @@ export default function IAssetReportPDF(props) {
                 <Text style={styles.tableCell}>{SELECTAPP[row.app].jenis}</Text> 
               </View>
               <View style={styles.tableCol}> 
-                <Text style={styles.tableCell}>{row.name}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.name}</Text> 
               </View> 
               <View style={styles.tableCol}>
-                <Text style={styles.tableCell}>{row.username}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.username}</Text> 
               </View>
               <View style={styles.tableCol}> 
-                <Text style={styles.tableCell}>{row.role}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.role}</Text> 
               </View>
               <View style={{...styles.tableCol}}> 
                 <Text style={styles.tableCell}>{row.email}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'25%'}}> 
-                <Text style={styles.tableCell}>{row.catatan}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.catatan}</Text> 
               </View>  
             </View> 
               

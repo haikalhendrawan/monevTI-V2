@@ -135,7 +135,7 @@ export default function WorksheetReportPDF(props) {
                 <Text style={styles.tableCell}>{row.peraturan}</Text> 
               </View> 
               <View style={{...styles.tableCol, width:'35%', borderWidth:0.5}}> 
-                <Text style={styles.tableCell}>{row.kppn_note}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.kppn_note}</Text> 
               </View>  
             </View> 
               )
@@ -197,7 +197,7 @@ export default function WorksheetReportPDF(props) {
                 <Text style={{...styles.tableCell, marginLeft:0}}>{row.title}</Text> 
               </View> 
               <View style={{...styles.tableCol, borderWidth:0.5, width:'54%'}}> 
-                <Text style={styles.tableCell}>{row.kppn_note}</Text> 
+                <Text style={{...styles.tableCell, overflow:'hidden', textOverflow: 'ellipsis'}}>{row.kppn_note}</Text> 
               </View>  
             </View> 
               )
