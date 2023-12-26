@@ -1,6 +1,6 @@
 <h1>MonevTI</h1>
 
-<h6>Modul penunjang fungsi IT yang mencakup beberapa fitur sebagai berikut:</h6>
+<h4>Modul penunjang fungsi IT yang mencakup beberapa fitur sebagai berikut:</h6>
 
 <ul>
   <li>Integrasi database Aset Informasi Kanwil dan KPPN</li>
@@ -9,7 +9,8 @@
   <li>Scanning open port pada local network (on development) </li>
 </ul>
 
-<h6>Current stack used:</h6>
+
+<h4>Current stack used:</h6>
 <ul>
   <li>FrontEnd: react, material UI/minimal UI</li>
   <li>Backend: nodejs </li>
