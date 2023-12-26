@@ -39,7 +39,7 @@ const WorksheetProvider = ({children}) => {
             csJunctionId:id, 
             kppnResponse, 
             kppnNote, 
-            kanwilNote, 
+            kanwilNote:null, 
             file1, 
             file2
         });

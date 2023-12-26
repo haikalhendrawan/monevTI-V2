@@ -10,6 +10,9 @@ export default function WorksheetSection1(props){
   const theme = useTheme();
   const [open, setOpen] = useState(false);
   const {batch, checklist, getBatch, getChecklist, editBatch, editChecklist, deleteDataDukung} = props;
+
+  const [value, setValue] = useState(null);
+
   const [modalFile, setModalFile] = useState({
     file1:'default.png',
     file2:'default.png',
@@ -28,7 +31,7 @@ export default function WorksheetSection1(props){
     setValue(checklistSec1);
   }, [checklist]); 
 
-  const [value, setValue] = useState(null);
+  
 
   // open file button
   const handleClick = (filename, fileNum) => {
@@ -91,11 +94,11 @@ export default function WorksheetSection1(props){
       });
   };
 
-  const handleBlur = async(id) => {
+  const handleBlur = async(id, kppnNoteRef) => {
     const currentRow = value?.find((item) => item.csjunction_id === id);
     const { csjunction_id: csjunctionId, kppn_response: kppnResponse, kppn_note: kppnNote, kanwil_note: kanwilNote, file1, file2 } = currentRow;
     try{
-      await editChecklist(csjunctionId, kppnResponse, kppnNote, currentRow.kppn_note, file1, file2);
+      await editChecklist(csjunctionId, kppnResponse, kppnNoteRef, currentRow.kppn_note, file1, file2);
       await getChecklist();
     }catch(err){
       console.log(err);

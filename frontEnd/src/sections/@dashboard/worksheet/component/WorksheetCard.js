@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useRef} from "react";
 import axios from "axios";
 import { Container, Stack, Typography, Grid, Card, CardHeader, IconButton, Tooltip, Select, MenuItem, InputLabel,
             FormControl, TextField, Button, Divider, Avatar, CardContent} from '@mui/material';
@@ -34,6 +34,7 @@ function WorksheetCard(props) {
   const axiosJWT = useAxiosJWT();
   const {auth, setAuth} = useAuth();
   const username = auth?.username;
+  const [value, setValue] = useState(null);
 
   const handleUploadFile = async(e) => {
     e.preventDefault();
@@ -58,6 +59,10 @@ function WorksheetCard(props) {
         }
         }
     };
+
+  const handleChange = (event) => {
+    setValue(event.target.value)
+  }
 
 
   return(
@@ -139,7 +144,7 @@ function WorksheetCard(props) {
 
                   <Grid item xs={3.3}>  
                       <FormControl sx={{width:'100%', height:'100%'}}>
-                        <TextField name="catatankppn" size='small' value={kppnNote} onBlur={() => {handleBlur(csId)}} onChange={(event) => {handleEdit(event, csId)}} multiline minRows={4} maxRows={4}  inputProps={{style: {fontSize: 12}}} />
+                        <TextField name="catatankppn" size='small' defaultValue={kppnNote} value={value} onChange={handleChange} onBlur={(event) => {handleBlur(csId, value)}} multiline minRows={4} maxRows={4}  inputProps={{style: {fontSize: 12}}} />
                       </FormControl>
                   </Grid>
               </Grid>
