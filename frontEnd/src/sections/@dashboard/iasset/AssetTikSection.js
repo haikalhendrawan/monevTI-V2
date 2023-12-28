@@ -166,7 +166,7 @@ const AssetTikSection = (props) => {
         model: value.model, 
         tahun: value.tahun, 
         kondisi: value.kondisi, 
-        cpu: value.jenis_perangkat<=1 ? value.cpu : 3, 
+        cpu: (value.jenis_perangkat === 0 || value.jenis_perangkat === 1) ? value.cpu : 3, 
         ip: value.ip, 
         ram: value.ram, 
         storage: value.storage, 

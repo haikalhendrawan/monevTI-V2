@@ -390,7 +390,7 @@ export default function IAssetReportPDF(props) {
       {/*  -------- Title ---------- */}
       <View style={styles.title} wrap={false}>
         <Text style={{fontFamily: 'Helvetica-Bold', fontSize: 14, marginBottom:3}}> Data Pengguna Aplikasi </Text>
-        <Text style={{fontSize:8}}> {countUser} Unique user, {withCatatan} catatan</Text> 
+        <Text style={{fontSize:8}}> {countUser} user</Text> 
       </View>
 
       {/*  -------- 1. tabel User SPAN ---------- */}

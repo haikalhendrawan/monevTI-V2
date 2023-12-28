@@ -7,7 +7,7 @@ const addIAsset = async (req, res) => {
         const periode = 1;  
         const kppn = req.payload.kppn; //payload jwt yang udh di decode di middleware authenticate
         const {jenis_perangkat, hostname, nama_pegawai, model, tahun, kondisi, cpu, ip, ram, storage, serial_number, catatan} = req.body; 
-        const {perangkatFilter, cpuFilter} = sanitizeInput(jenis_perangkat, model, cpu); // kalau aset non komputer, cpu dibuat default aja
+        const {perangkatFilter, cpuFilter} = sanitizeInput(jenis_perangkat, cpu); // kalau aset non komputer, cpu dibuat default aja
     
         const q = `INSERT INTO 
                     iassetjunction (jenis_perangkat, hostname, nama_pegawai, model, tahun, kondisi, cpu, ip, ram, storage, serial_number, catatan, kppn, periode) 
@@ -96,9 +96,8 @@ export {addIAsset, getIAsset, editIAsset, deleteIAsset};
 function sanitizeInput(jenis_perangkat, cpu){
     let perangkatFilter = jenis_perangkat;
     let cpuFilter = cpu;
-    if(Number.isInteger(cpu)===false || jenis_perangkat<1){
+    if(Number.isInteger(cpu)===false){
         cpuFilter = 3;
     };
-
     return {perangkatFilter, cpuFilter}
 }
