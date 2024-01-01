@@ -7,7 +7,8 @@ import { styled } from '@mui/material/styles';
 import Header from '../dashboard/header';
 import Nav from '../dashboard/nav';
 import Footer from '../dashboard/footer';
-import {useAuth} from "../../hooks/useAuth"
+import {useAuth} from "../../hooks/useAuth";
+import Page403 from '../../pages/guard/Page403';
 
 // ----------------------------------------------------------------------
 
@@ -56,7 +57,15 @@ export default function RequireAuthLayout({allowedRoles}) {
     </StyledRoot>)
   }
   
-  return <Navigate to="/404" state={{from:location}} replace /> // if user sudah login, tapi allowed role tidak termasuk
-
+  // return <Navigate to="/404" state={{from:location}} replace /> // if user sudah login, tapi allowed role tidak termasuk
+  return (
+    <StyledRoot> 
+      <Header onOpenNav={() => setOpen(true)} />
+      <Nav openNav={open} onCloseNav={() => setOpen(false)} />
+      <Main>
+        <Page403 />
+        <Footer />
+      </Main>
+    </StyledRoot>)
   
 }

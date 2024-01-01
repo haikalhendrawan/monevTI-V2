@@ -30,11 +30,11 @@ const navConfig2 = [
     path: '/monitoring',
     icon: icon('solar-telescope'), 
   },
-  {
-    title: 'Topology',
-    path: '/topology',
-    icon: icon('solar-usb'),
-  },
+  // {
+  //   title: 'Topology',
+  //   path: '/topology',
+  //   icon: icon('solar-usb'),
+  // },
 ];
 
 const navConfig5 = [
@@ -42,6 +42,18 @@ const navConfig5 = [
     title: 'Reference',
     path: '/admin',
     icon: icon('solar-user-check'),
+    menu:[
+      {
+        title: 'User Management',
+        path: '/admin/user',
+        icon: icon('dot-mark'),
+      },
+      {
+        title: 'Worksheet Data',
+        path: '/admin/worksheet',
+        icon: icon('dot-mark'),
+      },
+    ]
   },
 ];
 

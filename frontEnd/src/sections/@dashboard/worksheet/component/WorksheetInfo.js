@@ -11,6 +11,7 @@ import useWorksheet from "../useWorksheet";
 export default function WorksheetInfo(props){
 
   const {batch, checklist, tabValue} = props;
+  const theme = useTheme();
   
   const openPeriod = batch?.rows? new Date(batch.rows[0].open_period) : null;
   const closePeriod = batch?.rows? new Date(batch.rows[0].close_period) : null;

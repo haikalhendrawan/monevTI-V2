@@ -141,8 +141,9 @@ const paletteDark = {
   divider: alpha(GREY[500], 0.24),
   text: {
     primary: 'rgb(255, 255, 255)',
-    secondary: 'rgba(255,255,255,0.7)',
+    secondary: 'rgb(145, 158, 171)',
     disabled: 'rgba(255, 255, 255, 0.5)',
+    tertiary:'rgba(255, 255, 255, 0.7)'
   },
   background: {
     paper: 'rgb(33, 43, 54)',

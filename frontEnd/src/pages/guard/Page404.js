@@ -5,7 +5,7 @@ import {useEffect} from "react";
 import { styled } from '@mui/material/styles';
 import { Button, Typography, Container, Box } from '@mui/material';
 
-import {useAuth} from "../hooks/useAuth";
+import {useAuth} from "../../hooks/useAuth";
 
 // ----------------------------------------------------------------------
 

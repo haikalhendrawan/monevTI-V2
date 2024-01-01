@@ -68,9 +68,9 @@ function WorksheetCard(props) {
   return(
       <Grid item xs={12} sm={12} md={12}>
         <Card sx={{height:'250px'}}>
-            <CardHeader title={<Head num={props.num} title={title} dateUpdated={dateUpdated} />} sx={{backgroundColor:theme.palette.background.default, height:'25%', pl:1, pt:0}}/> 
+            <CardHeader title={<Head num={props.num} title={title} dateUpdated={dateUpdated} />} sx={{backgroundColor:theme.palette.background.default, color:theme.palette.text.primary,  height:'25%', pl:1, pt:0}}/> 
         
-              <Grid container sx={{mt:1, textAlign:'center', justifyContent:'center'}} spacing={0}>  {/* Kepala Table */}
+              <Grid container sx={{mt:1, mb:1, textAlign:'center', justifyContent:'center', color:theme.palette.text.secondary}} spacing={0}>  {/* Kepala Table */}
                   <Grid item xs={3}>
                       <Typography variant="body2" sx={{mr:1}}> Kondisi </Typography>
                   </Grid>
@@ -158,13 +158,14 @@ const Head = (props) => {  // bagian atas dari masing2 tabel gambar dan nama use
   const date = new Date(props.dateUpdated).toLocaleDateString('en-GB');
   const tooltipText = `Last update: ${date}`;
   const isUpdate = props.dateUpdated;
+  const theme = useTheme();
   return(
   <>
   <Stack direction="row" spacing={2} sx={{justifyContent:'space-between'}}>
       <Stack direction="row" spacing={1} sx={{alignItems:'center'}}>
-          <Typography variant="h6">{`${props.num}`}</Typography>
+          <Typography variant="h6" sx={{ml:1, fontSize:14}}>{`${props.num}`}</Typography>
           <Stack >
-              <Typography variant="body1" sx={{fontSize:15}}>{props.title}</Typography>
+              <Typography variant="body1" sx={{fontSize:15, ml:1}}>{props.title}</Typography>
           </Stack>
       </Stack>
       {isUpdate?

@@ -82,7 +82,7 @@ export default function WorksheetSection2(props){
     }
   };
 
-  // edit catatan kppn
+
   const handleEditNote = (event, id) => {  
       setValue((prev)=> {
         return prev.map((row) => {
@@ -91,6 +91,7 @@ export default function WorksheetSection2(props){
       });
   };
 
+  // edit catatan kppn dan buat request ke server
   const handleBlur = async(id, kppnNoteRef) => {
     const currentRow = value?.find((item) => item.csjunction_id === id);
     const { csjunction_id: csjunctionId, kppn_response: kppnResponse, kppn_note: kppnNote, kanwil_note: kanwilNote, file1, file2 } = currentRow;

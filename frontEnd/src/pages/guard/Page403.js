@@ -8,7 +8,7 @@ import { Container, Stack, Typography, Box, Button } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function MonitoringPage() {
+export default function Page403() {
 
   const StyledContent = styled('div')(({ theme }) => ({
     maxWidth: 480,
@@ -22,7 +22,7 @@ export default function MonitoringPage() {
   return (
     <>
       <Helmet>
-        <title> Monitoring | MonevTI </title>
+        <title> Unauthorized </title>
       </Helmet>
 
       <Container>

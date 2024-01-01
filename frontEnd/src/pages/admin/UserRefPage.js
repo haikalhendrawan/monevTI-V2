@@ -8,7 +8,7 @@ import { Container, Stack, Typography, Box, Button } from '@mui/material';
 
 // ----------------------------------------------------------------------
 
-export default function MonitoringPage() {
+export default function UserRefPage() {
 
   const StyledContent = styled('div')(({ theme }) => ({
     maxWidth: 480,
@@ -19,10 +19,11 @@ export default function MonitoringPage() {
     flexDirection: 'column', 
   }));
 
+
   return (
     <>
       <Helmet>
-        <title> Monitoring | MonevTI </title>
+        <title> User Management | MonevTI </title>
       </Helmet>
 
       <Container>

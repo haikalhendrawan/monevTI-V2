@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { useState, useEffect } from 'react';
+import PuffLoader from "react-spinners/PuffLoader";
 // @mui
 import { Container, Stack, Typography, Grid, Tabs, Tab, Box, Card, CardHeader,
            LinearProgress, LinearProgressProps, Tooltip} from '@mui/material';
@@ -25,7 +26,12 @@ export default function WorksheetPage() {
   const handleTabChange = (event, newValue) => { // setiap tab jenis asset berubah
     setTabValue(newValue);
   };
-   
+
+  const override=  {
+    display: "block",
+    margin: "0 auto",
+  };
+
   return (
     <>
       <Helmet>
@@ -45,7 +51,7 @@ export default function WorksheetPage() {
               <Tab icon={<Iconify icon="material-symbols:send" />} label="Kirim" value={3} />
             </Tabs>
           </Stack>
-
+          
           <WorksheetProvider>
             <WorksheetLanding tabValue={tabValue} />
           </WorksheetProvider>

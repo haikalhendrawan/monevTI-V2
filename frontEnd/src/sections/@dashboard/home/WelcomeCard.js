@@ -365,7 +365,7 @@ export default function WelcomeCard({ title, total, icon, color = 'primary', sx,
         </Grid>
         <Grid item xs={12} md={6} lg={5}>
           <Box sx={{borderRadius:'16px'}}>
-            <img src="/assets/images/covers/framed_scenery.png" style={{position:'absolute', width:'50%', top:0, left:'52%'}} alt='abc'/>
+            <img src="/assets/images/covers/computer-scene.png" style={{position:'absolute', width:'50%', top:'15%', left:'52%', borderRadius:'12px'}} alt='abc'/>
           </Box>
         </Grid>
       </Grid>

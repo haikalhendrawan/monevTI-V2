@@ -88,7 +88,7 @@ export default function LogBookPage() {
   return (
     <>
       <Helmet>
-        <title> Dashboard:Log Book TIK </title>
+        <title> Log Book TIK | MonevTI </title>
       </Helmet>
 
       <Container>
