@@ -137,7 +137,7 @@ export default function LogBookAddModal(props) {
       setSnackbar({
         open:true,
         color:"error",
-        text:`Fail to insert Data (${err.response.data.errMsg?err.response.data.errMsg:err.response.data})`
+        text:`Fail to insert Data (Not Authenticated, please log-in or refresh the page)`
       });
       setIsCallingAPI(false);
     }finally{

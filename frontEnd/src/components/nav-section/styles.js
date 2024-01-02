@@ -9,7 +9,7 @@ export const StyledNavItem = styled((props) => <ListItemButton disableGutters {.
   height: 48,
   position: 'relative',
   textTransform: 'capitalize',
-  color: theme.palette.text.secondary,
+  color: theme.palette.text.tertiary,
   borderRadius: theme.shape.borderRadius,
 }));
 
@@ -19,7 +19,7 @@ export const StyledNavItemNested = styled((props) => <ListItemButton disableGutt
   width:'100%',
   position: 'relative',
   textTransform: 'capitalize',
-  color: theme.palette.text.secondary,
+  color: theme.palette.text.tertiary,
   borderRadius: theme.shape.borderRadius,
 }));
 

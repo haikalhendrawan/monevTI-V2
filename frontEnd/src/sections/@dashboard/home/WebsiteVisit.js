@@ -26,7 +26,7 @@ export default function WebsiteVisit({ title, subheader, chartLabels, chartData,
       y: {
         formatter: (y) => {
           if (typeof y !== 'undefined') {
-            return `${y.toFixed(0)} visits`;
+            return `${y.toFixed(0)} login`;
           }
           return y;
         },

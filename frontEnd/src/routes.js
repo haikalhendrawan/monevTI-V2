@@ -67,6 +67,11 @@ export default function Router() {
       <Route path="/*" element={<Page404 />}/>
     </Route>
 
+    <Route path="/public" element={ <DashboardLayout />}> 
+      <Route path="logbook" element={<LogBookPage />} />  
+    </Route>
+    
+
     <Route element={<PersistLogin />}> 
       <Route path="/dashboard" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  { /* we want to protect this route */}
         <Route index element={<Navigate to="app" />} /> 
