@@ -36,7 +36,7 @@ export default function Router() {
     <Route path="/resetpassword" element={ <ResetPasswordPage />} />
     
     <Route element={<PersistLogin />}> 
-      <Route path="/" element={ <RequireAuthLayout allowedRoles={[1,2]}/>}>  { /* we want to protect this route */}
+      <Route path="/" element={ <RequireAuthLayout allowedRoles={[1,2]}/>}>  { /* Auth route */}
         <Route index element={<Navigate to="app" />} />
         <Route path="app" element={<HomePage />} />
         <Route path="worksheet" element={<WorksheetPage />} />
@@ -48,14 +48,14 @@ export default function Router() {
     </Route>
 
     <Route element={<PersistLogin />}> 
-      <Route path="/" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  { /* we want to protect this route */}
+      <Route path="/" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  { /* Admin route */}
         <Route index element={<Navigate to="app" />} />
         <Route path="logbook" element={<LogBookPage />} />  
       </Route>
     </Route>
 
     <Route element={<PersistLogin />}> 
-      <Route path="/admin" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  { /* we want to protect this route */}
+      <Route path="/admin" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  { /* Admin Route */}
         <Route index element={<Navigate to="user" />} />
         <Route path="user" element={<UserRefPage />} />
         <Route path="worksheet" element={<WorksheetRefPage />} />   
@@ -73,7 +73,7 @@ export default function Router() {
     
 
     <Route element={<PersistLogin />}> 
-      <Route path="/dashboard" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  { /* we want to protect this route */}
+      <Route path="/dashboard" element={ <RequireAuthLayout allowedRoles={[2]}/>}>  
         <Route index element={<Navigate to="app" />} /> 
         <Route path="user" element={<UserPage /> }/>
         <Route path="products" element={<ProductsPage />}/>
@@ -82,7 +82,7 @@ export default function Router() {
     </Route>
 
     <Route element={<PersistLogin />}> 
-      <Route element={<RequireAuthLayout allowedRoles={[1,2]}/>}> { /* we want to protect this route */}
+      <Route element={<RequireAuthLayout allowedRoles={[1,2]}/>}> 
         <Route path="/" element={<DashboardAppPage />} />
       </Route>
     </Route>
