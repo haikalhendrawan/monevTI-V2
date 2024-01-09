@@ -111,6 +111,7 @@ const palette = {
     primary: GREY[800],
     secondary: GREY[600],
     disabled: GREY[500],
+    tertiary: GREY[600]
   },
   background: {
     paper: '#fff',
