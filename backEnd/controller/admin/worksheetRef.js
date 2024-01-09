@@ -8,9 +8,10 @@ const getChecklistRef = async (req, res) => {
       const batch = req.params.batchId; 
       const q = ` SELECT checklistjunction.*, 
                   checklist.checklist_id, checklist.title, checklist.description, checklist.instruksi,
-                  checklist.contoh_file, checklist.ws_section, checklist.peraturan
+                  checklist.contoh_file, checklist.ws_section, checklist.peraturan, user.kppn
                   FROM checklistjunction 
                   LEFT JOIN checklist ON checklistjunction.checklist_id = checklist.checklist_id
+                  LEFT JOIN user ON checklistjunction.user_id = user.user_id
                   WHERE checklistjunction.batch_id =? `;
 
       const [rows] = await pool.execute(q, [batch]);

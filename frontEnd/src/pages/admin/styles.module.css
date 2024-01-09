@@ -1,0 +1,63 @@
+.table{
+  border:1px solid;
+  border-collapse: separate; /* Change this property to separate */
+  border-spacing: 0; /* Set border-spacing to 0 */
+  width:100%;
+  border-radius: 12px;
+}
+
+.table th{
+  border:1px solid;
+  border-collapse: collapse;
+  align-items:center;
+  justify-content:center;
+  text-align:'center';
+}
+
+.table td{
+  border:1px solid;
+  border-collapse: collapse;
+  padding:1%;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:small;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.borderTopLeft{
+  border:1px solid;
+  border-collapse: separate; /* Change this property to separate */
+  border-spacing: 0; /* Set border-spacing to 0 */
+  width:100%;
+  border-top-left-radius: 10px;
+  width:5%;
+}
+
+.borderTopRight{
+  border:1px solid;
+  border-collapse: separate; /* Change this property to separate */
+  border-spacing: 0; /* Set border-spacing to 0 */
+  width:100%;
+  border-top-right-radius: 10px;
+  width:7.5%
+}
+
+.table tr:last-child td:first-child {
+  border:1px solid;
+  border-collapse: separate; /* Change this property to separate */
+  border-spacing: 0; /* Set border-spacing to 0 */
+  width:100%;
+  border-bottom-left-radius: 10px;
+  width:5%
+}
+
+.table tr:last-child td:last-child {
+  border:1px solid;
+  border-collapse: separate; /* Change this property to separate */
+  border-spacing: 0; /* Set border-spacing to 0 */
+  width:100%;
+  border-bottom-right-radius: 10px;
+  width:7.5%
+}

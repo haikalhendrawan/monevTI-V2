@@ -7,14 +7,14 @@ import { Card, Table, Stack, Paper, Avatar, Button, MenuItem,
     FormHelperText, InputAdornment, Snackbar, Alert } from '@mui/material';
 import {useTheme} from "@mui/material/styles";
 // hooks
-import useAxiosJWT from '../../../../hooks/useAxiosJWT';
+import useAxiosJWT from '../../../hooks/useAxiosJWT';
 // content
-import IAssetReportPDF from '../../../PDF/IAssetReportPDF/IAssetReportPDF';
+import IAssetReportPDF from '../../PDF/IAssetReportPDF/IAssetReportPDF';
 // components
-import Label from '../../../../components/label';
-import Iconify from '../../../../components/iconify';
-import Scrollbar from '../../../../components/scrollbar';
-import PDFViewer from '../../../../components/pdfViewer/PDFViewer';
+import Label from '../../../components/label';
+import Iconify from '../../../components/iconify';
+import Scrollbar from '../../../components/scrollbar';
+import PDFViewer from '../../../components/pdfViewer/PDFViewer';
 
 
 // ------------------------------------------------------------
@@ -39,17 +39,15 @@ export default function PreviewFileModal(props) {
   const selectFile={
     1:props.file1,
     2:props.file2,
-    3:props.filePanduan
   };
   const selectFileURL={
     1:`${process.env.REACT_APP_API_BASE_URL}/dokumen`,
     2:`${process.env.REACT_APP_API_BASE_URL}/dokumen`,
-    3:`${process.env.REACT_APP_API_BASE_URL}/contoh_dokumen`,
   };
 
-  const currentFile = props?.fileNum?selectFile[props.fileNum]:props.filePanduan;
-  const currentFileURL = props?.fileNum?selectFileURL[props.fileNum]:`${process.env.REACT_APP_API_BASE_URL}/contoh_dokumen`;
-  const fileExt = currentFile.split('.').pop().toLowerCase();
+  const currentFile = props?.filenum===1?props.file1:props.file2;
+  const currentFileURL = `${process.env.REACT_APP_API_BASE_URL}/dokumen`;
+  const fileExt = currentFile?.split('.').pop().toLowerCase();
   const [render, setRender] = useState('No files');
 
   const handleDownload = () => {

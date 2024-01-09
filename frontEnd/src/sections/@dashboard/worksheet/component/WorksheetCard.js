@@ -67,7 +67,7 @@ function WorksheetCard(props) {
 
   return(
       <Grid item xs={12} sm={12} md={12}>
-        <Card sx={{height:'250px'}}>
+        <Card sx={{height:'260px'}}>
             <CardHeader title={<Head num={props.num} title={title} dateUpdated={dateUpdated} />} sx={{backgroundColor:theme.palette.background.default, color:theme.palette.text.primary,  height:'25%', pl:1, pt:0}}/> 
         
               <Grid container sx={{mt:1, mb:1, textAlign:'center', justifyContent:'center', color:theme.palette.text.secondary}} spacing={0}>  {/* Kepala Table */}
@@ -130,7 +130,7 @@ function WorksheetCard(props) {
                     :null  
                     }
                     <Tooltip title="Contoh dokumen">
-                          <Button variant='contained' onClick={()=>{onClick(contohFile,3)}} size='small' color='warning'><Iconify icon='solar:lightbulb-bold' /></Button>
+                          <Button variant='contained' onClick={()=>{onClick(contohFile,3)}} size='small' color='warning' sx={{mb:1}}><Iconify icon='solar:lightbulb-bold' /></Button>
                     </Tooltip>
 
 
