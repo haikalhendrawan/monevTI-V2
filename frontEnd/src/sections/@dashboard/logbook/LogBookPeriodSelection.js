@@ -28,17 +28,17 @@ export default function LogBookPeriodSelection(props){
 
   return(
     <Stack direction="row" alignItems="center" justifyContent="center " spacing={2} mb={5}>
-      <FormControl sx={{  minWidth: 120 }}>
+      <FormControl sx={{  minWidth: 130 }}>
         <InputLabel id="select-periode" sx={{typography:'body2'}}>Tahun</InputLabel>
-        <Select required name="tahun" value={periodValue.tahun} sx={{  typography:'body2'}} label="select-periode" onChange={handleYearChange} size='small'>
+        <Select required name="tahun" value={periodValue.tahun} sx={{  typography:'body2', borderRadius:'16px'}} label="select-periode" onChange={handleYearChange} >
             {selectTahun.map((item, index) => {
             return(<MenuItem key={index} sx={{typography:'body2'}} value={item.value}>{item.jenis}</MenuItem>)
             })}
         </Select>
       </FormControl>
-      <FormControl sx={{  minWidth: 120 }}>
+      <FormControl sx={{  minWidth: 130 }}>
         <InputLabel id="select-periode" sx={{typography:'body2'}}>Triwulan</InputLabel>
-        <Select required name="triwulan" value={periodValue.triwulan} sx={{ typography:'body2'}} label="select-periode" onChange={handlePeriodChange} size='small'>
+        <Select required name="triwulan" value={periodValue.triwulan} sx={{ typography:'body2', borderRadius:'16px'}} label="select-periode" onChange={handlePeriodChange} >
             {selectTriwulan.map((item, index) => {
             return(<MenuItem key={index} sx={{typography:'body2'}} value={item.value}>{item.jenis}</MenuItem>)
             })}

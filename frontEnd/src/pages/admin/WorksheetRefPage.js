@@ -97,7 +97,7 @@ export default function UseRefPage() {
               value={KPPN}
               label="KPPN"
               onChange={handleChange}
-              sx={{ typography:'body1', borderRadius:'12px'}}
+              sx={{ typography:'body1', borderRadius:'16px'}}
             >
               <MenuItem value={1} sx={{typography:'body2'}}>Padang</MenuItem>
               <MenuItem value={2} sx={{typography:'body2'}}>Bukittinggi</MenuItem>
@@ -142,7 +142,10 @@ export default function UseRefPage() {
                           {item.title}
                         </Typography>
                       </td>
-                      <td dangerouslySetInnerHTML={{ __html: item.instruksi}} />
+                      <td 
+                        dangerouslySetInnerHTML={{ __html:  `<span style="font-size: 13px; color: ${theme.palette.text.secondary};">${item.instruksi}</span>` }} 
+                      />
+
                       <td> 
                         <Typography variant='body2' color={selectKondisi[item?.kppn_response]?.color}>
                           {selectKondisi[item?.kppn_response]?.jenis || 'Null'}
