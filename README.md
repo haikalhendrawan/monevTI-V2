@@ -12,7 +12,5 @@
 
 <h4>Current stack used:</h6>
 <ul>
-  <li>FrontEnd: react, material UI/minimal UI</li>
-  <li>Backend: nodejs </li>
-  <li>Db: mysql</li>
+  <li>React, Node, Mysql</li>
 </ul>
