@@ -1,6 +1,6 @@
 <h1>MonevTI</h1>
 
-<h4>Modul penunjang fungsi IT yang mencakup beberapa fitur sebagai berikut:</h6>
+<h4>Platform penunjang fungsi IT mencakup beberapa fitur sebagai berikut:</h6>
 
 <ul>
   <li>Integrasi database Aset Informasi Kanwil dan KPPN</li>
@@ -10,7 +10,7 @@
 </ul>
 
 
-<h4>Current stack used:</h6>
+<h6>Tools:</h6>
 <ul>
   <li>React, Node, Mysql</li>
 </ul>
